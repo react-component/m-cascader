@@ -1,6 +1,6 @@
 /* eslint no-console:0, react/no-multi-comp:0 */
 
-import 'rmc-picker/assets/index.less';
+import 'rmc-picker/assets/index.css';
 import 'rmc-cascader/assets/index.less';
 import 'rmc-cascader/assets/popup.less';
 import 'rmc-modal/assets/index.css';
