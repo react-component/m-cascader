@@ -19936,17 +19936,6 @@
 	
 	var _Animate = __webpack_require__(169);
 	
-	var DECELERATION_VELOCITY_RATE = 0.95;
-	// How much velocity is required to keep the deceleration running
-	var MIN_VELOCITY_TO_KEEP_DECELERATING = 0.5;
-	var POSITION_MAX_LENGTH = 40;
-	var MINIUM_TRACKING_FOR_SCROLL = 0;
-	var MINIUM_TRACKING_FOR_DRAG = 5;
-	var DEFAULT_ANIM_DURATION = 250;
-	var TIME_FRAME = 100;
-	// How much velocity is required to start the deceleration
-	var MIN_VELOCITY_TO_START_DECELERATION = 4;
-	
 	function assign(to, from) {
 	  for (var key in from) {
 	    if (from.hasOwnProperty(key)) {
@@ -20004,21 +19993,8 @@
 	  },
 	
 	  getInitialState: function getInitialState() {
-	    var selectedValueState = undefined;
-	    var _props = this.props;
-	    var selectedValue = _props.selectedValue;
-	    var defaultSelectedValue = _props.defaultSelectedValue;
-	    var children = _props.children;
-	
-	    if (selectedValue !== undefined) {
-	      selectedValueState = selectedValue;
-	    } else if (defaultSelectedValue !== undefined) {
-	      selectedValueState = defaultSelectedValue;
-	    } else if (children.length) {
-	      selectedValueState = children[0].value;
-	    }
 	    return {
-	      selectedValue: selectedValueState
+	      selectedValue: this.props.selectedValue || this.props.defaultSelectedValue
 	    };
 	  },
 	
@@ -20047,6 +20023,7 @@
 	    if (!isChildrenEqual(prevProps.children, this.props.children, this.props.pure)) {
 	      this.init();
 	    } else {
+	      // console.log('select');
 	      this.select(this.state.selectedValue, false);
 	    }
 	  },
@@ -20057,15 +20034,14 @@
 	    component.removeEventListener('touchstart', this.onTouchStart, false);
 	    component.removeEventListener('touchmove', this.onTouchMove, false);
 	    component.removeEventListener('touchend', this.onTouchEnd, false);
-	    this.clearAnim();
 	  },
 	
 	  onTouchEnd: function onTouchEnd(e) {
-	    this.doTouchEnd(+e.timeStamp);
+	    this.doTouchEnd(e.timeStamp);
 	  },
 	
 	  onTouchMove: function onTouchMove(e) {
-	    this.doTouchMove(e.touches, +e.timeStamp);
+	    this.doTouchMove(e.touches, e.timeStamp);
 	  },
 	
 	  onTouchStart: function onTouchStart(e) {
@@ -20073,7 +20049,7 @@
 	      return;
 	    }
 	    e.preventDefault();
-	    this.doTouchStart(e.touches, +e.timeStamp);
+	    this.doTouchStart(e.touches, e.timeStamp);
 	  },
 	
 	  setTop: function setTop(top) {
@@ -20093,25 +20069,17 @@
 	    this.maxScrollTop = this.minScrollTop + totalItemCount * this.itemHeight - 0.1;
 	  },
 	
-	  clearAnim: function clearAnim() {
-	    if (this.isDecelerating) {
-	      _Animate.Animate.stop(this.isDecelerating);
-	      this.isDecelerating = false;
-	    }
-	
-	    if (this.isAnimating) {
-	      _Animate.Animate.stop(this.isAnimating);
-	      this.isAnimating = false;
-	    }
-	  },
-	
 	  init: function init() {
+	    // console.log('init');
 	    assign(this, {
+	      isSingleTouch: false,
 	      isTracking: false,
 	      didDecelerationComplete: false,
+	      isGesturing: false,
 	      isDragging: false,
 	      isDecelerating: false,
 	      isAnimating: false,
+	      clientTop: 0,
 	      clientHeight: 0,
 	      contentHeight: 0,
 	      itemHeight: 0,
@@ -20119,12 +20087,12 @@
 	      minScrollTop: 0,
 	      maxScrollTop: 0,
 	      scheduledTop: 0,
-	      lastTouchTop: 0,
-	      lastTouchMove: 0,
-	      positions: [],
-	      minDecelerationScrollTop: 0,
-	      maxDecelerationScrollTop: 0,
-	      decelerationVelocityY: 0
+	      lastTouchTop: null,
+	      lastTouchMove: null,
+	      positions: null,
+	      minDecelerationScrollTop: null,
+	      maxDecelerationScrollTop: null,
+	      decelerationVelocityY: null
 	    });
 	
 	    var _refs = this.refs;
@@ -20133,6 +20101,10 @@
 	    var content = _refs.content;
 	
 	    this.itemHeight = parseInt(getComputedStyle(indicator, 'height'), 10);
+	
+	    var rect = component.getBoundingClientRect();
+	
+	    this.clientTop = rect.top + component.clientTop || 0;
 	
 	    this.setDimensions(component.clientHeight, content.offsetHeight);
 	
@@ -20146,6 +20118,8 @@
 	    this.scrollTop = this.minScrollTop + index * this.itemHeight;
 	
 	    this.scrollTo(this.scrollTop, animate);
+	
+	    this.fireValueChange(this.props.children[index].value);
 	  },
 	
 	  select: function select(value, animate) {
@@ -20164,7 +20138,10 @@
 	    var animate = a;
 	    animate = animate === undefined ? true : animate;
 	
-	    this.clearAnim();
+	    if (this.isDecelerating) {
+	      _Animate.Animate.stop(this.isDecelerating);
+	      this.isDecelerating = false;
+	    }
 	
 	    top = Math.round(top / this.itemHeight) * this.itemHeight;
 	    top = Math.max(Math.min(this.maxScrollTop, top), this.minScrollTop);
@@ -20174,7 +20151,7 @@
 	      this.scrollingComplete();
 	      return;
 	    }
-	    this.publish(top, DEFAULT_ANIM_DURATION);
+	    this.publish(top, 250);
 	  },
 	
 	  fireValueChange: function fireValueChange(selectedValue) {
@@ -20196,24 +20173,78 @@
 	    }
 	  },
 	
-	  doTouchStart: function doTouchStart(touches, timeStamp) {
-	    this.clearAnim();
-	    this.initialTouchTop = this.lastTouchTop = touches[0].pageY;
+	  doTouchStart: function doTouchStart(touches, ts) {
+	    var timeStamp = ts;
+	    if (touches.length === null) {
+	      throw new Error('Invalid touch list: ' + touches);
+	    }
+	    if (timeStamp instanceof Date) {
+	      timeStamp = timeStamp.valueOf();
+	    }
+	    if (typeof timeStamp !== 'number') {
+	      throw new Error('Invalid timestamp value: ' + timeStamp);
+	    }
+	
+	    this.interruptedAnimation = true;
+	
+	    if (this.isDecelerating) {
+	      _Animate.Animate.stop(this.isDecelerating);
+	      this.isDecelerating = false;
+	      this.interruptedAnimation = true;
+	    }
+	
+	    if (this.isAnimating) {
+	      _Animate.Animate.stop(this.isAnimating);
+	      this.isAnimating = false;
+	      this.interruptedAnimation = true;
+	    }
+	
+	    // Use center point when dealing with two fingers
+	    var currentTouchTop = undefined;
+	    var isSingleTouch = touches.length === 1;
+	    if (isSingleTouch) {
+	      currentTouchTop = touches[0].pageY;
+	    } else {
+	      currentTouchTop = Math.abs(touches[0].pageY + touches[1].pageY) / 2;
+	    }
+	
+	    this.initialTouchTop = currentTouchTop;
+	    this.lastTouchTop = currentTouchTop;
 	    this.lastTouchMove = timeStamp;
-	    this.enableScrollY = false;
+	    this.lastScale = 1;
+	    this.enableScrollY = !isSingleTouch;
 	    this.isTracking = true;
 	    this.didDecelerationComplete = false;
-	    this.isDragging = false;
+	    this.isDragging = !isSingleTouch;
+	    this.isSingleTouch = isSingleTouch;
 	    this.positions = [];
 	  },
 	
-	  doTouchMove: function doTouchMove(touches, timeStamp) {
+	  doTouchMove: function doTouchMove(touches, ts, scale) {
+	    var timeStamp = ts;
+	    if (touches.length === null) {
+	      throw new Error('Invalid touch list: ' + touches);
+	    }
+	    if (timeStamp instanceof Date) {
+	      timeStamp = timeStamp.valueOf();
+	    }
+	    if (typeof timeStamp !== 'number') {
+	      throw new Error('Invalid timestamp value: ' + timeStamp);
+	    }
+	
 	    // Ignore event when tracking is not enabled (event might be outside of element)
 	    if (!this.isTracking) {
 	      return;
 	    }
 	
-	    var currentTouchTop = touches[0].pageY;
+	    var currentTouchTop = undefined;
+	
+	    // Compute move based around of center of fingers
+	    if (touches.length === 2) {
+	      currentTouchTop = Math.abs(touches[0].pageY + touches[1].pageY) / 2;
+	    } else {
+	      currentTouchTop = touches[0].pageY;
+	    }
 	
 	    var positions = this.positions;
 	
@@ -20239,32 +20270,48 @@
 	      }
 	
 	      // Keep list from growing infinitely (holding min 10, max 20 measure points)
-	      if (positions.length > POSITION_MAX_LENGTH) {
-	        positions.splice(0, POSITION_MAX_LENGTH / 2);
+	      if (positions.length > 40) {
+	        positions.splice(0, 20);
 	      }
 	
-	      // Track scroll movement for declaration
+	      // Track scroll movement for decleration
 	      positions.push(scrollTop, timeStamp);
 	
 	      // Sync scroll position
 	      this.publish(scrollTop);
 	      // Otherwise figure out whether we are switching into dragging mode now.
 	    } else {
+	        var minimumTrackingForScroll = 0;
+	        var minimumTrackingForDrag = 5;
+	
 	        var distanceY = Math.abs(currentTouchTop - this.initialTouchTop);
 	
-	        this.enableScrollY = distanceY >= MINIUM_TRACKING_FOR_SCROLL;
+	        this.enableScrollY = distanceY >= minimumTrackingForScroll;
 	
 	        positions.push(this.scrollTop, timeStamp);
 	
-	        this.isDragging = this.enableScrollY && distanceY >= MINIUM_TRACKING_FOR_DRAG;
+	        this.isDragging = this.enableScrollY && distanceY >= minimumTrackingForDrag;
+	
+	        if (this.isDragging) {
+	          this.interruptedAnimation = false;
+	        }
 	      }
 	
 	    // Update last touch positions and time stamp for next event
 	    this.lastTouchTop = currentTouchTop;
 	    this.lastTouchMove = timeStamp;
+	    this.lastScale = scale;
 	  },
 	
-	  doTouchEnd: function doTouchEnd(timeStamp) {
+	  doTouchEnd: function doTouchEnd(ts) {
+	    var timeStamp = ts;
+	    if (timeStamp instanceof Date) {
+	      timeStamp = timeStamp.valueOf();
+	    }
+	    if (typeof timeStamp !== 'number') {
+	      throw new Error('Invalid timestamp value: ' + timeStamp);
+	    }
+	
 	    // Ignore event when tracking is not enabled (no touchstart event on element)
 	    // This is required as this listener ('touchmove') sits on the document and not on the element itself.
 	    if (!this.isTracking) {
@@ -20282,14 +20329,14 @@
 	
 	      // Start deceleration
 	      // Verify that the last move detected was in some relevant time frame
-	      if (timeStamp - this.lastTouchMove <= TIME_FRAME) {
+	      if (this.isSingleTouch && timeStamp - this.lastTouchMove <= 100) {
 	        // Then figure out what the scroll position was about 100ms ago
 	        var positions = this.positions;
 	        var endPos = positions.length - 1;
 	        var startPos = endPos;
 	
 	        // Move pointer to position measured 100ms ago
-	        for (var i = endPos; i > 0 && positions[i] > this.lastTouchMove - TIME_FRAME; i -= 2) {
+	        for (var i = endPos; i > 0 && positions[i] > this.lastTouchMove - 100; i -= 2) {
 	          startPos = i;
 	        }
 	
@@ -20303,8 +20350,11 @@
 	          // Based on 50ms compute the movement to apply for each render step
 	          this.decelerationVelocityY = movedTop / timeOffset * (1000 / 60);
 	
+	          // How much velocity is required to start the deceleration
+	          var minVelocityToStartDeceleration = 4;
+	
 	          // Verify that we have enough velocity to start deceleration
-	          if (Math.abs(this.decelerationVelocityY) > MIN_VELOCITY_TO_START_DECELERATION) {
+	          if (Math.abs(this.decelerationVelocityY) > minVelocityToStartDeceleration) {
 	            this.startDeceleration(timeStamp);
 	          }
 	        }
@@ -20379,10 +20429,13 @@
 	      _this2.stepThroughDeceleration(render);
 	    };
 	
+	    // How much velocity is required to keep the deceleration running
+	    var minVelocityToKeepDecelerating = 0.5;
+	
 	    // Detect whether it's still worth to continue animating steps
 	    // If we are already slow enough to not being user perceivable anymore, we stop the whole process here.
 	    var verify = function verify() {
-	      var shouldContinue = Math.abs(_this2.decelerationVelocityY) >= MIN_VELOCITY_TO_KEEP_DECELERATING;
+	      var shouldContinue = Math.abs(_this2.decelerationVelocityY) >= minVelocityToKeepDecelerating;
 	      if (!shouldContinue) {
 	        _this2.didDecelerationComplete = true;
 	      }
@@ -20419,15 +20472,15 @@
 	        this.decelerationVelocityY = 0;
 	      }
 	    } else {
-	      this.decelerationVelocityY *= DECELERATION_VELOCITY_RATE;
+	      this.decelerationVelocityY *= 0.95;
 	    }
 	
 	    this.publish(scrollTop);
 	  },
 	  render: function render() {
-	    var _props2 = this.props;
-	    var children = _props2.children;
-	    var prefixCls = _props2.prefixCls;
+	    var _props = this.props;
+	    var children = _props.children;
+	    var prefixCls = _props.prefixCls;
 	    var selectedValue = this.state.selectedValue;
 	
 	    var itemClassName = prefixCls + '-item';
@@ -20468,8 +20521,8 @@
 	});
 	exports.easeOutCubic = easeOutCubic;
 	exports.easeInOutCubic = easeInOutCubic;
-	var DESIRED_FRAMES = 60;
-	var MILLISECONDS_PER_SECOND = 1000;
+	var desiredFrames = 60;
+	var millisecondsPerSecond = 1000;
 	var running = {};
 	var counter = 1;
 	
@@ -20477,8 +20530,8 @@
 	  // A requestAnimationFrame wrapper / polyfill.
 	  requestAnimationFrame: (function () {
 	    var requestFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
-	    return function (callback) {
-	      requestFrame(callback);
+	    return function (callback, root) {
+	      requestFrame(callback, root);
 	    };
 	  })(),
 	
@@ -20497,12 +20550,17 @@
 	  },
 	
 	  // Start the animation.
-	  start: function start(stepCallback, verifyCallback, completedCallback, duration, easingMethod) {
+	  start: function start(stepCallback, verifyCallback, completedCallback, duration, easingMethod, r) {
 	    var start = Date.now();
 	    var lastFrame = start;
 	    var percent = 0;
 	    var dropCounter = 0;
 	    var id = counter++;
+	    var root = r;
+	    if (!root) {
+	      root = document.body;
+	    }
+	
 	    // Compacting running db automatically every few new animations
 	    if (id % 20 === 0) {
 	      var newRunning = {};
@@ -20525,7 +20583,7 @@
 	      if (!running[id] || verifyCallback && !verifyCallback(id)) {
 	        running[id] = null;
 	        if (completedCallback) {
-	          completedCallback(DESIRED_FRAMES - dropCounter / ((now - start) / MILLISECONDS_PER_SECOND), id, false);
+	          completedCallback(desiredFrames - dropCounter / ((now - start) / millisecondsPerSecond), id, false);
 	        }
 	        return;
 	      }
@@ -20533,7 +20591,7 @@
 	      // For the current rendering to apply let's update omitted steps in memory.
 	      // This is important to bring internal state constiables up-to-date with progress in time.
 	      if (render) {
-	        var droppedFrames = Math.round((now - lastFrame) / (MILLISECONDS_PER_SECOND / DESIRED_FRAMES)) - 1;
+	        var droppedFrames = Math.round((now - lastFrame) / (millisecondsPerSecond / desiredFrames)) - 1;
 	        for (var j = 0; j < Math.min(droppedFrames, 4); j++) {
 	          step(true);
 	          dropCounter++;
@@ -20553,18 +20611,18 @@
 	      if ((stepCallback(value, now, render) === false || percent === 1) && render) {
 	        running[id] = null;
 	        if (completedCallback) {
-	          completedCallback(DESIRED_FRAMES - dropCounter / ((now - start) / MILLISECONDS_PER_SECOND), id, percent === 1 || duration === null);
+	          completedCallback(desiredFrames - dropCounter / ((now - start) / millisecondsPerSecond), id, percent === 1 || duration === null);
 	        }
 	      } else if (render) {
 	        lastFrame = now;
-	        Animate.requestAnimationFrame(step);
+	        Animate.requestAnimationFrame(step, root);
 	      }
 	    };
 	
 	    // Mark as running
 	    running[id] = true;
 	    // Init first step
-	    Animate.requestAnimationFrame(step);
+	    Animate.requestAnimationFrame(step, root);
 	    // Return unique animation ID
 	    return id;
 	  }
