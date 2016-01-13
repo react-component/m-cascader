@@ -5,6 +5,8 @@ import arrayTreeFilter from 'array-tree-filter';
 
 const MCascader = React.createClass({
   propTypes: {
+    defaultValue: PropTypes.any,
+    value: PropTypes.any,
     onChange: PropTypes.func,
     data: PropTypes.any,
     cols: PropTypes.number,
@@ -44,7 +46,8 @@ const MCascader = React.createClass({
     });
     this.props.onChange(value);
   },
-  getNewValue(data, val) {
+  getNewValue(d, val) {
+    let data = d;
     let value = val;
     if (!value) {
       value = [];
@@ -76,17 +79,17 @@ const MCascader = React.createClass({
     }).map(c=>c.children);
     childrenTree.length = this.props.cols - 1;
     childrenTree.unshift(this.props.data);
-
+    const cols = this.getColArray().map((v, i) => {
+      return (<div key={i} className={`${prefixCls}-main-item`}>
+        <Picker prefixCls={pickerPrefixCls}
+                selectedValue={value[i]}
+                onValueChange={this.onValueChange.bind(this, i)}>
+          {childrenTree[i] || []}
+        </Picker>
+      </div>);
+    });
     return (<div className={classnames(className, prefixCls)}>
-      {this.getColArray().map((v, i) => {
-        return (<div key={i} className={`${prefixCls}-main-item`}>
-          <Picker prefixCls={pickerPrefixCls}
-            selectedValue={value[i]}
-            onValueChange={this.onValueChange.bind(this, i)}>
-            {childrenTree[i] || []}
-          </Picker>
-        </div>);
-      })}
+      {cols}
     </div>);
   },
 });

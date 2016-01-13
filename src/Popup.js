@@ -8,11 +8,13 @@ function noop() {
 
 const PopupPicker = React.createClass({
   propTypes: {
+    onPickerChange: PropTypes.func,
     onChange: PropTypes.func,
-    onOk: PropTypes.func,
     onDismiss: PropTypes.func,
     onVisibleChange: PropTypes.func,
     Modal: PropTypes.func,
+    data: PropTypes.any,
+    value: PropTypes.any,
     children: PropTypes.element,
   },
   getDefaultProps() {
@@ -24,9 +26,9 @@ const PopupPicker = React.createClass({
       okText: 'Ok',
       dismissText: 'Dismiss',
       style: {},
-      onOk: noop,
-      onDismiss: noop,
       onChange: noop,
+      onDismiss: noop,
+      onPickerChange: noop,
     };
   },
   getInitialState() {
@@ -57,14 +59,14 @@ const PopupPicker = React.createClass({
     ReactDOM.unmountComponentAtNode(this.popupContainer);
     document.body.removeChild(this.popupContainer);
   },
-  onChange(value) {
+  onPickerChange(value) {
     this.pickerValue = value;
-    this.props.onChange(value);
+    this.props.onPickerChange(value);
   },
-  onOk() {
+  onChange() {
     const pickerValue = this.getPickerValue();
     this.setVisibleState(false);
-    this.props.onOk(pickerValue);
+    this.props.onChange(pickerValue);
   },
   onDismiss() {
     this.setVisibleState(false);
@@ -87,10 +89,7 @@ const PopupPicker = React.createClass({
     this.props.onVisibleChange(visible);
   },
   getPickerValue() {
-    let value = this.pickerValue || this.props.value;
-    if (!value) {
-
-    }
+    const value = this.pickerValue || this.props.value;
     return value;
   },
   getModal() {
@@ -111,10 +110,10 @@ const PopupPicker = React.createClass({
       <div className={`${props.prefixCls}-popup-header`}>
         <div className={`${props.prefixCls}-popup-item`} onClick={this.onDismiss}>{props.dismissText}</div>
         <div className={`${props.prefixCls}-popup-item`}></div>
-        <div className={`${props.prefixCls}-popup-item`} onClick={this.onOk}>{props.okText}</div>
+        <div className={`${props.prefixCls}-popup-item`} onClick={this.onChange}>{props.okText}</div>
       </div>
       <MCascader data={this.props.data} value={this.getPickerValue()}
-             onChange={this.onChange} {...extraPorps} />
+             onChange={this.onPickerChange} {...extraPorps} />
     </ModalClass>);
   },
   render() {

@@ -81,9 +81,9 @@ see example
 |data | The data of cascade | array  |  |
 |value | selected value | array  |  |
 |defaultValue | initial selected value | array  |  |
-|onChange |  | Function(value) | - |
+|onPickerChange |  | Function(value) | - |
 |style | additional style | object | {} |
-|onOk | exec on ok | Function(value) |  |
+|onChange | exec on ok | Function(value) |  |
 |onDismiss | exec on dismiss | function |  |
 |okText | ok button text | String | 'Ok' |
 |dismissText | dismiss button text | String | 'Dismiss' |

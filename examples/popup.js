@@ -37,11 +37,11 @@ const Demo = React.createClass({
       value,
     };
   },
-  onChange(value) {
-    console.log(value);
+  onPickerChange(value) {
+    console.log('onPickerChange', value);
   },
-  onOk(value) {
-    console.log('onOk', value);
+  onChange(value) {
+    console.log('onChange', value);
     this.setState({
       value: value,
     });
@@ -65,9 +65,9 @@ const Demo = React.createClass({
       <PopCascader
         data={this.props.data}
         value={this.state.value}
-        onChange={this.onChange}
+        onPickerChange={this.onPickerChange}
         onDismiss={this.onDismiss}
-        onOk={this.onOk}
+        onChange={this.onChange}
         style={{left: 0, bottom: 0}}>
           <button>open</button>
       </PopCascader>
