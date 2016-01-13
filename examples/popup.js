@@ -73,11 +73,11 @@ webpackJsonp([0],{
 	      value: value
 	    };
 	  },
-	  onChange: function onChange(value) {
-	    console.log(value);
+	  onPickerChange: function onPickerChange(value) {
+	    console.log('onPickerChange', value);
 	  },
-	  onOk: function onOk(value) {
-	    console.log('onOk', value);
+	  onChange: function onChange(value) {
+	    console.log('onChange', value);
 	    this.setState({
 	      value: value
 	    });
@@ -115,9 +115,9 @@ webpackJsonp([0],{
 	        {
 	          data: this.props.data,
 	          value: this.state.value,
-	          onChange: this.onChange,
+	          onPickerChange: this.onPickerChange,
 	          onDismiss: this.onDismiss,
-	          onOk: this.onOk,
+	          onChange: this.onChange,
 	          style: { left: 0, bottom: 0 } },
 	        _react2['default'].createElement(
 	          'button',
@@ -182,11 +182,13 @@ webpackJsonp([0],{
 	  displayName: 'PopupPicker',
 	
 	  propTypes: {
+	    onPickerChange: _react.PropTypes.func,
 	    onChange: _react.PropTypes.func,
-	    onOk: _react.PropTypes.func,
 	    onDismiss: _react.PropTypes.func,
 	    onVisibleChange: _react.PropTypes.func,
 	    Modal: _react.PropTypes.func,
+	    data: _react.PropTypes.any,
+	    value: _react.PropTypes.any,
 	    children: _react.PropTypes.element
 	  },
 	  getDefaultProps: function getDefaultProps() {
@@ -198,9 +200,9 @@ webpackJsonp([0],{
 	      okText: 'Ok',
 	      dismissText: 'Dismiss',
 	      style: {},
-	      onOk: noop,
+	      onChange: noop,
 	      onDismiss: noop,
-	      onChange: noop
+	      onPickerChange: noop
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -231,14 +233,14 @@ webpackJsonp([0],{
 	    _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
 	    document.body.removeChild(this.popupContainer);
 	  },
-	  onChange: function onChange(value) {
+	  onPickerChange: function onPickerChange(value) {
 	    this.pickerValue = value;
-	    this.props.onChange(value);
+	    this.props.onPickerChange(value);
 	  },
-	  onOk: function onOk() {
+	  onChange: function onChange() {
 	    var pickerValue = this.getPickerValue();
 	    this.setVisibleState(false);
-	    this.props.onOk(pickerValue);
+	    this.props.onChange(pickerValue);
 	  },
 	  onDismiss: function onDismiss() {
 	    this.setVisibleState(false);
@@ -262,7 +264,6 @@ webpackJsonp([0],{
 	  },
 	  getPickerValue: function getPickerValue() {
 	    var value = this.pickerValue || this.props.value;
-	    if (!value) {}
 	    return value;
 	  },
 	  getModal: function getModal() {
@@ -294,12 +295,12 @@ webpackJsonp([0],{
 	        _react2['default'].createElement('div', { className: props.prefixCls + '-popup-item' }),
 	        _react2['default'].createElement(
 	          'div',
-	          { className: props.prefixCls + '-popup-item', onClick: this.onOk },
+	          { className: props.prefixCls + '-popup-item', onClick: this.onChange },
 	          props.okText
 	        )
 	      ),
 	      _react2['default'].createElement(_MCascader2['default'], _extends({ data: this.props.data, value: this.getPickerValue(),
-	        onChange: this.onChange }, extraPorps))
+	        onChange: this.onPickerChange }, extraPorps))
 	    );
 	  },
 	  render: function render() {
