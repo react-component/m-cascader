@@ -64,7 +64,7 @@ see example
 |className | additional css class of root dom node | String | '' |
 |prefixCls | prefix class | String | 'rmc-cascader' |
 |pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
-|date | The data of cascade | array  |  |
+|data | The data of cascade | array  |  |
 |value | selected value | array  |  |
 |defaultValue | initial selected value | array  |  |
 |onChange |  | Function(value) | - |
@@ -78,7 +78,7 @@ see example
 |prefixCls | prefix class | String | 'rmc-cascader' |
 |modalPrefixCls | prefix class | String | 'rmc-modal' |
 |pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
-|date | The data of cascade | array  |  |
+|data | The data of cascade | array  |  |
 |value | selected value | array  |  |
 |defaultValue | initial selected value | array  |  |
 |onChange |  | Function(value) | - |
