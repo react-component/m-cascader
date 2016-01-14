@@ -15,6 +15,7 @@ const PopupPicker = React.createClass({
     Modal: PropTypes.func,
     data: PropTypes.any,
     value: PropTypes.any,
+    cols: PropTypes.number,
     children: PropTypes.element,
   },
   getDefaultProps() {
@@ -102,18 +103,21 @@ const PopupPicker = React.createClass({
     if (props.prefixCls) {
       extraPorps.prefixCls = props.prefixCls;
     }
+    if ('cols' in props) {
+      extraPorps.cols = props.cols;
+    }
     return (<ModalClass className={props.className}
-                   modalPrefix={props.modalPrefix}
-                   visible
-                   style={props.style}
-                   onDismiss={this.onDismiss}>
+                        modalPrefix={props.modalPrefix}
+                        visible
+                        style={props.style}
+                        onDismiss={this.onDismiss}>
       <div className={`${props.prefixCls}-popup-header`}>
         <div className={`${props.prefixCls}-popup-item`} onClick={this.onDismiss}>{props.dismissText}</div>
         <div className={`${props.prefixCls}-popup-item`}></div>
         <div className={`${props.prefixCls}-popup-item`} onClick={this.onChange}>{props.okText}</div>
       </div>
       <MCascader data={this.props.data} value={this.getPickerValue()}
-             onChange={this.onPickerChange} {...extraPorps} />
+                 onChange={this.onPickerChange} {...extraPorps} />
     </ModalClass>);
   },
   render() {

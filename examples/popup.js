@@ -19,7 +19,7 @@ const Demo = React.createClass({
   getDefaultProps() {
     return {
       data: globalData,
-      cols: 3,
+      cols: 2,
     };
   },
   getInitialState() {
@@ -65,6 +65,7 @@ const Demo = React.createClass({
       <PopCascader
         data={this.props.data}
         value={this.state.value}
+        cols={this.props.cols}
         onPickerChange={this.onPickerChange}
         onDismiss={this.onDismiss}
         onChange={this.onChange}
