@@ -183,6 +183,7 @@ webpackJsonp([0],{
 	  displayName: 'PopupPicker',
 	
 	  propTypes: {
+	    visible: _react.PropTypes.bool,
 	    onPickerChange: _react.PropTypes.func,
 	    onChange: _react.PropTypes.func,
 	    onDismiss: _react.PropTypes.func,
@@ -209,7 +210,8 @@ webpackJsonp([0],{
 	  },
 	  getInitialState: function getInitialState() {
 	    return {
-	      visible: false
+	      pickerValue: null,
+	      visible: this.props.visible || false
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -218,9 +220,7 @@ webpackJsonp([0],{
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    if ('visible' in nextProps) {
-	      this.setState({
-	        visible: nextProps.visible
-	      });
+	      this.setVisibleState(nextProps.visible);
 	    }
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
@@ -236,20 +236,21 @@ webpackJsonp([0],{
 	    document.body.removeChild(this.popupContainer);
 	  },
 	  onPickerChange: function onPickerChange(value) {
-	    this.pickerValue = value;
+	    this.setState({
+	      pickerValue: value
+	    });
 	    this.props.onPickerChange(value);
 	  },
 	  onChange: function onChange() {
-	    var pickerValue = this.getPickerValue();
-	    this.setVisibleState(false);
-	    this.props.onChange(pickerValue);
+	    this.fireVisibleChange(false);
+	    this.props.onChange(this.state.pickerValue);
 	  },
 	  onDismiss: function onDismiss() {
-	    this.setVisibleState(false);
+	    this.fireVisibleChange(false);
 	    this.props.onDismiss();
 	  },
 	  onTriggerClick: function onTriggerClick() {
-	    this.setVisibleState(!this.state.visible);
+	    this.fireVisibleChange(!this.state.visible);
 	    var child = _react2['default'].Children.only(this.props.children);
 	    var childProps = child.props || {};
 	    if (childProps.onClick) {
@@ -257,16 +258,14 @@ webpackJsonp([0],{
 	    }
 	  },
 	  setVisibleState: function setVisibleState(visible) {
-	    if (!('visible' in this.props)) {
+	    this.setState({
+	      visible: visible
+	    });
+	    if (!visible) {
 	      this.setState({
-	        visible: visible
+	        pickerValue: null
 	      });
 	    }
-	    this.props.onVisibleChange(visible);
-	  },
-	  getPickerValue: function getPickerValue() {
-	    var value = this.pickerValue || this.props.value;
-	    return value;
 	  },
 	  getModal: function getModal() {
 	    var props = this.props;
@@ -304,9 +303,15 @@ webpackJsonp([0],{
 	          props.okText
 	        )
 	      ),
-	      _react2['default'].createElement(_MCascader2['default'], _extends({ data: this.props.data, value: this.getPickerValue(),
+	      _react2['default'].createElement(_MCascader2['default'], _extends({ data: this.props.data, value: this.state.pickerValue || props.value,
 	        onChange: this.onPickerChange }, extraPorps))
 	    );
+	  },
+	  fireVisibleChange: function fireVisibleChange(visible) {
+	    if (!('visible' in this.props)) {
+	      this.setVisibleState(visible);
+	    }
+	    this.props.onVisibleChange(visible);
 	  },
 	  render: function render() {
 	    var props = this.props;
