@@ -55,7 +55,7 @@ webpackJsonp([0],{
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      data: _data2['default'],
-	      cols: 3
+	      cols: 2
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -115,6 +115,7 @@ webpackJsonp([0],{
 	        {
 	          data: this.props.data,
 	          value: this.state.value,
+	          cols: this.props.cols,
 	          onPickerChange: this.onPickerChange,
 	          onDismiss: this.onDismiss,
 	          onChange: this.onChange,
@@ -182,7 +183,6 @@ webpackJsonp([0],{
 	  displayName: 'PopupPicker',
 	
 	  propTypes: {
-	    visible: _react.PropTypes.bool,
 	    onPickerChange: _react.PropTypes.func,
 	    onChange: _react.PropTypes.func,
 	    onDismiss: _react.PropTypes.func,
@@ -190,6 +190,7 @@ webpackJsonp([0],{
 	    Modal: _react.PropTypes.func,
 	    data: _react.PropTypes.any,
 	    value: _react.PropTypes.any,
+	    cols: _react.PropTypes.number,
 	    children: _react.PropTypes.element
 	  },
 	  getDefaultProps: function getDefaultProps() {
@@ -208,8 +209,7 @@ webpackJsonp([0],{
 	  },
 	  getInitialState: function getInitialState() {
 	    return {
-	      pickerValue: null,
-	      visible: this.props.visible || false
+	      visible: false
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -218,7 +218,9 @@ webpackJsonp([0],{
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    if ('visible' in nextProps) {
-	      this.setVisibleState(nextProps.visible);
+	      this.setState({
+	        visible: nextProps.visible
+	      });
 	    }
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
@@ -234,21 +236,20 @@ webpackJsonp([0],{
 	    document.body.removeChild(this.popupContainer);
 	  },
 	  onPickerChange: function onPickerChange(value) {
-	    this.setState({
-	      pickerValue: value
-	    });
+	    this.pickerValue = value;
 	    this.props.onPickerChange(value);
 	  },
 	  onChange: function onChange() {
-	    this.fireVisibleChange(false);
-	    this.props.onChange(this.state.pickerValue);
+	    var pickerValue = this.getPickerValue();
+	    this.setVisibleState(false);
+	    this.props.onChange(pickerValue);
 	  },
 	  onDismiss: function onDismiss() {
-	    this.fireVisibleChange(false);
+	    this.setVisibleState(false);
 	    this.props.onDismiss();
 	  },
 	  onTriggerClick: function onTriggerClick() {
-	    this.fireVisibleChange(!this.state.visible);
+	    this.setVisibleState(!this.state.visible);
 	    var child = _react2['default'].Children.only(this.props.children);
 	    var childProps = child.props || {};
 	    if (childProps.onClick) {
@@ -256,14 +257,16 @@ webpackJsonp([0],{
 	    }
 	  },
 	  setVisibleState: function setVisibleState(visible) {
-	    this.setState({
-	      visible: visible
-	    });
-	    if (!visible) {
+	    if (!('visible' in this.props)) {
 	      this.setState({
-	        pickerValue: null
+	        visible: visible
 	      });
 	    }
+	    this.props.onVisibleChange(visible);
+	  },
+	  getPickerValue: function getPickerValue() {
+	    var value = this.pickerValue || this.props.value;
+	    return value;
 	  },
 	  getModal: function getModal() {
 	    var props = this.props;
@@ -275,6 +278,9 @@ webpackJsonp([0],{
 	    }
 	    if (props.prefixCls) {
 	      extraPorps.prefixCls = props.prefixCls;
+	    }
+	    if ('cols' in props) {
+	      extraPorps.cols = props.cols;
 	    }
 	    return _react2['default'].createElement(
 	      ModalClass,
@@ -298,15 +304,9 @@ webpackJsonp([0],{
 	          props.okText
 	        )
 	      ),
-	      _react2['default'].createElement(_MCascader2['default'], _extends({ data: this.props.data, value: this.state.pickerValue || props.value,
+	      _react2['default'].createElement(_MCascader2['default'], _extends({ data: this.props.data, value: this.getPickerValue(),
 	        onChange: this.onPickerChange }, extraPorps))
 	    );
-	  },
-	  fireVisibleChange: function fireVisibleChange(visible) {
-	    if (!('visible' in this.props)) {
-	      this.setVisibleState(visible);
-	    }
-	    this.props.onVisibleChange(visible);
 	  },
 	  render: function render() {
 	    var props = this.props;
