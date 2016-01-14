@@ -8,6 +8,7 @@ function noop() {
 
 const PopupPicker = React.createClass({
   propTypes: {
+    visible: PropTypes.bool,
     onPickerChange: PropTypes.func,
     onChange: PropTypes.func,
     onDismiss: PropTypes.func,
@@ -34,7 +35,8 @@ const PopupPicker = React.createClass({
   },
   getInitialState() {
     return {
-      visible: false,
+      pickerValue: null,
+      visible: this.props.visible || false,
     };
   },
   componentDidMount() {
@@ -43,9 +45,7 @@ const PopupPicker = React.createClass({
   },
   componentWillReceiveProps(nextProps) {
     if ('visible' in nextProps) {
-      this.setState({
-        visible: nextProps.visible,
-      });
+      this.setVisibleState(nextProps.visible);
     }
   },
   componentDidUpdate() {
@@ -61,20 +61,21 @@ const PopupPicker = React.createClass({
     document.body.removeChild(this.popupContainer);
   },
   onPickerChange(value) {
-    this.pickerValue = value;
+    this.setState({
+      pickerValue: value,
+    });
     this.props.onPickerChange(value);
   },
   onChange() {
-    const pickerValue = this.getPickerValue();
-    this.setVisibleState(false);
-    this.props.onChange(pickerValue);
+    this.fireVisibleChange(false);
+    this.props.onChange(this.state.pickerValue);
   },
   onDismiss() {
-    this.setVisibleState(false);
+    this.fireVisibleChange(false);
     this.props.onDismiss();
   },
   onTriggerClick() {
-    this.setVisibleState(!this.state.visible);
+    this.fireVisibleChange(!this.state.visible);
     const child = React.Children.only(this.props.children);
     const childProps = child.props || {};
     if (childProps.onClick) {
@@ -82,16 +83,14 @@ const PopupPicker = React.createClass({
     }
   },
   setVisibleState(visible) {
-    if (!('visible' in this.props)) {
+    this.setState({
+      visible,
+    });
+    if (!visible) {
       this.setState({
-        visible,
+        pickerValue: null,
       });
     }
-    this.props.onVisibleChange(visible);
-  },
-  getPickerValue() {
-    const value = this.pickerValue || this.props.value;
-    return value;
   },
   getModal() {
     const props = this.props;
@@ -116,9 +115,15 @@ const PopupPicker = React.createClass({
         <div className={`${props.prefixCls}-popup-item`}></div>
         <div className={`${props.prefixCls}-popup-item`} onClick={this.onChange}>{props.okText}</div>
       </div>
-      <MCascader data={this.props.data} value={this.getPickerValue()}
-                 onChange={this.onPickerChange} {...extraPorps} />
+      <MCascader data={this.props.data} value={this.state.pickerValue || props.value}
+             onChange={this.onPickerChange} {...extraPorps} />
     </ModalClass>);
+  },
+  fireVisibleChange(visible) {
+    if (!('visible' in this.props)) {
+      this.setVisibleState(visible);
+    }
+    this.props.onVisibleChange(visible);
   },
   render() {
     const props = this.props;
