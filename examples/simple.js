@@ -11,7 +11,7 @@ webpackJsonp([1],{
 /***/ 174:
 /***/ function(module, exports, __webpack_require__) {
 
-	// use jsx to render html, do not modify simple.html
+	/* eslint no-console:0 */
 	
 	'use strict';
 	
@@ -41,7 +41,7 @@ webpackJsonp([1],{
 	  displayName: 'Demo',
 	
 	  onChange: function onChange(value) {
-	    console.log(value);
+	    console.log('onChange', value);
 	  },
 	  render: function render() {
 	    return _react2['default'].createElement(

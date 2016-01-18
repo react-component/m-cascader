@@ -90,11 +90,6 @@ webpackJsonp([0],{
 	      visible: false
 	    });
 	  },
-	  outerCtrl: function outerCtrl() {
-	    this.setState({
-	      visible: !this.state.visible
-	    });
-	  },
 	  getSel: function getSel() {
 	    var value = this.state.value;
 	
@@ -104,6 +99,11 @@ webpackJsonp([0],{
 	    return treeChildren.map(function (v) {
 	      return v.label;
 	    }).join(',');
+	  },
+	  outerCtrl: function outerCtrl() {
+	    this.setState({
+	      visible: !this.state.visible
+	    });
 	  },
 	  render: function render() {
 	    return _react2['default'].createElement(
