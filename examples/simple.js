@@ -1,4 +1,4 @@
-// use jsx to render html, do not modify simple.html
+/* eslint no-console:0 */
 
 import 'rmc-picker/assets/index.css';
 import 'rmc-cascader/assets/index.less';
@@ -9,7 +9,7 @@ import globalData from './data';
 
 const Demo = React.createClass({
   onChange(value) {
-    console.log(value);
+    console.log('onChange', value);
   },
   render() {
     return (<div style={{padding: 10}}>

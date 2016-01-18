@@ -38,16 +38,16 @@ const MCascader = React.createClass({
     });
     let data = children[index];
     let i;
-    for (i = index + 1; data && data.children && data.children.length && i < value.length; i++) {
+    for (i = index + 1; data && data.children && data.children.length && i < this.props.cols; i++) {
       data = data.children[0];
       value[i] = data.value;
     }
-    if (!data.children && i < value.length) {
-      value[i] = undefined;
+    value.length = i;
+    if (!('value' in this.props)) {
+      this.setState({
+        value,
+      });
     }
-    this.setState({
-      value: value,
-    });
     this.props.onChange(value);
   },
   getNewValue(d, val) {
@@ -76,8 +76,7 @@ const MCascader = React.createClass({
   render() {
     const props = this.props;
     const {prefixCls, pickerPrefixCls, className} = props;
-
-    const value = this.state.value;
+    const value = this.state.value || [];
     const childrenTree = arrayTreeFilter(this.props.data, (c, level) => {
       return c.value === value[level];
     }).map(c=>c.children);
