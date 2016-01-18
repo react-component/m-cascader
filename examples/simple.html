@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>simple.js - example - rmc-cascader@0.2.2</title>
+  <title>simple.js - example - rmc-cascader@0.2.3</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-cascader@0.2.2</h1>
+    <h1>rmc-cascader@0.2.3</h1>
 
     <p>m-cascader ui component for react</p>
   </div>
@@ -266,12 +266,12 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <script src="simple.js?nowrap"></script>
   <div class="highlight"><pre><code language="js"><span class="hljs-comment">// use jsx to render html, do not modify simple.html</span>
 
-import <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
-import <span class="hljs-string">'rmc-cascader/assets/index.css'</span>;
-import MCascader from <span class="hljs-string">'rmc-cascader'</span>;
-import React from <span class="hljs-string">'react'</span>;
-import ReactDOM from <span class="hljs-string">'react-dom'</span>;
-import globalData from <span class="hljs-string">'./data'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-cascader/assets/index.css'</span>;
+<span class="hljs-keyword">import</span> MCascader <span class="hljs-keyword">from</span> <span class="hljs-string">'rmc-cascader'</span>;
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+<span class="hljs-keyword">import</span> globalData <span class="hljs-keyword">from</span> <span class="hljs-string">'./data'</span>;
 
 <span class="hljs-keyword">const</span> Demo = React.createClass({
   onChange(value) {
@@ -281,11 +281,11 @@ import globalData from <span class="hljs-string">'./data'</span>;
     <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{padding:</span> <span class="hljs-attribute">10</span>}}&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>simple inline<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">MCascader</span> <span class="hljs-attribute">data</span>=<span class="hljs-value">{globalData}</span> <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
   },
 });
 
-ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> /&gt;</span>, document.getElementById('__react-content'));
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> /&gt;</span>, document.getElementById('__react-content'));
 </span></code></pre></div>
 </div>
 <a href="https://github.com/react-component/m-cascader">

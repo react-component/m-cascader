@@ -55,7 +55,7 @@ webpackJsonp([0],{
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      data: _data2['default'],
-	      cols: 2
+	      cols: 3
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -79,7 +79,7 @@ webpackJsonp([0],{
 	  onChange: function onChange(value) {
 	    console.log('onChange', value);
 	    this.setState({
-	      value: value
+	      value: value || this.state.value
 	    });
 	  },
 	  onDismiss: function onDismiss() {
