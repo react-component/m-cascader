@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>popup.js - example - rmc-cascader@0.2.3</title>
+  <title>popup.js - example - rmc-cascader@0.2.4</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-cascader@0.2.3</h1>
+    <h1>rmc-cascader@0.2.4</h1>
 
     <p>m-cascader ui component for react</p>
   </div>
@@ -301,6 +301,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     }
     <span class="hljs-keyword">return</span> {
       value,
+      visible: <span class="hljs-literal">false</span>,
     };
   },
   onPickerChange(value) {
@@ -310,10 +311,19 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onChange'</span>, value);
     <span class="hljs-keyword">this</span>.setState({
       value: value || <span class="hljs-keyword">this</span>.state.value,
+      visible: <span class="hljs-literal">false</span>,
     });
   },
   onDismiss() {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onDismiss'</span>);
+    <span class="hljs-keyword">this</span>.setState({
+      visible: <span class="hljs-literal">false</span>,
+    });
+  },
+  outerCtrl() {
+    <span class="hljs-keyword">this</span>.setState({
+      visible: !<span class="hljs-keyword">this</span>.state.visible,
+    });
   },
   getSel() {
     <span class="hljs-keyword">const</span> {value} = <span class="hljs-keyword">this</span>.state;
@@ -338,6 +348,19 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         <span class="hljs-attribute">style</span>=<span class="hljs-value">{{left:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">bottom:</span> <span class="hljs-attribute">0</span>}}&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>open<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">PopCascader</span>&gt;</span>
+
+      <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>just cascader no children<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.outerCtrl}</span>&gt;</span>open<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.outerCtrl}</span>&gt;</span>switch<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">PopCascader</span>
+        <span class="hljs-attribute">visible</span>=<span class="hljs-value">{this.state.visible}</span>
+        <span class="hljs-attribute">data</span>=<span class="hljs-value">{this.props.data}</span>
+        <span class="hljs-attribute">value</span>=<span class="hljs-value">{this.state.value}</span>
+        <span class="hljs-attribute">cols</span>=<span class="hljs-value">{this.props.cols}</span>
+        <span class="hljs-attribute">onPickerChange</span>=<span class="hljs-value">{this.onPickerChange}</span>
+        <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>
+        <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>
+        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{left:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">bottom:</span> <span class="hljs-attribute">0</span>}} /&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
   },
 });

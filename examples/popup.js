@@ -70,7 +70,8 @@ webpackJsonp([0],{
 	      }
 	    }
 	    return {
-	      value: value
+	      value: value,
+	      visible: false
 	    };
 	  },
 	  onPickerChange: function onPickerChange(value) {
@@ -79,11 +80,20 @@ webpackJsonp([0],{
 	  onChange: function onChange(value) {
 	    console.log('onChange', value);
 	    this.setState({
-	      value: value || this.state.value
+	      value: value || this.state.value,
+	      visible: false
 	    });
 	  },
 	  onDismiss: function onDismiss() {
 	    console.log('onDismiss');
+	    this.setState({
+	      visible: false
+	    });
+	  },
+	  outerCtrl: function outerCtrl() {
+	    this.setState({
+	      visible: !this.state.visible
+	    });
 	  },
 	  getSel: function getSel() {
 	    var value = this.state.value;
@@ -125,7 +135,31 @@ webpackJsonp([0],{
 	          null,
 	          'open'
 	        )
-	      )
+	      ),
+	      _react2['default'].createElement(
+	        'h3',
+	        null,
+	        'just cascader no children'
+	      ),
+	      _react2['default'].createElement(
+	        'button',
+	        { onClick: this.outerCtrl },
+	        'open'
+	      ),
+	      _react2['default'].createElement(
+	        'button',
+	        { onClick: this.outerCtrl },
+	        'switch'
+	      ),
+	      _react2['default'].createElement(_rmcCascaderSrcPopup2['default'], {
+	        visible: this.state.visible,
+	        data: this.props.data,
+	        value: this.state.value,
+	        cols: this.props.cols,
+	        onPickerChange: this.onPickerChange,
+	        onDismiss: this.onDismiss,
+	        onChange: this.onChange,
+	        style: { left: 0, bottom: 0 } })
 	    );
 	  }
 	});
@@ -316,6 +350,9 @@ webpackJsonp([0],{
 	  render: function render() {
 	    var props = this.props;
 	    var children = props.children;
+	    if (!children) {
+	      return null;
+	    }
 	    var child = _react2['default'].Children.only(children);
 	    var newChildProps = {
 	      onClick: this.onTriggerClick
