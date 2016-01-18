@@ -37,9 +37,13 @@ const MCascader = React.createClass({
       return level <= index && c.value === value[level];
     });
     let data = children[index];
-    for (let i = index + 1; data && data.children && data.children.length && i < value.length; i++) {
+    let i;
+    for (i = index + 1; data && data.children && data.children.length && i < value.length; i++) {
       data = data.children[0];
       value[i] = data.value;
+    }
+    if (!data.children && i < value.length) {
+      value[i] = undefined;
     }
     this.setState({
       value: value,

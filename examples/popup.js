@@ -19,7 +19,7 @@ const Demo = React.createClass({
   getDefaultProps() {
     return {
       data: globalData,
-      cols: 2,
+      cols: 3,
     };
   },
   getInitialState() {
@@ -43,7 +43,7 @@ const Demo = React.createClass({
   onChange(value) {
     console.log('onChange', value);
     this.setState({
-      value: value,
+      value: value || this.state.value,
     });
   },
   onDismiss() {
