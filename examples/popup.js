@@ -35,6 +35,7 @@ const Demo = React.createClass({
     }
     return {
       value,
+      visible: false,
     };
   },
   onPickerChange(value) {
@@ -44,10 +45,19 @@ const Demo = React.createClass({
     console.log('onChange', value);
     this.setState({
       value: value || this.state.value,
+      visible: false,
     });
   },
   onDismiss() {
     console.log('onDismiss');
+    this.setState({
+      visible: false,
+    });
+  },
+  outerCtrl() {
+    this.setState({
+      visible: !this.state.visible,
+    });
   },
   getSel() {
     const {value} = this.state;
@@ -72,6 +82,19 @@ const Demo = React.createClass({
         style={{left: 0, bottom: 0}}>
           <button>open</button>
       </PopCascader>
+
+      <h3>just cascader no children</h3>
+      <button onClick={this.outerCtrl}>open</button>
+      <button onClick={this.outerCtrl}>switch</button>
+      <PopCascader
+        visible={this.state.visible}
+        data={this.props.data}
+        value={this.state.value}
+        cols={this.props.cols}
+        onPickerChange={this.onPickerChange}
+        onDismiss={this.onDismiss}
+        onChange={this.onChange}
+        style={{left: 0, bottom: 0}} />
     </div>);
   },
 });
