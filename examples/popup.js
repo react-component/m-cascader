@@ -80,7 +80,7 @@ const Demo = React.createClass({
         onDismiss={this.onDismiss}
         onChange={this.onChange}
         style={{left: 0, bottom: 0}}>
-        <button>open</button>
+        <button ref="button">open</button>
       </PopCascader>
 
       <h3>just cascader no children</h3>
