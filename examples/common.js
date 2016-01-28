@@ -19783,7 +19783,7 @@
 	  getNewValue: function getNewValue(d, val) {
 	    var data = d;
 	    var value = val;
-	    if (!value) {
+	    if (!value || !value.length) {
 	      value = [];
 	      for (var i = 0; i < this.props.cols; i++) {
 	        if (data) {
