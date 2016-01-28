@@ -132,7 +132,7 @@ webpackJsonp([0],{
 	          style: { left: 0, bottom: 0 } },
 	        _react2['default'].createElement(
 	          'button',
-	          null,
+	          { ref: 'button' },
 	          'open'
 	        )
 	      ),
