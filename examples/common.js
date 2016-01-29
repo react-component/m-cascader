@@ -19731,6 +19731,8 @@
 	
 	var _arrayTreeFilter2 = _interopRequireDefault(_arrayTreeFilter);
 	
+	var _utils = __webpack_require__(171);
+	
 	var MCascader = _react2['default'].createClass({
 	  displayName: 'MCascader',
 	
@@ -19781,20 +19783,7 @@
 	    this.props.onChange(value);
 	  },
 	  getNewValue: function getNewValue(d, val) {
-	    var data = d;
-	    var value = val;
-	    if (!value || !value.length) {
-	      value = [];
-	      for (var i = 0; i < this.props.cols; i++) {
-	        if (data && data.length) {
-	          value[i] = data[0].value;
-	          data = data[0].children;
-	        } else {
-	          value[i] = undefined;
-	        }
-	      }
-	    }
-	    return value;
+	    return (0, _utils.getDefaultValue)(d, val, this.props.cols);
 	  },
 	  getColArray: function getColArray() {
 	    var ret = [];
@@ -20632,9 +20621,37 @@
 
 
 /***/ },
-/* 171 */,
+/* 171 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getDefaultValue = getDefaultValue;
+	
+	function getDefaultValue(d, val, cols) {
+	  var data = d;
+	  var value = val;
+	  if (!value || !value.length) {
+	    value = [];
+	    for (var i = 0; i < cols; i++) {
+	      if (data && data.length) {
+	        value[i] = data[0].value;
+	        data = data[0].children;
+	      } else {
+	        value[i] = undefined;
+	      }
+	    }
+	  }
+	  return value;
+	}
+
+/***/ },
 /* 172 */,
-/* 173 */
+/* 173 */,
+/* 174 */
 /***/ function(module, exports) {
 
 	'use strict';

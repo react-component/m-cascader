@@ -37,7 +37,7 @@ webpackJsonp([0],{
 	
 	var _rmcCascaderSrcPopup2 = _interopRequireDefault(_rmcCascaderSrcPopup);
 	
-	var _data = __webpack_require__(173);
+	var _data = __webpack_require__(174);
 	
 	var _data2 = _interopRequireDefault(_data);
 	
@@ -207,9 +207,11 @@ webpackJsonp([0],{
 	
 	var _MCascader2 = _interopRequireDefault(_MCascader);
 	
-	var _rmcModal = __webpack_require__(171);
+	var _rmcModal = __webpack_require__(172);
 	
 	var _rmcModal2 = _interopRequireDefault(_rmcModal);
+	
+	var _utils = __webpack_require__(171);
 	
 	function noop() {}
 	
@@ -277,7 +279,14 @@ webpackJsonp([0],{
 	  },
 	  onChange: function onChange() {
 	    this.fireVisibleChange(false);
-	    this.props.onChange(this.state.pickerValue);
+	    var _props = this.props;
+	    var value = _props.value;
+	    var cols = _props.cols;
+	    var data = _props.data;
+	
+	    this.props.onChange((0, _utils.getDefaultValue)(data, this.state.pickerValue || value, cols).filter(function (c) {
+	      return !!c;
+	    }));
 	  },
 	  onDismiss: function onDismiss() {
 	    this.fireVisibleChange(false);
@@ -366,7 +375,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 171:
+/***/ 172:
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
@@ -378,7 +387,7 @@ webpackJsonp([0],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _Modal = __webpack_require__(172);
+	var _Modal = __webpack_require__(173);
 	
 	var _Modal2 = _interopRequireDefault(_Modal);
 	
@@ -387,7 +396,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 172:
+/***/ 173:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
