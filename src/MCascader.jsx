@@ -56,7 +56,7 @@ const MCascader = React.createClass({
     if (!value || !value.length) {
       value = [];
       for (let i = 0; i < this.props.cols; i++) {
-        if (data) {
+        if (data && data.length) {
           value[i] = data[0].value;
           data = data[0].children;
         } else {
