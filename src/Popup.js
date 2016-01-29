@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import MCascader from './MCascader';
 import Modal from 'rmc-modal';
+import {getDefaultValue} from './utils';
 
 function noop() {
 }
@@ -68,7 +69,8 @@ const PopupPicker = React.createClass({
   },
   onChange() {
     this.fireVisibleChange(false);
-    this.props.onChange(this.state.pickerValue);
+    const {value, cols, data} = this.props;
+    this.props.onChange(getDefaultValue(data, this.state.pickerValue || value, cols).filter(c => !!c));
   },
   onDismiss() {
     this.fireVisibleChange(false);
@@ -116,7 +118,7 @@ const PopupPicker = React.createClass({
         <div className={`${props.prefixCls}-popup-item`} onClick={this.onChange}>{props.okText}</div>
       </div>
       <MCascader data={this.props.data} value={this.state.pickerValue || props.value}
-             onChange={this.onPickerChange} {...extraPorps} />
+                 onChange={this.onPickerChange} {...extraPorps} />
     </ModalClass>);
   },
   fireVisibleChange(visible) {

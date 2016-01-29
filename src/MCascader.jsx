@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import classnames from 'classnames';
 import Picker from 'rmc-picker';
 import arrayTreeFilter from 'array-tree-filter';
+import {getDefaultValue} from './utils';
 
 const MCascader = React.createClass({
   propTypes: {
@@ -51,20 +52,7 @@ const MCascader = React.createClass({
     this.props.onChange(value);
   },
   getNewValue(d, val) {
-    let data = d;
-    let value = val;
-    if (!value || !value.length) {
-      value = [];
-      for (let i = 0; i < this.props.cols; i++) {
-        if (data && data.length) {
-          value[i] = data[0].value;
-          data = data[0].children;
-        } else {
-          value[i] = undefined;
-        }
-      }
-    }
-    return value;
+    return getDefaultValue(d, val, this.props.cols);
   },
   getColArray() {
     const ret = [];
