@@ -19747,7 +19747,7 @@
 	    return {
 	      prefixCls: 'rmc-cascader',
 	      pickerPrefixCls: 'rmc-picker',
-	      cols: 3
+	      cols: _utils.COLS
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -20647,6 +20647,9 @@
 	  }
 	  return value;
 	}
+	
+	var COLS = 3;
+	exports.COLS = COLS;
 
 /***/ },
 /* 172 */,

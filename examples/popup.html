@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>popup.js - example - rmc-cascader@0.2.9</title>
+  <title>popup.js - example - rmc-cascader@0.2.10</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-cascader@0.2.9</h1>
+    <h1>rmc-cascader@0.2.10</h1>
 
     <p>m-cascader ui component for react</p>
   </div>
@@ -289,18 +289,7 @@ import arrayTreeFilter from <span class="hljs-string">'array-tree-filter'</span>
     };
   },
   getInitialState() {
-    <span class="hljs-keyword">let</span> data = <span class="hljs-keyword">this</span>.props.data;
-    <span class="hljs-keyword">const</span> value = [];
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.props.cols; i++) {
-      <span class="hljs-keyword">if</span> (data) {
-        value[i] = data[<span class="hljs-number">0</span>].value;
-        data = data[<span class="hljs-number">0</span>].children;
-      } <span class="hljs-keyword">else</span> {
-        value[i] = <span class="hljs-literal">undefined</span>;
-      }
-    }
     <span class="hljs-keyword">return</span> {
-      value,
       visible: <span class="hljs-literal">false</span>,
     };
   },
@@ -310,7 +299,7 @@ import arrayTreeFilter from <span class="hljs-string">'array-tree-filter'</span>
   onChange(value) {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onChange'</span>, value);
     <span class="hljs-keyword">this</span>.setState({
-      value: value || <span class="hljs-keyword">this</span>.state.value,
+      value,
       visible: <span class="hljs-literal">false</span>,
     });
   },
@@ -321,7 +310,10 @@ import arrayTreeFilter from <span class="hljs-string">'array-tree-filter'</span>
     });
   },
   getSel() {
-    <span class="hljs-keyword">const</span> {value} = <span class="hljs-keyword">this</span>.state;
+    <span class="hljs-keyword">const</span> value = <span class="hljs-keyword">this</span>.state.value;
+    <span class="hljs-keyword">if</span> (!value) {
+      <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
+    }
     <span class="hljs-keyword">const</span> treeChildren = arrayTreeFilter(<span class="hljs-keyword">this</span>.props.data, (c, level)=&gt; {
       <span class="hljs-keyword">return</span> c.value === value[level];
     });
