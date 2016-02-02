@@ -23,18 +23,7 @@ const Demo = React.createClass({
     };
   },
   getInitialState() {
-    let data = this.props.data;
-    const value = [];
-    for (let i = 0; i < this.props.cols; i++) {
-      if (data) {
-        value[i] = data[0].value;
-        data = data[0].children;
-      } else {
-        value[i] = undefined;
-      }
-    }
     return {
-      value,
       visible: false,
     };
   },
@@ -44,7 +33,7 @@ const Demo = React.createClass({
   onChange(value) {
     console.log('onChange', value);
     this.setState({
-      value: value || this.state.value,
+      value,
       visible: false,
     });
   },
@@ -55,7 +44,10 @@ const Demo = React.createClass({
     });
   },
   getSel() {
-    const {value} = this.state;
+    const value = this.state.value;
+    if (!value) {
+      return '';
+    }
     const treeChildren = arrayTreeFilter(this.props.data, (c, level)=> {
       return c.value === value[level];
     });

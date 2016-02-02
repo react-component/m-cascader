@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import classnames from 'classnames';
 import Picker from 'rmc-picker';
 import arrayTreeFilter from 'array-tree-filter';
-import {getDefaultValue} from './utils';
+import {getDefaultValue, COLS} from './utils';
 
 const MCascader = React.createClass({
   propTypes: {
@@ -16,7 +16,7 @@ const MCascader = React.createClass({
     return {
       prefixCls: 'rmc-cascader',
       pickerPrefixCls: 'rmc-picker',
-      cols: 3,
+      cols: COLS,
     };
   },
   getInitialState() {

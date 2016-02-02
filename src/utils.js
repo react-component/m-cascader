@@ -14,3 +14,5 @@ export function getDefaultValue(d, val, cols) {
   }
   return value;
 }
+
+export const COLS = 3;
