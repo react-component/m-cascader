@@ -308,19 +308,17 @@ webpackJsonp([0],{
 	  },
 	  onDocumentClick: function onDocumentClick(e) {
 	    if (e.target !== this.modalContent && !(0, _utils.contains)(this.modalContent, e.target)) {
-	      this.setVisibleState(false);
+	      this.fireVisibleChange(false);
 	    }
 	  },
 	  setVisibleState: function setVisibleState(visible) {
-	    if (this.state.visible !== visible) {
+	    this.setState({
+	      visible: visible
+	    });
+	    if (!visible) {
 	      this.setState({
-	        visible: visible
+	        pickerValue: null
 	      });
-	      if (!visible) {
-	        this.setState({
-	          pickerValue: null
-	        });
-	      }
 	    }
 	  },
 	  getModal: function getModal() {
@@ -376,10 +374,12 @@ webpackJsonp([0],{
 	    );
 	  },
 	  fireVisibleChange: function fireVisibleChange(visible) {
-	    if (!('visible' in this.props)) {
-	      this.setVisibleState(visible);
+	    if (this.state.visible !== visible) {
+	      if (!('visible' in this.props)) {
+	        this.setVisibleState(visible);
+	      }
+	      this.props.onVisibleChange(visible);
 	    }
-	    this.props.onVisibleChange(visible);
 	  },
 	  saveModalContent: function saveModalContent(content) {
 	    this.modalContent = content;
