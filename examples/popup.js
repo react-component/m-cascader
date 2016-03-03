@@ -260,8 +260,15 @@ webpackJsonp([0],{
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
 	    if (this.state.visible) {
+	      if (!this.onDocumentClickListener) {
+	        this.onDocumentClickListener = (0, _utils.addEventListener)(document, 'click', this.onDocumentClick);
+	      }
 	      _reactDom2['default'].render(this.getModal(), this.popupContainer);
 	    } else {
+	      if (this.onDocumentClickListener) {
+	        this.onDocumentClickListener.remove();
+	        this.onDocumentClickListener = null;
+	      }
 	      this.pickerValue = null;
 	      _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
 	    }
@@ -299,14 +306,21 @@ webpackJsonp([0],{
 	      childProps.onClick();
 	    }
 	  },
+	  onDocumentClick: function onDocumentClick(e) {
+	    if (e.target !== this.modalContent && !(0, _utils.contains)(this.modalContent, e.target)) {
+	      this.setVisibleState(false);
+	    }
+	  },
 	  setVisibleState: function setVisibleState(visible) {
-	    this.setState({
-	      visible: visible
-	    });
-	    if (!visible) {
+	    if (this.state.visible !== visible) {
 	      this.setState({
-	        pickerValue: null
+	        visible: visible
 	      });
+	      if (!visible) {
+	        this.setState({
+	          pickerValue: null
+	        });
+	      }
 	    }
 	  },
 	  getModal: function getModal() {
@@ -339,22 +353,26 @@ webpackJsonp([0],{
 	        onDismiss: this.onDismiss },
 	      _react2['default'].createElement(
 	        'div',
-	        { className: prefixCls + '-popup-header' },
+	        { ref: this.saveModalContent },
 	        _react2['default'].createElement(
 	          'div',
-	          { className: prefixCls + '-popup-item', onClick: this.onDismiss },
-	          dismissText
+	          { className: prefixCls + '-popup-header' },
+	          _react2['default'].createElement(
+	            'div',
+	            { className: prefixCls + '-popup-item', onClick: this.onDismiss },
+	            dismissText
+	          ),
+	          _react2['default'].createElement('div', { className: prefixCls + '-popup-item' }),
+	          _react2['default'].createElement(
+	            'div',
+	            { className: prefixCls + '-popup-item', onClick: this.onChange },
+	            okText
+	          )
 	        ),
-	        _react2['default'].createElement('div', { className: prefixCls + '-popup-item' }),
-	        _react2['default'].createElement(
-	          'div',
-	          { className: prefixCls + '-popup-item', onClick: this.onChange },
-	          okText
-	        )
-	      ),
-	      _react2['default'].createElement(_MCascader2['default'], _extends({ data: data, value: this.state.pickerValue || value,
-	        cols: cols,
-	        onChange: this.onPickerChange }, extraProps))
+	        _react2['default'].createElement(_MCascader2['default'], _extends({ data: data, value: this.state.pickerValue || value,
+	          cols: cols,
+	          onChange: this.onPickerChange }, extraProps))
+	      )
 	    );
 	  },
 	  fireVisibleChange: function fireVisibleChange(visible) {
@@ -362,6 +380,9 @@ webpackJsonp([0],{
 	      this.setVisibleState(visible);
 	    }
 	    this.props.onVisibleChange(visible);
+	  },
+	  saveModalContent: function saveModalContent(content) {
+	    this.modalContent = content;
 	  },
 	  render: function render() {
 	    var props = this.props;
