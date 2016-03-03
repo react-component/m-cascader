@@ -1,6 +1,6 @@
 {
   "name": "rmc-cascader",
-  "version": "0.2.10",
+  "version": "0.3.0",
   "description": "m-cascader ui component for react",
   "keywords": [
     "react",
@@ -9,7 +9,6 @@
     "m-cascader"
   ],
   "homepage": "https://github.com/react-component/m-cascader",
-  "author": "hualei5280@gmail.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/react-component/m-cascader.git"

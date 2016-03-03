@@ -2,7 +2,8 @@ import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import MCascader from './MCascader';
 import Modal from 'rmc-modal';
-import {getDefaultValue, COLS} from './utils';
+import {getDefaultValue, COLS, addEventListener, contains} from './utils';
+
 
 function noop() {
 }
@@ -59,8 +60,15 @@ const PopupPicker = React.createClass({
   },
   componentDidUpdate() {
     if (this.state.visible) {
+      if (!this.onDocumentClickListener) {
+        this.onDocumentClickListener = addEventListener(document, 'click', this.onDocumentClick);
+      }
       ReactDOM.render(this.getModal(), this.popupContainer);
     } else {
+      if (this.onDocumentClickListener) {
+        this.onDocumentClickListener.remove();
+        this.onDocumentClickListener = null;
+      }
       this.pickerValue = null;
       ReactDOM.unmountComponentAtNode(this.popupContainer);
     }
@@ -92,14 +100,21 @@ const PopupPicker = React.createClass({
       childProps.onClick();
     }
   },
+  onDocumentClick(e) {
+    if (e.target !== this.modalContent && !contains(this.modalContent, e.target)) {
+      this.setVisibleState(false);
+    }
+  },
   setVisibleState(visible) {
-    this.setState({
-      visible,
-    });
-    if (!visible) {
+    if (this.state.visible !== visible) {
       this.setState({
-        pickerValue: null,
+        visible,
       });
+      if (!visible) {
+        this.setState({
+          pickerValue: null,
+        });
+      }
     }
   },
   getModal() {
@@ -118,14 +133,16 @@ const PopupPicker = React.createClass({
                         visible
                         style={style}
                         onDismiss={this.onDismiss}>
-      <div className={`${prefixCls}-popup-header`}>
-        <div className={`${prefixCls}-popup-item`} onClick={this.onDismiss}>{dismissText}</div>
-        <div className={`${prefixCls}-popup-item`} />
-        <div className={`${prefixCls}-popup-item`} onClick={this.onChange}>{okText}</div>
+      <div ref={this.saveModalContent}>
+        <div className={`${prefixCls}-popup-header`}>
+          <div className={`${prefixCls}-popup-item`} onClick={this.onDismiss}>{dismissText}</div>
+          <div className={`${prefixCls}-popup-item`}/>
+          <div className={`${prefixCls}-popup-item`} onClick={this.onChange}>{okText}</div>
+        </div>
+        <MCascader data={data} value={this.state.pickerValue || value}
+                   cols={cols}
+                   onChange={this.onPickerChange} {...extraProps} />
       </div>
-      <MCascader data={data} value={this.state.pickerValue || value}
-                 cols={cols}
-                 onChange={this.onPickerChange} {...extraProps} />
     </ModalClass>);
   },
   fireVisibleChange(visible) {
@@ -133,6 +150,9 @@ const PopupPicker = React.createClass({
       this.setVisibleState(visible);
     }
     this.props.onVisibleChange(visible);
+  },
+  saveModalContent(content) {
+    this.modalContent = content;
   },
   render() {
     const props = this.props;
