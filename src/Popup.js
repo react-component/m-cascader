@@ -102,19 +102,17 @@ const PopupPicker = React.createClass({
   },
   onDocumentClick(e) {
     if (e.target !== this.modalContent && !contains(this.modalContent, e.target)) {
-      this.setVisibleState(false);
+      this.fireVisibleChange(false);
     }
   },
   setVisibleState(visible) {
-    if (this.state.visible !== visible) {
+    this.setState({
+      visible,
+    });
+    if (!visible) {
       this.setState({
-        visible,
+        pickerValue: null,
       });
-      if (!visible) {
-        this.setState({
-          pickerValue: null,
-        });
-      }
     }
   },
   getModal() {
@@ -146,10 +144,12 @@ const PopupPicker = React.createClass({
     </ModalClass>);
   },
   fireVisibleChange(visible) {
-    if (!('visible' in this.props)) {
-      this.setVisibleState(visible);
+    if (this.state.visible !== visible) {
+      if (!('visible' in this.props)) {
+        this.setVisibleState(visible);
+      }
+      this.props.onVisibleChange(visible);
     }
-    this.props.onVisibleChange(visible);
   },
   saveModalContent(content) {
     this.modalContent = content;
