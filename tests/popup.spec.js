@@ -42,6 +42,6 @@ describe('popup', () => {
       <PopCascader data={globalData} visible cols={3} />,
     div);
     // todo. 获取不到内部popup出来的 dom，怎么获取？
-    expect(instance.getModal().props.children[1].props.cols).to.be(3);
+    expect(instance.getModal().props.children.props.children[1].props.cols).to.be(3);
   });
 });

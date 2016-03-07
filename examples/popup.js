@@ -4,7 +4,7 @@ import 'rmc-picker/assets/index.css';
 import 'rmc-cascader/assets/index.less';
 import 'rmc-cascader/assets/popup.less';
 import 'rmc-modal/assets/index.css';
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import PopCascader from 'rmc-cascader/src/Popup';
 
@@ -48,10 +48,10 @@ const Demo = React.createClass({
     if (!value) {
       return '';
     }
-    const treeChildren = arrayTreeFilter(this.props.data, (c, level)=> {
+    const treeChildren = arrayTreeFilter(this.props.data, (c, level) => {
       return c.value === value[level];
     });
-    return treeChildren.map((v)=> {
+    return treeChildren.map((v) => {
       return v.label;
     }).join(',');
   },
@@ -61,7 +61,7 @@ const Demo = React.createClass({
     });
   },
   render() {
-    return (<div style={{padding: 10}}>
+    return (<div style={{ padding: 10 }}>
       <h3>popup cascader</h3>
       <p>选择的城市：{this.getSel()}</p>
       <PopCascader
@@ -71,7 +71,8 @@ const Demo = React.createClass({
         onPickerChange={this.onPickerChange}
         onDismiss={this.onDismiss}
         onChange={this.onChange}
-        style={{left: 0, bottom: 0}}>
+        style={{ left: 0, bottom: 0 }}
+      >
         <button ref="button">open</button>
       </PopCascader>
 
@@ -86,9 +87,10 @@ const Demo = React.createClass({
         onPickerChange={this.onPickerChange}
         onDismiss={this.onDismiss}
         onChange={this.onChange}
-        style={{left: 0, bottom: 0}}/>
+        style={{ left: 0, bottom: 0 }}
+      />
     </div>);
   },
 });
 
-ReactDOM.render(<Demo data={globalData}/>, document.getElementById('__react-content'));
+ReactDOM.render(<Demo data={ globalData }/>, document.getElementById('__react-content'));

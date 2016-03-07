@@ -23,15 +23,16 @@ describe('simple', () => {
 
   it('render to body works', () => {
     instance = ReactDOM.render(
-      <MCascader data={globalData} />,
-    div);
-    expect(ReactDOM.findDOMNode(instance).parentNode.parentNode.nodeName.toLowerCase()).to.be('body');
+      <MCascader data={globalData}/>,
+      div);
+    expect(ReactDOM.findDOMNode(instance).
+    parentNode.parentNode.nodeName.toLowerCase()).to.be('body');
   });
 
   it('should add css class of root dom node', () => {
     instance = ReactDOM.render(
-      <MCascader className="forTest" data={globalData} defaultValue={['02', '02-1', '02-1-1']} />,
-    div);
+      <MCascader className="forTest" data={globalData} defaultValue={['02', '02-1', '02-1-1']}/>,
+      div);
     expect(ReactDOM.findDOMNode(instance).className.indexOf('forTest') !== -1).to.be(true);
   });
 
@@ -40,9 +41,10 @@ describe('simple', () => {
       expect(value[1]).to.be('02-2');
       done();
     }
+
     instance = ReactDOM.render(
-      <MCascader data={globalData} onChange={cb} value={['02', '02-1', '02-1-1']} />,
-    div);
+      <MCascader data={globalData} onChange={cb} value={['02', '02-1', '02-1-1']}/>,
+      div);
     instance.onValueChange(1, '02-2');
   });
 });

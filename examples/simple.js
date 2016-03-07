@@ -12,9 +12,9 @@ const Demo = React.createClass({
     console.log('onChange', value);
   },
   render() {
-    return (<div style={{padding: 10}}>
+    return (<div style={{ padding: 10 }}>
       <h3>simple inline</h3>
-      <MCascader data={globalData} onChange={this.onChange} />
+      <MCascader data={globalData} onChange={this.onChange}/>
     </div>);
   },
 });
