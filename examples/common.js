@@ -9364,6 +9364,7 @@
 	 */
 	var EventInterface = {
 	  type: null,
+	  target: null,
 	  // currentTarget is set when dispatching; no use in copying it here
 	  currentTarget: emptyFunction.thatReturnsNull,
 	  eventPhase: null,
@@ -9397,8 +9398,6 @@
 	  this.dispatchConfig = dispatchConfig;
 	  this.dispatchMarker = dispatchMarker;
 	  this.nativeEvent = nativeEvent;
-	  this.target = nativeEventTarget;
-	  this.currentTarget = nativeEventTarget;
 	
 	  var Interface = this.constructor.Interface;
 	  for (var propName in Interface) {
@@ -9409,7 +9408,11 @@
 	    if (normalize) {
 	      this[propName] = normalize(nativeEvent);
 	    } else {
-	      this[propName] = nativeEvent[propName];
+	      if (propName === 'target') {
+	        this.target = nativeEventTarget;
+	      } else {
+	        this[propName] = nativeEvent[propName];
+	      }
 	    }
 	  }
 	
@@ -13258,7 +13261,10 @@
 	      }
 	    });
 	
-	    nativeProps.children = content;
+	    if (content) {
+	      nativeProps.children = content;
+	    }
+	
 	    return nativeProps;
 	  }
 	
@@ -18731,7 +18737,7 @@
 	
 	'use strict';
 	
-	module.exports = '0.14.6';
+	module.exports = '0.14.7';
 
 /***/ },
 /* 152 */
@@ -19709,11 +19715,9 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _react = __webpack_require__(6);
 	
@@ -19733,12 +19737,17 @@
 	
 	var _utils = __webpack_require__(171);
 	
-	var MCascader = _react2['default'].createClass({
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MCascader = _react2.default.createClass({
 	  displayName: 'MCascader',
 	
 	  propTypes: {
 	    defaultValue: _react.PropTypes.any,
 	    value: _react.PropTypes.any,
+	    prefixCls: _react.PropTypes.string,
+	    pickerPrefixCls: _react.PropTypes.string,
+	    className: _react.PropTypes.string,
 	    onChange: _react.PropTypes.func,
 	    data: _react.PropTypes.any,
 	    cols: _react.PropTypes.number
@@ -19765,11 +19774,11 @@
 	  onValueChange: function onValueChange(index, selectNameValue) {
 	    var value = this.state.value.concat();
 	    value[index] = selectNameValue;
-	    var children = (0, _arrayTreeFilter2['default'])(this.props.data, function (c, level) {
+	    var children = (0, _arrayTreeFilter2.default)(this.props.data, function (c, level) {
 	      return level <= index && c.value === value[level];
 	    });
 	    var data = children[index];
-	    var i = undefined;
+	    var i = void 0;
 	    for (i = index + 1; data && data.children && data.children.length && i < this.props.cols; i++) {
 	      data = data.children[0];
 	      value[i] = data.value;
@@ -19801,7 +19810,7 @@
 	    var className = props.className;
 	
 	    var value = this.state.value || [];
-	    var childrenTree = (0, _arrayTreeFilter2['default'])(this.props.data, function (c, level) {
+	    var childrenTree = (0, _arrayTreeFilter2.default)(this.props.data, function (c, level) {
 	      return c.value === value[level];
 	    }).map(function (c) {
 	      return c.children;
@@ -19809,27 +19818,29 @@
 	    childrenTree.length = this.props.cols - 1;
 	    childrenTree.unshift(this.props.data);
 	    var cols = this.getColArray().map(function (v, i) {
-	      return _react2['default'].createElement(
+	      return _react2.default.createElement(
 	        'div',
 	        { key: i, className: prefixCls + '-main-item' },
-	        _react2['default'].createElement(
-	          _rmcPicker2['default'],
-	          { prefixCls: pickerPrefixCls,
+	        _react2.default.createElement(
+	          _rmcPicker2.default,
+	          {
+	            prefixCls: pickerPrefixCls,
 	            selectedValue: value[i],
-	            onValueChange: _this.onValueChange.bind(_this, i) },
+	            onValueChange: _this.onValueChange.bind(_this, i)
+	          },
 	          childrenTree[i] || []
 	        )
 	      );
 	    });
-	    return _react2['default'].createElement(
+	    return _react2.default.createElement(
 	      'div',
-	      { className: (0, _classnames2['default'])(className, prefixCls) },
+	      { className: (0, _classnames2.default)(className, prefixCls) },
 	      cols
 	    );
 	  }
 	});
 	
-	exports['default'] = MCascader;
+	exports.default = MCascader;
 	module.exports = exports['default'];
 
 /***/ },
@@ -19921,9 +19932,7 @@
 	  value: true
 	});
 	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : {'default': obj};
-	}
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _react = __webpack_require__(6);
 	
@@ -19994,8 +20003,7 @@
 	    return {
 	      prefixCls: 'rmc-picker',
 	      pure: true,
-	      onValueChange: function onValueChange() {
-	      }
+	      onValueChange: function onValueChange() {}
 	    };
 	  },
 	
@@ -20174,14 +20182,12 @@
 	  },
 	
 	  fireValueChange: function fireValueChange(selectedValue) {
-	    //console.log('fireValueChange', selectedValue, this.state.selectedValue);
 	    if (selectedValue !== this.state.selectedValue) {
 	      if (!('selectedValue' in this.props)) {
 	        this.setState({
 	          selectedValue: selectedValue
 	        });
 	      }
-	
 	      this.props.onValueChange(selectedValue);
 	    }
 	  },
@@ -20248,14 +20254,14 @@
 	      this.publish(scrollTop);
 	      // Otherwise figure out whether we are switching into dragging mode now.
 	    } else {
-	      var distanceY = Math.abs(currentTouchTop - this.initialTouchTop);
+	        var distanceY = Math.abs(currentTouchTop - this.initialTouchTop);
 	
-	      this.enableScrollY = distanceY >= MINIUM_TRACKING_FOR_SCROLL;
+	        this.enableScrollY = distanceY >= MINIUM_TRACKING_FOR_SCROLL;
 	
-	      positions.push(this.scrollTop, timeStamp);
+	        positions.push(this.scrollTop, timeStamp);
 	
-	      this.isDragging = this.enableScrollY && distanceY >= MINIUM_TRACKING_FOR_DRAG;
-	    }
+	        this.isDragging = this.enableScrollY && distanceY >= MINIUM_TRACKING_FOR_DRAG;
+	      }
 	
 	    // Update last touch positions and time stamp for next event
 	    this.lastTouchTop = currentTouchTop;
@@ -20433,26 +20439,20 @@
 	    var items = children.map(function (item) {
 	      return _react2['default'].createElement(
 	        'div',
-	        {
-	          className: selectedValue === item.value ? selectedItemClassName : itemClassName,
+	        { className: selectedValue === item.value ? selectedItemClassName : itemClassName,
 	          key: item.value,
-	          'data-value': item.value
-	        },
+	          'data-value': item.value },
 	        item.label
 	      );
 	    });
 	    return _react2['default'].createElement(
 	      'div',
-	      {className: '' + prefixCls, 'data-role': 'component', ref: 'component'},
-	      _react2['default'].createElement('div', {className: prefixCls + '-mask', 'data-role': 'mask'}),
-	      _react2['default'].createElement('div', {
-	        className: prefixCls + '-indicator',
-	        'data-role': 'indicator',
-	        ref: 'indicator'
-	      }),
+	      { className: '' + prefixCls, 'data-role': 'component', ref: 'component' },
+	      _react2['default'].createElement('div', { className: prefixCls + '-mask', 'data-role': 'mask' }),
+	      _react2['default'].createElement('div', { className: prefixCls + '-indicator', 'data-role': 'indicator', ref: 'indicator' }),
 	      _react2['default'].createElement(
 	        'div',
-	        {className: prefixCls + '-content', 'data-role': 'content', ref: 'content'},
+	        { className: prefixCls + '-content', 'data-role': 'content', ref: 'content' },
 	        items
 	      )
 	    );
@@ -20626,18 +20626,19 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.COLS = undefined;
 	exports.getDefaultValue = getDefaultValue;
 	exports.addEventListener = addEventListener;
 	exports.contains = contains;
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
 	var _reactDom = __webpack_require__(163);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function getDefaultValue(d, val, cols) {
 	  var data = d;
@@ -20658,8 +20659,8 @@
 	
 	function addEventListener(target, eventType, cb) {
 	  /* eslint camelcase: 2 */
-	  var callback = _reactDom2['default'].unstable_batchedUpdates ? function run(e) {
-	    _reactDom2['default'].unstable_batchedUpdates(cb, e);
+	  var callback = _reactDom2.default.unstable_batchedUpdates ? function run(e) {
+	    _reactDom2.default.unstable_batchedUpdates(cb, e);
 	  } : cb;
 	  target.addEventListener(eventType, callback, false);
 	  return {
@@ -20681,8 +20682,7 @@
 	  return false;
 	}
 	
-	var COLS = 3;
-	exports.COLS = COLS;
+	var COLS = exports.COLS = 3;
 
 /***/ },
 /* 172 */,
@@ -20692,10 +20692,10 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports['default'] = [{
+	exports.default = [{
 	  label: '北京',
 	  value: '01',
 	  children: [{

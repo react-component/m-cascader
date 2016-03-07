@@ -11,11 +11,7 @@ webpackJsonp([0],{
 /***/ 1:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* eslint no-console:0, react/no-multi-comp:0 */
-	
 	'use strict';
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	__webpack_require__(2);
 	
@@ -33,9 +29,9 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rmcCascaderSrcPopup = __webpack_require__(164);
+	var _Popup = __webpack_require__(164);
 	
-	var _rmcCascaderSrcPopup2 = _interopRequireDefault(_rmcCascaderSrcPopup);
+	var _Popup2 = _interopRequireDefault(_Popup);
 	
 	var _data = __webpack_require__(174);
 	
@@ -45,7 +41,9 @@ webpackJsonp([0],{
 	
 	var _arrayTreeFilter2 = _interopRequireDefault(_arrayTreeFilter);
 	
-	var Demo = _react2['default'].createClass({
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Demo = _react2.default.createClass({
 	  displayName: 'Demo',
 	
 	  propTypes: {
@@ -54,7 +52,7 @@ webpackJsonp([0],{
 	  },
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      data: _data2['default'],
+	      data: _data2.default,
 	      cols: 3
 	    };
 	  },
@@ -84,7 +82,7 @@ webpackJsonp([0],{
 	    if (!value) {
 	      return '';
 	    }
-	    var treeChildren = (0, _arrayTreeFilter2['default'])(this.props.data, function (c, level) {
+	    var treeChildren = (0, _arrayTreeFilter2.default)(this.props.data, function (c, level) {
 	      return c.value === value[level];
 	    });
 	    return treeChildren.map(function (v) {
@@ -97,22 +95,22 @@ webpackJsonp([0],{
 	    });
 	  },
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return _react2.default.createElement(
 	      'div',
 	      { style: { padding: 10 } },
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'h3',
 	        null,
 	        'popup cascader'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        null,
 	        '选择的城市：',
 	        this.getSel()
 	      ),
-	      _react2['default'].createElement(
-	        _rmcCascaderSrcPopup2['default'],
+	      _react2.default.createElement(
+	        _Popup2.default,
 	        {
 	          data: this.props.data,
 	          value: this.state.value,
@@ -120,29 +118,30 @@ webpackJsonp([0],{
 	          onPickerChange: this.onPickerChange,
 	          onDismiss: this.onDismiss,
 	          onChange: this.onChange,
-	          style: { left: 0, bottom: 0 } },
-	        _react2['default'].createElement(
+	          style: { left: 0, bottom: 0 }
+	        },
+	        _react2.default.createElement(
 	          'button',
 	          { ref: 'button' },
 	          'open'
 	        )
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'h3',
 	        null,
 	        'just cascader no children'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.outerCtrl },
 	        'open'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.outerCtrl },
 	        'switch'
 	      ),
-	      _react2['default'].createElement(_rmcCascaderSrcPopup2['default'], {
+	      _react2.default.createElement(_Popup2.default, {
 	        visible: this.state.visible,
 	        data: this.props.data,
 	        value: this.state.value,
@@ -150,12 +149,13 @@ webpackJsonp([0],{
 	        onPickerChange: this.onPickerChange,
 	        onDismiss: this.onDismiss,
 	        onChange: this.onChange,
-	        style: { left: 0, bottom: 0 } })
+	        style: { left: 0, bottom: 0 }
+	      })
 	    );
 	  }
-	});
+	}); /* eslint no-console:0, react/no-multi-comp:0 */
 	
-	_reactDom2['default'].render(_react2['default'].createElement(Demo, { data: _data2['default'] }), document.getElementById('__react-content'));
+	_reactDom2.default.render(_react2.default.createElement(Demo, { data: _data2.default }), document.getElementById('__react-content'));
 
 /***/ },
 
@@ -178,13 +178,11 @@ webpackJsonp([0],{
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _react = __webpack_require__(6);
 	
@@ -204,9 +202,11 @@ webpackJsonp([0],{
 	
 	var _utils = __webpack_require__(171);
 	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	function noop() {}
 	
-	var PopupPicker = _react2['default'].createClass({
+	var PopupPicker = _react2.default.createClass({
 	  displayName: 'PopupPicker',
 	
 	  propTypes: {
@@ -231,7 +231,7 @@ webpackJsonp([0],{
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      prefixCls: 'rmc-cascader',
-	      Modal: _rmcModal2['default'],
+	      Modal: _rmcModal2.default,
 	      modalPrefix: 'rmc-modal',
 	      onVisibleChange: noop,
 	      okText: 'Ok',
@@ -263,18 +263,18 @@ webpackJsonp([0],{
 	      if (!this.onDocumentClickListener) {
 	        this.onDocumentClickListener = (0, _utils.addEventListener)(document, 'click', this.onDocumentClick);
 	      }
-	      _reactDom2['default'].render(this.getModal(), this.popupContainer);
+	      _reactDom2.default.render(this.getModal(), this.popupContainer);
 	    } else {
 	      if (this.onDocumentClickListener) {
 	        this.onDocumentClickListener.remove();
 	        this.onDocumentClickListener = null;
 	      }
 	      this.pickerValue = null;
-	      _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
+	      _reactDom2.default.unmountComponentAtNode(this.popupContainer);
 	    }
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
-	    _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
+	    _reactDom2.default.unmountComponentAtNode(this.popupContainer);
 	    document.body.removeChild(this.popupContainer);
 	  },
 	  onPickerChange: function onPickerChange(value) {
@@ -300,7 +300,7 @@ webpackJsonp([0],{
 	  },
 	  onTriggerClick: function onTriggerClick() {
 	    this.fireVisibleChange(!this.state.visible);
-	    var child = _react2['default'].Children.only(this.props.children);
+	    var child = _react2.default.Children.only(this.props.children);
 	    var childProps = child.props || {};
 	    if (childProps.onClick) {
 	      childProps.onClick();
@@ -342,34 +342,39 @@ webpackJsonp([0],{
 	    if (prefixCls) {
 	      extraProps.prefixCls = prefixCls;
 	    }
-	    return _react2['default'].createElement(
+	    return _react2.default.createElement(
 	      ModalClass,
-	      { className: className,
+	      {
+	        className: className,
 	        modalPrefix: modalPrefix,
 	        visible: true,
 	        style: style,
-	        onDismiss: this.onDismiss },
-	      _react2['default'].createElement(
+	        onDismiss: this.onDismiss
+	      },
+	      _react2.default.createElement(
 	        'div',
 	        { ref: this.saveModalContent },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          'div',
 	          { className: prefixCls + '-popup-header' },
-	          _react2['default'].createElement(
+	          _react2.default.createElement(
 	            'div',
 	            { className: prefixCls + '-popup-item', onClick: this.onDismiss },
 	            dismissText
 	          ),
-	          _react2['default'].createElement('div', { className: prefixCls + '-popup-item' }),
-	          _react2['default'].createElement(
+	          _react2.default.createElement('div', { className: prefixCls + '-popup-item' }),
+	          _react2.default.createElement(
 	            'div',
 	            { className: prefixCls + '-popup-item', onClick: this.onChange },
 	            okText
 	          )
 	        ),
-	        _react2['default'].createElement(_MCascader2['default'], _extends({ data: data, value: this.state.pickerValue || value,
+	        _react2.default.createElement(_MCascader2.default, _extends({
+	          data: data,
+	          value: this.state.pickerValue || value,
 	          cols: cols,
-	          onChange: this.onPickerChange }, extraProps))
+	          onChange: this.onPickerChange
+	        }, extraProps))
 	      )
 	    );
 	  },
@@ -390,15 +395,15 @@ webpackJsonp([0],{
 	    if (!children) {
 	      return null;
 	    }
-	    var child = _react2['default'].Children.only(children);
+	    var child = _react2.default.Children.only(children);
 	    var newChildProps = {
 	      onClick: this.onTriggerClick
 	    };
-	    return _react2['default'].cloneElement(child, newChildProps);
+	    return _react2.default.cloneElement(child, newChildProps);
 	  }
 	});
 	
-	exports['default'] = PopupPicker;
+	exports.default = PopupPicker;
 	module.exports = exports['default'];
 
 /***/ },

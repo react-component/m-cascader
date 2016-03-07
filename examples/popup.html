@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>popup.js - example - rmc-cascader@0.3.1</title>
+  <title>popup.js - example - rmc-cascader@0.3.3</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -251,13 +251,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <!--[if lt IE 9]>
   <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"></script>
   <![endif]-->
-  <link rel="stylesheet" href="popup.css" /><link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="common.css" /><link rel="stylesheet" href="popup.css" />
 </head>
 
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-cascader@0.3.1</h1>
+    <h1>rmc-cascader@0.3.3</h1>
 
     <p>m-cascader ui component for react</p>
   </div>
@@ -266,16 +266,16 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <script src="popup.js?nowrap"></script>
   <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint no-console:0, react/no-multi-comp:0 */</span>
 
-import <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
-import <span class="hljs-string">'rmc-cascader/assets/index.css'</span>;
-import <span class="hljs-string">'rmc-cascader/assets/popup.css'</span>;
-import <span class="hljs-string">'rmc-modal/assets/index.css'</span>;
-import React, {PropTypes} from <span class="hljs-string">'react'</span>;
-import ReactDOM from <span class="hljs-string">'react-dom'</span>;
-import PopCascader from <span class="hljs-string">'rmc-cascader/lib/Popup'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-cascader/assets/index.css'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-cascader/assets/popup.css'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-modal/assets/index.css'</span>;
+<span class="hljs-keyword">import</span> React, { PropTypes } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+<span class="hljs-keyword">import</span> PopCascader <span class="hljs-keyword">from</span> <span class="hljs-string">'rmc-cascader/lib/Popup'</span>;
 
-import globalData from <span class="hljs-string">'./data'</span>;
-import arrayTreeFilter from <span class="hljs-string">'array-tree-filter'</span>;
+<span class="hljs-keyword">import</span> globalData <span class="hljs-keyword">from</span> <span class="hljs-string">'./data'</span>;
+<span class="hljs-keyword">import</span> arrayTreeFilter <span class="hljs-keyword">from</span> <span class="hljs-string">'array-tree-filter'</span>;
 
 <span class="hljs-keyword">const</span> Demo = React.createClass({
   propTypes: {
@@ -314,10 +314,10 @@ import arrayTreeFilter from <span class="hljs-string">'array-tree-filter'</span>
     <span class="hljs-keyword">if</span> (!value) {
       <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
     }
-    <span class="hljs-keyword">const</span> treeChildren = arrayTreeFilter(<span class="hljs-keyword">this</span>.props.data, (c, level)=&gt; {
+    <span class="hljs-keyword">const</span> treeChildren = arrayTreeFilter(<span class="hljs-keyword">this</span>.props.data, (c, level) =&gt; {
       <span class="hljs-keyword">return</span> c.value === value[level];
     });
-    <span class="hljs-keyword">return</span> treeChildren.map((v)=&gt; {
+    <span class="hljs-keyword">return</span> treeChildren.map((v) =&gt; {
       <span class="hljs-keyword">return</span> v.label;
     }).join(<span class="hljs-string">','</span>);
   },
@@ -327,7 +327,7 @@ import arrayTreeFilter from <span class="hljs-string">'array-tree-filter'</span>
     });
   },
   render() {
-    <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{padding:</span> <span class="hljs-attribute">10</span>}}&gt;</span>
+    <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">10</span> }}&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>popup cascader<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>选择的城市：{this.getSel()}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">PopCascader</span>
@@ -337,7 +337,8 @@ import arrayTreeFilter from <span class="hljs-string">'array-tree-filter'</span>
         <span class="hljs-attribute">onPickerChange</span>=<span class="hljs-value">{this.onPickerChange}</span>
         <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>
         <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>
-        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{left:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">bottom:</span> <span class="hljs-attribute">0</span>}}&gt;</span>
+        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">left:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">bottom:</span> <span class="hljs-attribute">0</span> }}
+      &gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">"button"</span>&gt;</span>open<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">PopCascader</span>&gt;</span>
 
@@ -352,12 +353,13 @@ import arrayTreeFilter from <span class="hljs-string">'array-tree-filter'</span>
         <span class="hljs-attribute">onPickerChange</span>=<span class="hljs-value">{this.onPickerChange}</span>
         <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>
         <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>
-        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{left:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">bottom:</span> <span class="hljs-attribute">0</span>}}/&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
+        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">left:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">bottom:</span> <span class="hljs-attribute">0</span> }}
+      /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
   },
 });
 
-ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> <span class="hljs-attribute">data</span>=<span class="hljs-value">{globalData}</span>/&gt;</span>, document.getElementById('__react-content'));
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> <span class="hljs-attribute">data</span>=<span class="hljs-value">{</span> <span class="hljs-attribute">globalData</span> }/&gt;</span>, document.getElementById('__react-content'));
 </span></code></pre></div>
 </div>
 <a href="https://github.com/react-component/m-cascader">
