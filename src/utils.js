@@ -42,4 +42,7 @@ export function contains(root, n) {
   return false;
 }
 
+export function noop() {
+}
+
 export const COLS = 3;

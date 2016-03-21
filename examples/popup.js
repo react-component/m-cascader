@@ -3,11 +3,10 @@
 import 'rmc-picker/assets/index.css';
 import 'rmc-cascader/assets/index.less';
 import 'rmc-cascader/assets/popup.less';
-import 'rmc-modal/assets/index.css';
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import PopCascader from 'rmc-cascader/src/Popup';
-
+import loadScript from 'load-script';
 import globalData from './data';
 import arrayTreeFilter from 'array-tree-filter';
 
@@ -87,10 +86,13 @@ const Demo = React.createClass({
         onPickerChange={this.onPickerChange}
         onDismiss={this.onDismiss}
         onChange={this.onChange}
-        style={{ left: 0, bottom: 0 }}
       />
     </div>);
   },
 });
 
 ReactDOM.render(<Demo data={ globalData }/>, document.getElementById('__react-content'));
+
+loadScript('//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js', () => {
+  window.FastClick.attach(document.body);
+});

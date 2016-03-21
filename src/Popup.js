@@ -1,12 +1,8 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import MCascader from './MCascader';
-import Modal from 'rmc-modal';
-import { getDefaultValue, COLS, addEventListener, contains } from './utils';
-
-
-function noop() {
-}
+import Modal from 'rc-dialog';
+import { getDefaultValue, COLS, noop, addEventListener, contains } from './utils';
 
 const PopupPicker = React.createClass({
   propTypes: {
@@ -15,7 +11,6 @@ const PopupPicker = React.createClass({
     onChange: PropTypes.func,
     onDismiss: PropTypes.func,
     onVisibleChange: PropTypes.func,
-    Modal: PropTypes.func,
     data: PropTypes.any,
     value: PropTypes.any,
     cols: PropTypes.number,
@@ -26,13 +21,10 @@ const PopupPicker = React.createClass({
     okText: PropTypes.string,
     dismissText: PropTypes.string,
     className: PropTypes.string,
-    modalPrefix: PropTypes.string,
   },
   getDefaultProps() {
     return {
       prefixCls: 'rmc-cascader',
-      Modal,
-      modalPrefix: 'rmc-modal',
       onVisibleChange: noop,
       okText: 'Ok',
       dismissText: 'Dismiss',
@@ -117,9 +109,9 @@ const PopupPicker = React.createClass({
     }
   },
   getModal() {
-    const { Modal: ModalClass, data, cols, prefixCls,
+    const { data, cols, prefixCls,
       style, pickerPrefixCls, dismissText, okText,
-      className, modalPrefix, value } = this.props;
+      className, value } = this.props;
     const extraProps = {};
     if (pickerPrefixCls) {
       extraProps.pickerPrefixCls = pickerPrefixCls;
@@ -127,12 +119,12 @@ const PopupPicker = React.createClass({
     if (prefixCls) {
       extraProps.prefixCls = prefixCls;
     }
-    return (<ModalClass
+    return (<Modal
       className={className}
-      modalPrefix={modalPrefix}
+      prefixCls={`${prefixCls}-popup`}
       visible
+      closable={false}
       style={style}
-      onDismiss={this.onDismiss}
     >
       <div ref={this.saveModalContent}>
         <div className={`${prefixCls}-popup-header`}>
@@ -148,7 +140,7 @@ const PopupPicker = React.createClass({
           {...extraProps}
         />
       </div>
-    </ModalClass>);
+    </Modal>);
   },
   fireVisibleChange(visible) {
     if (this.state.visible !== visible) {

@@ -76,7 +76,6 @@ see example
 |----------|----------------|----------|--------------|
 |className | additional css class of modal node | String | '' |
 |prefixCls | prefix class | String | 'rmc-cascader' |
-|modalPrefixCls | prefix class | String | 'rmc-modal' |
 |pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
 |data | The data of cascade | array  |  |
 |value | selected value | array  |  |
