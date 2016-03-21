@@ -2,7 +2,7 @@
 
 import 'rmc-picker/assets/index.css';
 import 'rmc-cascader/assets/index.less';
-import 'rmc-cascader/assets/popup.less';
+import 'rmc-picker/assets/popup.css';
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import PopCascader from 'rmc-cascader/src/Popup';
