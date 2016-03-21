@@ -31,11 +31,11 @@ webpackJsonp([0],{
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
-	var _loadScript = __webpack_require__(184);
+	var _loadScript = __webpack_require__(186);
 	
 	var _loadScript2 = _interopRequireDefault(_loadScript);
 	
-	var _data = __webpack_require__(185);
+	var _data = __webpack_require__(187);
 	
 	var _data2 = _interopRequireDefault(_data);
 	
@@ -186,58 +186,177 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(162);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
 	var _MCascader = __webpack_require__(164);
 	
 	var _MCascader2 = _interopRequireDefault(_MCascader);
 	
-	var _rcDialog = __webpack_require__(171);
-	
-	var _rcDialog2 = _interopRequireDefault(_rcDialog);
-	
 	var _utils = __webpack_require__(170);
+	
+	var _Popup = __webpack_require__(171);
+	
+	var _Popup2 = _interopRequireDefault(_Popup);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var PopupPicker = _react2.default.createClass({
-	  displayName: 'PopupPicker',
+	var PROPS = ['onDismiss', 'children', 'style', 'okText', 'dismissText', 'className'];
+	
+	var PopupCascader = _react2.default.createClass({
+	  displayName: 'PopupCascader',
 	
 	  propTypes: {
 	    visible: _react.PropTypes.bool,
 	    onPickerChange: _react.PropTypes.func,
 	    onChange: _react.PropTypes.func,
-	    onDismiss: _react.PropTypes.func,
 	    onVisibleChange: _react.PropTypes.func,
 	    data: _react.PropTypes.any,
 	    value: _react.PropTypes.any,
 	    cols: _react.PropTypes.number,
-	    children: _react.PropTypes.element,
 	    prefixCls: _react.PropTypes.string,
-	    style: _react.PropTypes.object,
-	    pickerPrefixCls: _react.PropTypes.string,
-	    okText: _react.PropTypes.string,
-	    dismissText: _react.PropTypes.string,
-	    className: _react.PropTypes.string
+	    popupPrefixCls: _react.PropTypes.string,
+	    pickerPrefixCls: _react.PropTypes.string
 	  },
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      prefixCls: 'rmc-cascader',
+	      popupPrefixCls: 'rmc-picker-popup',
 	      onVisibleChange: _utils.noop,
-	      okText: 'Ok',
-	      dismissText: 'Dismiss',
-	      style: {},
 	      cols: _utils.COLS,
 	      onChange: _utils.noop,
-	      onDismiss: _utils.noop,
 	      onPickerChange: _utils.noop
 	    };
 	  },
 	  getInitialState: function getInitialState() {
 	    return {
 	      pickerValue: null,
+	      visible: this.props.visible || false
+	    };
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if ('visible' in nextProps) {
+	      this.setVisibleState(nextProps.visible);
+	    }
+	  },
+	  onPickerChange: function onPickerChange(value) {
+	    this.setState({
+	      pickerValue: value
+	    });
+	    this.props.onPickerChange(value);
+	  },
+	  onOk: function onOk() {
+	    var _props = this.props;
+	    var value = _props.value;
+	    var cols = _props.cols;
+	    var data = _props.data;
+	
+	    this.props.onChange((0, _utils.getDefaultValue)(data, this.state.pickerValue || value, cols).filter(function (c) {
+	      return !!c;
+	    }));
+	  },
+	  setVisibleState: function setVisibleState(visible) {
+	    this.setState({
+	      visible: visible
+	    });
+	    if (!visible) {
+	      this.setState({
+	        pickerValue: null
+	      });
+	    }
+	  },
+	  getModal: function getModal() {
+	    var _props2 = this.props;
+	    var data = _props2.data;
+	    var cols = _props2.cols;
+	    var prefixCls = _props2.prefixCls;
+	    var pickerPrefixCls = _props2.pickerPrefixCls;
+	    var value = _props2.value;
+	
+	    var extraProps = {};
+	    if (pickerPrefixCls) {
+	      extraProps.pickerPrefixCls = pickerPrefixCls;
+	    }
+	    if (prefixCls) {
+	      extraProps.prefixCls = prefixCls;
+	    }
+	    return _react2.default.createElement(_MCascader2.default, _extends({
+	      data: data,
+	      value: this.state.pickerValue || value,
+	      cols: cols,
+	      onChange: this.onPickerChange
+	    }, extraProps));
+	  },
+	  fireVisibleChange: function fireVisibleChange(visible) {
+	    if (this.state.visible !== visible) {
+	      if (!('visible' in this.props)) {
+	        this.setVisibleState(visible);
+	      }
+	      this.props.onVisibleChange(visible);
+	    }
+	  },
+	  render: function render() {
+	    var props = (0, _utils.pick)(this.props, PROPS);
+	    return _react2.default.createElement(_Popup2.default, _extends({}, props, {
+	      onVisibleChange: this.fireVisibleChange,
+	      onOk: this.onOk,
+	      content: this.getModal(),
+	      prefixCls: this.props.popupPrefixCls,
+	      visible: this.state.visible
+	    }));
+	  }
+	});
+	
+	exports.default = PopupCascader;
+	module.exports = exports['default'];
+
+/***/ },
+
+/***/ 171:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _react = __webpack_require__(5);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(162);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _rcDialog = __webpack_require__(172);
+	
+	var _rcDialog2 = _interopRequireDefault(_rcDialog);
+	
+	var _utils = __webpack_require__(185);
+	
+	var PopupPicker = _react2['default'].createClass({
+	  displayName: 'PopupPicker',
+	
+	  propTypes: {
+	    visible: _react.PropTypes.bool,
+	    onOk: _react.PropTypes.func,
+	    onVisibleChange: _react.PropTypes.func,
+	    children: _react.PropTypes.element,
+	    content: _react.PropTypes.any,
+	    onDismiss: _react.PropTypes.func
+	  },
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      prefixCls: 'rmc-picker-popup',
+	      onVisibleChange: _utils.noop,
+	      okText: 'Ok',
+	      dismissText: 'Dismiss',
+	      style: {},
+	      onOk: _utils.noop,
+	      onDismiss: _utils.noop
+	    };
+	  },
+	  getInitialState: function getInitialState() {
+	    return {
 	      visible: this.props.visible || false
 	    };
 	  },
@@ -255,47 +374,33 @@ webpackJsonp([0],{
 	      if (!this.onDocumentClickListener) {
 	        this.onDocumentClickListener = (0, _utils.addEventListener)(document, 'click', this.onDocumentClick);
 	      }
-	      _reactDom2.default.render(this.getModal(), this.popupContainer);
+	      _reactDom2['default'].render(this.getModal(), this.popupContainer);
 	    } else {
 	      if (this.onDocumentClickListener) {
 	        this.onDocumentClickListener.remove();
 	        this.onDocumentClickListener = null;
 	      }
-	      this.pickerValue = null;
-	      _reactDom2.default.unmountComponentAtNode(this.popupContainer);
+	      _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
 	    }
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
-	    _reactDom2.default.unmountComponentAtNode(this.popupContainer);
+	    _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
 	    document.body.removeChild(this.popupContainer);
 	  },
-	  onPickerChange: function onPickerChange(value) {
-	    this.setState({
-	      pickerValue: value
-	    });
-	    this.props.onPickerChange(value);
-	  },
-	  onChange: function onChange() {
+	  onOk: function onOk() {
 	    this.fireVisibleChange(false);
-	    var _props = this.props;
-	    var value = _props.value;
-	    var cols = _props.cols;
-	    var data = _props.data;
-	
-	    this.props.onChange((0, _utils.getDefaultValue)(data, this.state.pickerValue || value, cols).filter(function (c) {
-	      return !!c;
-	    }));
+	    this.props.onOk();
 	  },
 	  onDismiss: function onDismiss() {
 	    this.fireVisibleChange(false);
 	    this.props.onDismiss();
 	  },
-	  onTriggerClick: function onTriggerClick() {
+	  onTriggerClick: function onTriggerClick(e) {
 	    this.fireVisibleChange(!this.state.visible);
-	    var child = _react2.default.Children.only(this.props.children);
+	    var child = _react2['default'].Children.only(this.props.children);
 	    var childProps = child.props || {};
 	    if (childProps.onClick) {
-	      childProps.onClick();
+	      childProps.onClick(e);
 	    }
 	  },
 	  onDocumentClick: function onDocumentClick(e) {
@@ -307,66 +412,41 @@ webpackJsonp([0],{
 	    this.setState({
 	      visible: visible
 	    });
-	    if (!visible) {
-	      this.setState({
-	        pickerValue: null
-	      });
-	    }
 	  },
 	  getModal: function getModal() {
-	    var _props2 = this.props;
-	    var data = _props2.data;
-	    var cols = _props2.cols;
-	    var prefixCls = _props2.prefixCls;
-	    var style = _props2.style;
-	    var pickerPrefixCls = _props2.pickerPrefixCls;
-	    var dismissText = _props2.dismissText;
-	    var okText = _props2.okText;
-	    var className = _props2.className;
-	    var value = _props2.value;
-	
-	    var extraProps = {};
-	    if (pickerPrefixCls) {
-	      extraProps.pickerPrefixCls = pickerPrefixCls;
-	    }
-	    if (prefixCls) {
-	      extraProps.prefixCls = prefixCls;
-	    }
-	    return _react2.default.createElement(
-	      _rcDialog2.default,
+	    var props = this.props;
+	    return _react2['default'].createElement(
+	      _rcDialog2['default'],
 	      {
-	        className: className,
-	        prefixCls: prefixCls + '-popup',
+	        prefixCls: '' + props.prefixCls,
 	        visible: true,
 	        closable: false,
-	        style: style
+	        style: props.style
 	      },
-	      _react2.default.createElement(
+	      _react2['default'].createElement(
 	        'div',
 	        { ref: this.saveModalContent },
-	        _react2.default.createElement(
+	        _react2['default'].createElement(
 	          'div',
-	          { className: prefixCls + '-popup-header' },
-	          _react2.default.createElement(
+	          { className: props.prefixCls + '-header' },
+	          _react2['default'].createElement(
 	            'div',
-	            { className: prefixCls + '-popup-item', onClick: this.onDismiss },
-	            dismissText
+	            { className: props.prefixCls + '-item', onClick: this.onDismiss },
+	            props.dismissText
 	          ),
-	          _react2.default.createElement('div', { className: prefixCls + '-popup-item' }),
-	          _react2.default.createElement(
+	          _react2['default'].createElement('div', { className: props.prefixCls + '-item' }),
+	          _react2['default'].createElement(
 	            'div',
-	            { className: prefixCls + '-popup-item', onClick: this.onChange },
-	            okText
+	            { className: props.prefixCls + '-item', onClick: this.onOk },
+	            props.okText
 	          )
 	        ),
-	        _react2.default.createElement(_MCascader2.default, _extends({
-	          data: data,
-	          value: this.state.pickerValue || value,
-	          cols: cols,
-	          onChange: this.onPickerChange
-	        }, extraProps))
+	        this.props.content
 	      )
 	    );
+	  },
+	  saveModalContent: function saveModalContent(content) {
+	    this.modalContent = content;
 	  },
 	  fireVisibleChange: function fireVisibleChange(visible) {
 	    if (this.state.visible !== visible) {
@@ -376,38 +456,35 @@ webpackJsonp([0],{
 	      this.props.onVisibleChange(visible);
 	    }
 	  },
-	  saveModalContent: function saveModalContent(content) {
-	    this.modalContent = content;
-	  },
 	  render: function render() {
 	    var props = this.props;
 	    var children = props.children;
-	    if (!children) {
+	    if(!children){
 	      return null;
 	    }
-	    var child = _react2.default.Children.only(children);
+	    var child = _react2['default'].Children.only(children);
 	    var newChildProps = {
 	      onClick: this.onTriggerClick
 	    };
-	    return _react2.default.cloneElement(child, newChildProps);
+	    return _react2['default'].cloneElement(child, newChildProps);
 	  }
 	});
 	
-	exports.default = PopupPicker;
+	exports['default'] = PopupPicker;
 	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 171:
+/***/ 172:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(172);
+	module.exports = __webpack_require__(173);
 
 /***/ },
 
-/***/ 172:
+/***/ 173:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -428,7 +505,7 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _Dialog = __webpack_require__(173);
+	var _Dialog = __webpack_require__(174);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
@@ -588,7 +665,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 173:
+/***/ 174:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -607,15 +684,15 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _KeyCode = __webpack_require__(174);
+	var _KeyCode = __webpack_require__(175);
 	
 	var _KeyCode2 = _interopRequireDefault(_KeyCode);
 	
-	var _rcAnimate = __webpack_require__(175);
+	var _rcAnimate = __webpack_require__(176);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _LazyRenderBox = __webpack_require__(183);
+	var _LazyRenderBox = __webpack_require__(184);
 	
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 	
@@ -949,7 +1026,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 174:
+/***/ 175:
 /***/ function(module, exports) {
 
 	/**
@@ -1475,17 +1552,17 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 175:
+/***/ 176:
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
 	'use strict';
 	
-	module.exports = __webpack_require__(176);
+	module.exports = __webpack_require__(177);
 
 /***/ },
 
-/***/ 176:
+/***/ 177:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1502,13 +1579,13 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(177);
+	var _ChildrenUtils = __webpack_require__(178);
 	
-	var _AnimateChild = __webpack_require__(178);
+	var _AnimateChild = __webpack_require__(179);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(182);
+	var _util = __webpack_require__(183);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1816,7 +1893,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 177:
+/***/ 178:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1935,7 +2012,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 178:
+/***/ 179:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1954,11 +2031,11 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(179);
+	var _cssAnimation = __webpack_require__(180);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(182);
+	var _util = __webpack_require__(183);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -2039,13 +2116,13 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 179:
+/***/ 180:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Event = __webpack_require__(180);
-	var Css = __webpack_require__(181);
+	var Event = __webpack_require__(181);
+	var Css = __webpack_require__(182);
 	var isCssAnimationSupported = Event.endEvents.length !== 0;
 	
 	function getDuration(node, name) {
@@ -2198,7 +2275,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 180:
+/***/ 181:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2287,7 +2364,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 181:
+/***/ 182:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2319,7 +2396,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 182:
+/***/ 183:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2353,7 +2430,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 183:
+/***/ 184:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2395,7 +2472,54 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 184:
+/***/ 185:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports.addEventListener = addEventListener;
+	exports.contains = contains;
+	exports.noop = noop;
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _reactDom = __webpack_require__(162);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	function addEventListener(target, eventType, cb) {
+	  /* eslint camelcase: 2 */
+	  var callback = _reactDom2['default'].unstable_batchedUpdates ? function run(e) {
+	    _reactDom2['default'].unstable_batchedUpdates(cb, e);
+	  } : cb;
+	  target.addEventListener(eventType, callback, false);
+	  return {
+	    remove: function remove() {
+	      target.removeEventListener(eventType, callback, false);
+	    }
+	  };
+	}
+	
+	function contains(root, n) {
+	  var node = n;
+	  while (node) {
+	    if (node === root) {
+	      return true;
+	    }
+	    node = node.parentNode;
+	  }
+	
+	  return false;
+	}
+	
+	function noop() {}
+
+/***/ },
+
+/***/ 186:
 /***/ function(module, exports) {
 
 	
