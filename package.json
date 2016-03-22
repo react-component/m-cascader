@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "expect.js": "0.3.x",
-    "load-script": "^1.0.0",
+    "fastclick": "^1.0.6",
     "pre-commit": "1.x",
     "rc-tools": "5.x",
     "react": "0.14.x",

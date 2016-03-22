@@ -5,8 +5,7 @@ import 'rmc-cascader/assets/index.less';
 import 'rmc-picker/assets/popup.css';
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import PopCascader from 'rmc-cascader/src/Popup';
-import loadScript from 'load-script';
+import PopupCascader from 'rmc-cascader/src/Popup';
 import globalData from './data';
 import arrayTreeFilter from 'array-tree-filter';
 
@@ -63,7 +62,7 @@ const Demo = React.createClass({
     return (<div style={{ padding: 10 }}>
       <h3>popup cascader</h3>
       <p>选择的城市：{this.getSel()}</p>
-      <PopCascader
+      <PopupCascader
         data={this.props.data}
         value={this.state.value}
         cols={this.props.cols}
@@ -73,12 +72,12 @@ const Demo = React.createClass({
         style={{ left: 0, bottom: 0 }}
       >
         <button ref="button">open</button>
-      </PopCascader>
+      </PopupCascader>
 
       <h3>just cascader no children</h3>
       <button onClick={this.outerCtrl}>open</button>
       <button onClick={this.outerCtrl}>switch</button>
-      <PopCascader
+      <PopupCascader
         visible={this.state.visible}
         data={this.props.data}
         value={this.state.value}
@@ -92,7 +91,3 @@ const Demo = React.createClass({
 });
 
 ReactDOM.render(<Demo data={ globalData }/>, document.getElementById('__react-content'));
-
-loadScript('//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js', () => {
-  window.FastClick.attach(document.body);
-});
