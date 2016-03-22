@@ -31,11 +31,7 @@ webpackJsonp([0],{
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
-	var _loadScript = __webpack_require__(186);
-	
-	var _loadScript2 = _interopRequireDefault(_loadScript);
-	
-	var _data = __webpack_require__(187);
+	var _data = __webpack_require__(186);
 	
 	var _data2 = _interopRequireDefault(_data);
 	
@@ -43,9 +39,11 @@ webpackJsonp([0],{
 	
 	var _arrayTreeFilter2 = _interopRequireDefault(_arrayTreeFilter);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	var Demo = _react2.default.createClass({
+	/* eslint no-console:0, react/no-multi-comp:0 */
+	
+	var Demo = _react2["default"].createClass({
 	  displayName: 'Demo',
 	
 	  propTypes: {
@@ -54,7 +52,7 @@ webpackJsonp([0],{
 	  },
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      data: _data2.default,
+	      data: _data2["default"],
 	      cols: 3
 	    };
 	  },
@@ -84,7 +82,7 @@ webpackJsonp([0],{
 	    if (!value) {
 	      return '';
 	    }
-	    var treeChildren = (0, _arrayTreeFilter2.default)(this.props.data, function (c, level) {
+	    var treeChildren = (0, _arrayTreeFilter2["default"])(this.props.data, function (c, level) {
 	      return c.value === value[level];
 	    });
 	    return treeChildren.map(function (v) {
@@ -97,22 +95,22 @@ webpackJsonp([0],{
 	    });
 	  },
 	  render: function render() {
-	    return _react2.default.createElement(
+	    return _react2["default"].createElement(
 	      'div',
 	      { style: { padding: 10 } },
-	      _react2.default.createElement(
+	      _react2["default"].createElement(
 	        'h3',
 	        null,
 	        'popup cascader'
 	      ),
-	      _react2.default.createElement(
+	      _react2["default"].createElement(
 	        'p',
 	        null,
 	        '选择的城市：',
 	        this.getSel()
 	      ),
-	      _react2.default.createElement(
-	        _Popup2.default,
+	      _react2["default"].createElement(
+	        _Popup2["default"],
 	        {
 	          data: this.props.data,
 	          value: this.state.value,
@@ -122,28 +120,28 @@ webpackJsonp([0],{
 	          onChange: this.onChange,
 	          style: { left: 0, bottom: 0 }
 	        },
-	        _react2.default.createElement(
+	        _react2["default"].createElement(
 	          'button',
 	          { ref: 'button' },
 	          'open'
 	        )
 	      ),
-	      _react2.default.createElement(
+	      _react2["default"].createElement(
 	        'h3',
 	        null,
 	        'just cascader no children'
 	      ),
-	      _react2.default.createElement(
+	      _react2["default"].createElement(
 	        'button',
 	        { onClick: this.outerCtrl },
 	        'open'
 	      ),
-	      _react2.default.createElement(
+	      _react2["default"].createElement(
 	        'button',
 	        { onClick: this.outerCtrl },
 	        'switch'
 	      ),
-	      _react2.default.createElement(_Popup2.default, {
+	      _react2["default"].createElement(_Popup2["default"], {
 	        visible: this.state.visible,
 	        data: this.props.data,
 	        value: this.state.value,
@@ -154,13 +152,9 @@ webpackJsonp([0],{
 	      })
 	    );
 	  }
-	}); /* eslint no-console:0, react/no-multi-comp:0 */
-	
-	_reactDom2.default.render(_react2.default.createElement(Demo, { data: _data2.default }), document.getElementById('__react-content'));
-	
-	(0, _loadScript2.default)('//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js', function () {
-	  window.FastClick.attach(document.body);
 	});
+	
+	_reactDom2["default"].render(_react2["default"].createElement(Demo, { data: _data2["default"] }), document.getElementById('__react-content'));
 
 /***/ },
 
@@ -196,11 +190,11 @@ webpackJsonp([0],{
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
 	var PROPS = ['onDismiss', 'children', 'style', 'okText', 'dismissText', 'className'];
 	
-	var PopupCascader = _react2.default.createClass({
+	var PopupCascader = _react2["default"].createClass({
 	  displayName: 'PopupCascader',
 	
 	  propTypes: {
@@ -276,7 +270,7 @@ webpackJsonp([0],{
 	    if (prefixCls) {
 	      extraProps.prefixCls = prefixCls;
 	    }
-	    return _react2.default.createElement(_MCascader2.default, _extends({
+	    return _react2["default"].createElement(_MCascader2["default"], _extends({
 	      data: data,
 	      value: this.state.pickerValue || value,
 	      cols: cols,
@@ -293,7 +287,7 @@ webpackJsonp([0],{
 	  },
 	  render: function render() {
 	    var props = (0, _utils.pick)(this.props, PROPS);
-	    return _react2.default.createElement(_Popup2.default, _extends({}, props, {
+	    return _react2["default"].createElement(_Popup2["default"], _extends({}, props, {
 	      onVisibleChange: this.fireVisibleChange,
 	      onOk: this.onOk,
 	      content: this.getModal(),
@@ -303,7 +297,7 @@ webpackJsonp([0],{
 	  }
 	});
 	
-	exports.default = PopupCascader;
+	exports["default"] = PopupCascader;
 	module.exports = exports['default'];
 
 /***/ },
@@ -2516,78 +2510,6 @@ webpackJsonp([0],{
 	}
 	
 	function noop() {}
-
-/***/ },
-
-/***/ 186:
-/***/ function(module, exports) {
-
-	
-	module.exports = function load (src, opts, cb) {
-	  var head = document.head || document.getElementsByTagName('head')[0]
-	  var script = document.createElement('script')
-	
-	  if (typeof opts === 'function') {
-	    cb = opts
-	    opts = {}
-	  }
-	
-	  opts = opts || {}
-	  cb = cb || function() {}
-	
-	  script.type = opts.type || 'text/javascript'
-	  script.charset = opts.charset || 'utf8';
-	  script.async = 'async' in opts ? !!opts.async : true
-	  script.src = src
-	
-	  if (opts.attrs) {
-	    setAttributes(script, opts.attrs)
-	  }
-	
-	  if (opts.text) {
-	    script.text = '' + opts.text
-	  }
-	
-	  var onend = 'onload' in script ? stdOnEnd : ieOnEnd
-	  onend(script, cb)
-	
-	  // some good legacy browsers (firefox) fail the 'in' detection above
-	  // so as a fallback we always set onload
-	  // old IE will ignore this and new IE will set onload
-	  if (!script.onload) {
-	    stdOnEnd(script, cb);
-	  }
-	
-	  head.appendChild(script)
-	}
-	
-	function setAttributes(script, attrs) {
-	  for (var attr in attrs) {
-	    script.setAttribute(attr, attrs[attr]);
-	  }
-	}
-	
-	function stdOnEnd (script, cb) {
-	  script.onload = function () {
-	    this.onerror = this.onload = null
-	    cb(null, script)
-	  }
-	  script.onerror = function () {
-	    // this.onload = null here is necessary
-	    // because even IE9 works not like others
-	    this.onerror = this.onload = null
-	    cb(new Error('Failed to load ' + this.src), script)
-	  }
-	}
-	
-	function ieOnEnd (script, cb) {
-	  script.onreadystatechange = function () {
-	    if (this.readyState != 'complete' && this.readyState != 'loaded') return
-	    this.onreadystatechange = null
-	    cb(null, script) // there is no way to catch loading errors in IE8
-	  }
-	}
-
 
 /***/ }
 

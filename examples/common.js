@@ -19736,9 +19736,9 @@
 	
 	var _utils = __webpack_require__(170);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	var MCascader = _react2.default.createClass({
+	var MCascader = _react2["default"].createClass({
 	  displayName: 'MCascader',
 	
 	  propTypes: {
@@ -19773,7 +19773,7 @@
 	  onValueChange: function onValueChange(index, selectNameValue) {
 	    var value = this.state.value.concat();
 	    value[index] = selectNameValue;
-	    var children = (0, _arrayTreeFilter2.default)(this.props.data, function (c, level) {
+	    var children = (0, _arrayTreeFilter2["default"])(this.props.data, function (c, level) {
 	      return level <= index && c.value === value[level];
 	    });
 	    var data = children[index];
@@ -19809,7 +19809,7 @@
 	    var className = props.className;
 	
 	    var value = this.state.value || [];
-	    var childrenTree = (0, _arrayTreeFilter2.default)(this.props.data, function (c, level) {
+	    var childrenTree = (0, _arrayTreeFilter2["default"])(this.props.data, function (c, level) {
 	      return c.value === value[level];
 	    }).map(function (c) {
 	      return c.children;
@@ -19817,11 +19817,11 @@
 	    childrenTree.length = this.props.cols - 1;
 	    childrenTree.unshift(this.props.data);
 	    var cols = this.getColArray().map(function (v, i) {
-	      return _react2.default.createElement(
+	      return _react2["default"].createElement(
 	        'div',
 	        { key: i, className: prefixCls + '-main-item' },
-	        _react2.default.createElement(
-	          _rmcPicker2.default,
+	        _react2["default"].createElement(
+	          _rmcPicker2["default"],
 	          {
 	            prefixCls: pickerPrefixCls,
 	            selectedValue: value[i],
@@ -19831,15 +19831,15 @@
 	        )
 	      );
 	    });
-	    return _react2.default.createElement(
+	    return _react2["default"].createElement(
 	      'div',
-	      { className: (0, _classnames2.default)(className, prefixCls) },
+	      { className: (0, _classnames2["default"])(className, prefixCls) },
 	      cols
 	    );
 	  }
 	});
 	
-	exports.default = MCascader;
+	exports["default"] = MCascader;
 	module.exports = exports['default'];
 
 /***/ },
@@ -20678,8 +20678,7 @@
 /* 183 */,
 /* 184 */,
 /* 185 */,
-/* 186 */,
-/* 187 */
+/* 186 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20687,7 +20686,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = [{
+	exports["default"] = [{
 	  label: '北京',
 	  value: '01',
 	  children: [{
