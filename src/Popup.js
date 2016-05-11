@@ -3,7 +3,7 @@ import MCascader from './MCascader';
 import { getDefaultValue, COLS, noop, pick } from './utils';
 import PopupPicker from 'rmc-picker/lib/Popup';
 
-const PROPS = ['onDismiss', 'children', 'style', 'okText', 'dismissText', 'className'];
+const PROPS = ['onDismiss', 'children', 'style', 'okText', 'dismissText', 'title', 'className'];
 
 const PopupCascader = React.createClass({
   propTypes: {

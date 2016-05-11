@@ -86,6 +86,7 @@ see example
 |onDismiss | exec on dismiss | function |  |
 |okText | ok button text | String | 'Ok' |
 |dismissText | dismiss button text | String | 'Dismiss' |
+|title | Popup title | String | '' |
 |visible | whether pop picker is visible | Boolean | |
 |onVisibleChange | called when pop picker visible change | Function | |
 

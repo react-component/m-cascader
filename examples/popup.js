@@ -69,6 +69,7 @@ const Demo = React.createClass({
         onPickerChange={this.onPickerChange}
         onDismiss={this.onDismiss}
         onChange={this.onChange}
+        title="Cascader"
         style={{ left: 0, bottom: 0 }}
       >
         <button ref="button">open</button>
