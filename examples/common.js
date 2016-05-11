@@ -271,6 +271,9 @@
 	var queueIndex = -1;
 	
 	function cleanUpNextTick() {
+	    if (!draining || !currentQueue) {
+	        return;
+	    }
 	    draining = false;
 	    if (currentQueue.length) {
 	        queue = currentQueue.concat(queue);
@@ -8005,6 +8008,10 @@
 	  }
 	};
 	
+	function registerNullComponentID() {
+	  ReactEmptyComponentRegistry.registerNullComponentID(this._rootNodeID);
+	}
+	
 	var ReactEmptyComponent = function (instantiate) {
 	  this._currentElement = null;
 	  this._rootNodeID = null;
@@ -8013,7 +8020,7 @@
 	assign(ReactEmptyComponent.prototype, {
 	  construct: function (element) {},
 	  mountComponent: function (rootID, transaction, context) {
-	    ReactEmptyComponentRegistry.registerNullComponentID(rootID);
+	    transaction.getReactMountReady().enqueue(registerNullComponentID, this);
 	    this._rootNodeID = rootID;
 	    return ReactReconciler.mountComponent(this._renderedComponent, rootID, transaction, context);
 	  },
@@ -18736,7 +18743,7 @@
 	
 	'use strict';
 	
-	module.exports = '0.14.7';
+	module.exports = '0.14.8';
 
 /***/ },
 /* 151 */
@@ -19900,44 +19907,49 @@
 /* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// export this package's api
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	function _interopRequire(obj) { return obj && obj.__esModule ? obj['default'] : obj; }
-	
 	var _Picker = __webpack_require__(167);
 	
-	exports['default'] = _interopRequire(_Picker);
+	Object.defineProperty(exports, 'default', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_Picker)["default"];
+	  }
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
 	module.exports = exports['default'];
 
 /***/ },
 /* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/*
-	 * Based on Zynga Scroller (http://github.com/zynga/scroller)
-	 * Copyright 2011, Zynga Inc.
-	 * Licensed under the MIT License.
-	 * https://raw.github.com/zynga/scroller/master/MIT-LICENSE.txt
-	 */
-	
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _react = __webpack_require__(5);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _Animate = __webpack_require__(168);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	/*
+	 * Based on Zynga Scroller (http://github.com/zynga/scroller)
+	 * Copyright 2011, Zynga Inc.
+	 * Licensed under the MIT License.
+	 * https://raw.github.com/zynga/scroller/master/MIT-LICENSE.txt
+	 */
 	
 	var DECELERATION_VELOCITY_RATE = 0.95;
 	// How much velocity is required to keep the deceleration running
@@ -19986,7 +19998,7 @@
 	  return true;
 	}
 	
-	var Picker = _react2['default'].createClass({
+	var Picker = _react2["default"].createClass({
 	  displayName: 'Picker',
 	
 	  propTypes: {
@@ -20005,9 +20017,8 @@
 	      onValueChange: function onValueChange() {}
 	    };
 	  },
-	
 	  getInitialState: function getInitialState() {
-	    var selectedValueState = undefined;
+	    var selectedValueState = void 0;
 	    var _props = this.props;
 	    var selectedValue = _props.selectedValue;
 	    var defaultSelectedValue = _props.defaultSelectedValue;
@@ -20024,7 +20035,6 @@
 	      selectedValue: selectedValueState
 	    };
 	  },
-	
 	  componentDidMount: function componentDidMount() {
 	    this.init();
 	    var component = this.refs.component;
@@ -20033,7 +20043,6 @@
 	    component.addEventListener('touchmove', this.onTouchMove, false);
 	    component.addEventListener('touchend', this.onTouchEnd, false);
 	  },
-	
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    if ('selectedValue' in nextProps) {
 	      this.setState({
@@ -20041,11 +20050,9 @@
 	      });
 	    }
 	  },
-	
 	  shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
 	    return this.state.selectedValue !== nextState.selectedValue || !isChildrenEqual(this.props.children, nextProps.children, this.props.pure);
 	  },
-	
 	  componentDidUpdate: function componentDidUpdate(prevProps) {
 	    if (!isChildrenEqual(prevProps.children, this.props.children, this.props.pure)) {
 	      this.init();
@@ -20053,7 +20060,6 @@
 	      this.select(this.state.selectedValue, false);
 	    }
 	  },
-	
 	  componentWillUnmount: function componentWillUnmount() {
 	    var component = this.refs.component;
 	
@@ -20062,15 +20068,12 @@
 	    component.removeEventListener('touchend', this.onTouchEnd, false);
 	    this.clearAnim();
 	  },
-	
 	  onTouchEnd: function onTouchEnd(e) {
 	    this.doTouchEnd(+e.timeStamp);
 	  },
-	
 	  onTouchMove: function onTouchMove(e) {
 	    this.doTouchMove(e.touches, +e.timeStamp);
 	  },
-	
 	  onTouchStart: function onTouchStart(e) {
 	    if (e.target.tagName.match(/input|textarea|select/i)) {
 	      return;
@@ -20078,13 +20081,11 @@
 	    e.preventDefault();
 	    this.doTouchStart(e.touches, +e.timeStamp);
 	  },
-	
 	  setTop: function setTop(top) {
 	    if (this.refs.content) {
 	      this.refs.content.style.webkitTransform = 'translate3d(0, ' + -top + 'px, 0)';
 	    }
 	  },
-	
 	  setDimensions: function setDimensions(clientHeight, contentHeight) {
 	    this.clientHeight = clientHeight;
 	    this.contentHeight = contentHeight;
@@ -20095,7 +20096,6 @@
 	    this.minScrollTop = -this.itemHeight * (clientItemCount / 2);
 	    this.maxScrollTop = this.minScrollTop + totalItemCount * this.itemHeight - 0.1;
 	  },
-	
 	  clearAnim: function clearAnim() {
 	    if (this.isDecelerating) {
 	      _Animate.Animate.stop(this.isDecelerating);
@@ -20107,7 +20107,6 @@
 	      this.isAnimating = false;
 	    }
 	  },
-	
 	  init: function init() {
 	    assign(this, {
 	      isTracking: false,
@@ -20135,13 +20134,13 @@
 	    var component = _refs.component;
 	    var content = _refs.content;
 	
+	
 	    this.itemHeight = parseInt(getComputedStyle(indicator, 'height'), 10);
 	
 	    this.setDimensions(component.clientHeight, content.offsetHeight);
 	
 	    this.select(this.state.selectedValue, false);
 	  },
-	
 	  selectByIndex: function selectByIndex(index, animate) {
 	    if (index < 0 || index >= this.props.children.length) {
 	      return;
@@ -20150,7 +20149,6 @@
 	
 	    this.scrollTo(this.scrollTop, animate);
 	  },
-	
 	  select: function select(value, animate) {
 	    var children = this.props.children;
 	    for (var i = 0, len = children.length; i < len; i++) {
@@ -20161,7 +20159,6 @@
 	    }
 	    this.selectByIndex(0, animate);
 	  },
-	
 	  scrollTo: function scrollTo(t, a) {
 	    var top = t;
 	    var animate = a;
@@ -20179,7 +20176,6 @@
 	    }
 	    this.publish(top, DEFAULT_ANIM_DURATION);
 	  },
-	
 	  fireValueChange: function fireValueChange(selectedValue) {
 	    if (selectedValue !== this.state.selectedValue) {
 	      if (!('selectedValue' in this.props)) {
@@ -20190,7 +20186,6 @@
 	      this.props.onValueChange(selectedValue);
 	    }
 	  },
-	
 	  scrollingComplete: function scrollingComplete() {
 	    var index = Math.round((this.scrollTop - this.minScrollTop - this.itemHeight / 2) / this.itemHeight);
 	    var child = this.props.children[index];
@@ -20198,7 +20193,6 @@
 	      this.fireValueChange(child.value);
 	    }
 	  },
-	
 	  doTouchStart: function doTouchStart(touches, timeStamp) {
 	    this.clearAnim();
 	    this.initialTouchTop = this.lastTouchTop = touches[0].pageY;
@@ -20209,7 +20203,6 @@
 	    this.isDragging = false;
 	    this.positions = [];
 	  },
-	
 	  doTouchMove: function doTouchMove(touches, timeStamp) {
 	    // Ignore event when tracking is not enabled (event might be outside of element)
 	    if (!this.isTracking) {
@@ -20266,10 +20259,10 @@
 	    this.lastTouchTop = currentTouchTop;
 	    this.lastTouchMove = timeStamp;
 	  },
-	
 	  doTouchEnd: function doTouchEnd(timeStamp) {
 	    // Ignore event when tracking is not enabled (no touchstart event on element)
-	    // This is required as this listener ('touchmove') sits on the document and not on the element itself.
+	    // This is required as this listener ('touchmove')
+	    // sits on the document and not on the element itself.
 	    if (!this.isTracking) {
 	      return;
 	    }
@@ -20322,11 +20315,13 @@
 	    this.positions.length = 0;
 	  },
 	
+	
 	  // Applies the scroll position to the content element
 	  publish: function publish(top, animationDuration) {
 	    var _this = this;
 	
-	    // Remember whether we had an animation, then we try to continue based on the current "drive" of the animation
+	    // Remember whether we had an animation,
+	    // then we try to continue based on the current "drive" of the animation
 	    var wasAnimating = this.isAnimating;
 	    if (wasAnimating) {
 	      _Animate.Animate.stop(wasAnimating);
@@ -20360,7 +20355,8 @@
 	          }
 	        };
 	
-	        // When continuing based on previous animation we choose an ease-out animation instead of ease-in-out
+	        // When continuing based on previous animation
+	        // we choose an ease-out animation instead of ease-in-out
 	        _this.isAnimating = _Animate.Animate.start(step, verify, completed, animationDuration, wasAnimating ? _Animate.easeOutCubic : _Animate.easeInOutCubic);
 	      })();
 	    } else {
@@ -20370,7 +20366,9 @@
 	    }
 	  },
 	
-	  // Called when a touch sequence end and the speed of the finger was high enough to switch into deceleration mode.
+	
+	  // Called when a touch sequence end and the speed of
+	  // the finger was high enough to switch into deceleration mode.
 	  startDeceleration: function startDeceleration() {
 	    var _this2 = this;
 	
@@ -20383,7 +20381,8 @@
 	    };
 	
 	    // Detect whether it's still worth to continue animating steps
-	    // If we are already slow enough to not being user perceivable anymore, we stop the whole process here.
+	    // If we are already slow enough to not being user perceivable anymore,
+	    // we stop the whole process here.
 	    var verify = function verify() {
 	      var shouldContinue = Math.abs(_this2.decelerationVelocityY) >= MIN_VELOCITY_TO_KEEP_DECELERATING;
 	      if (!shouldContinue) {
@@ -20406,6 +20405,7 @@
 	    // Start animation and switch on flag
 	    this.isDecelerating = _Animate.Animate.start(step, verify, completed);
 	  },
+	
 	
 	  // Called on every step of the animation
 	  stepThroughDeceleration: function stepThroughDeceleration() {
@@ -20436,20 +20436,22 @@
 	    var itemClassName = prefixCls + '-item';
 	    var selectedItemClassName = itemClassName + ' ' + prefixCls + '-item-selected';
 	    var items = children.map(function (item) {
-	      return _react2['default'].createElement(
+	      return _react2["default"].createElement(
 	        'div',
-	        { className: selectedValue === item.value ? selectedItemClassName : itemClassName,
+	        {
+	          className: selectedValue === item.value ? selectedItemClassName : itemClassName,
 	          key: item.value,
-	          'data-value': item.value },
+	          'data-value': item.value
+	        },
 	        item.label
 	      );
 	    });
-	    return _react2['default'].createElement(
+	    return _react2["default"].createElement(
 	      'div',
 	      { className: '' + prefixCls, 'data-role': 'component', ref: 'component' },
-	      _react2['default'].createElement('div', { className: prefixCls + '-mask', 'data-role': 'mask' }),
-	      _react2['default'].createElement('div', { className: prefixCls + '-indicator', 'data-role': 'indicator', ref: 'indicator' }),
-	      _react2['default'].createElement(
+	      _react2["default"].createElement('div', { className: prefixCls + '-mask', 'data-role': 'mask' }),
+	      _react2["default"].createElement('div', { className: prefixCls + '-indicator', 'data-role': 'indicator', ref: 'indicator' }),
+	      _react2["default"].createElement(
 	        'div',
 	        { className: prefixCls + '-content', 'data-role': 'content', ref: 'content' },
 	        items
@@ -20457,7 +20459,7 @@
 	    );
 	  }
 	});
-	exports['default'] = Picker;
+	exports["default"] = Picker;
 	module.exports = exports['default'];
 
 /***/ },
@@ -20476,14 +20478,14 @@
 	var running = {};
 	var counter = 1;
 	
-	var Animate = {
+	var Animate = exports.Animate = {
 	  // A requestAnimationFrame wrapper / polyfill.
-	  requestAnimationFrame: (function () {
+	  requestAnimationFrame: function () {
 	    var requestFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
 	    return function (callback) {
 	      requestFrame(callback);
 	    };
-	  })(),
+	  }(),
 	
 	  // Stops the given animation.
 	  stop: function stop(id) {
@@ -20494,10 +20496,12 @@
 	    return cleared;
 	  },
 	
+	
 	  // Whether the given animation is still running.
 	  isRunning: function isRunning(id) {
 	    return running[id] !== null;
 	  },
+	
 	
 	  // Start the animation.
 	  start: function start(stepCallback, verifyCallback, completedCallback, duration, easingMethod) {
@@ -20575,7 +20579,6 @@
 	
 	// Easing Equations (c) 2003 Robert Penner, all rights reserved.
 	// Open source under the BSD License.
-	
 	function easeOutCubic(pos) {
 	  return Math.pow(pos - 1, 3) + 1;
 	}
@@ -20588,8 +20591,6 @@
 	  }
 	  return 0.5 * (Math.pow(pos - 2, 3) + 2);
 	}
-	
-	exports.Animate = Animate;
 
 /***/ },
 /* 169 */
@@ -20678,7 +20679,8 @@
 /* 183 */,
 /* 184 */,
 /* 185 */,
-/* 186 */
+/* 186 */,
+/* 187 */
 /***/ function(module, exports) {
 
 	'use strict';
