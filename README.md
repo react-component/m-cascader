@@ -10,9 +10,6 @@ React Mobile Cascader Component (web and react-native)
 [![gemnasium deps][gemnasium-image]][gemnasium-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
-[![Sauce Test Status](https://saucelabs.com/buildstatus/rmc-cascader)](https://saucelabs.com/u/rmc-cascader)
-
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/rmc-cascader.svg)](https://saucelabs.com/u/rmc-cascader)
 
 [npm-image]: http://img.shields.io/npm/v/rmc-cascader.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/rmc-cascader
@@ -30,8 +27,13 @@ React Mobile Cascader Component (web and react-native)
 
 ## Screenshots
 
+### web
+
 <img src="https://os.alipayobjects.com/rmsportal/EJtTSrdrAcdTbFm.png" width="288"/>
 
+### native
+
+<img src="https://img.alicdn.com/tps/TB1tlMtKpXXXXazXXXXXXXXXXXX-397-709.png" width="288"/>
 
 ## Development
 
@@ -73,9 +75,9 @@ in [RNPlayground](https://github.com/react-component/RNPlayground)
 
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
-|className | additional css class of root dom node | String | '' |
-|prefixCls | prefix class | String | 'rmc-cascader' |
-|pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
+|className(web) | additional css class of root dom node | String | '' |
+|prefixCls(web) | prefix class | String | 'rmc-cascader' |
+|pickerPrefixCls(web) | picker prefix class | String | 'rmc-picker' |
 |data | The data of cascade | array  |  |
 |value | selected value | array  |  |
 |defaultValue | initial selected value | array  |  |
@@ -86,14 +88,14 @@ in [RNPlayground](https://github.com/react-component/RNPlayground)
 
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
-|className | additional css class of modal node | String | '' |
-|prefixCls | prefix class | String | 'rmc-cascader' |
-|pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
+|className(web) | additional css class of modal node | String | '' |
+|prefixCls(web) | prefix class | String | 'rmc-cascader' |
+|pickerPrefixCls(web) | picker prefix class | String | 'rmc-picker' |
+|style(web) | additional style | object | {} |
 |data | The data of cascade | array  |  |
 |value | selected value | array  |  |
 |defaultValue | initial selected value | array  |  |
 |onPickerChange |  | Function(value) | - |
-|style | additional style | object | {} |
 |onChange | exec on ok | Function(value) |  |
 |onDismiss | exec on dismiss | function |  |
 |okText | ok button text | String | 'Ok' |
