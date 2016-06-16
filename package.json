@@ -1,6 +1,6 @@
 {
   "name": "rmc-cascader",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "m-cascader ui component for react",
   "keywords": [
     "react",
@@ -26,32 +26,38 @@
     "port": 8005
   },
   "scripts": {
+    "watch-tsc": "rc-tools run watch-tsc",
     "build": "rc-tools run build",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
     "pub": "rc-tools run pub",
-    "lint": "rc-tools run lint",
+    "lint": "rc-tools run lint --no-js-lint",
     "karma": "rc-tools run karma",
     "saucelabs": "rc-tools run saucelabs",
     "test": "rc-tools run test",
     "chrome-test": "rc-tools run chrome-test",
-    "coverage": "rc-tools run coverage"
+    "coverage": "rc-tools run coverage",
+    "rn-start": "rnpackager start"
   },
   "devDependencies": {
     "expect.js": "0.3.x",
     "fastclick": "^1.0.6",
     "pre-commit": "1.x",
     "rc-tools": "5.x",
+    "rn-core": "~0.3.0",
+    "rn-packager": "~0.3.0",
     "react": "0.14.x",
     "react-addons-test-utils": "0.14.x",
     "react-dom": "0.14.x"
   },
+  "typings": "./lib/index.web.d.ts",
   "pre-commit": [
     "lint"
   ],
   "dependencies": {
     "array-tree-filter": "1.0.x",
     "classnames": "2.x",
-    "rmc-picker": "2.x"
+    "react-mixin": "~3.0.5",
+    "rmc-picker": "3.x"
   }
 }

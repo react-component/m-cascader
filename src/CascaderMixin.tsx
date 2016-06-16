@@ -1,24 +1,9 @@
-import React, { PropTypes } from 'react';
-import classnames from 'classnames';
-import Picker from 'rmc-picker';
 import arrayTreeFilter from 'array-tree-filter';
 import { getDefaultValue, COLS } from './utils';
 
-const MCascader = React.createClass({
-  propTypes: {
-    defaultValue: PropTypes.any,
-    value: PropTypes.any,
-    prefixCls: PropTypes.string,
-    pickerPrefixCls: PropTypes.string,
-    className: PropTypes.string,
-    onChange: PropTypes.func,
-    data: PropTypes.any,
-    cols: PropTypes.number,
-  },
+export default {
   getDefaultProps() {
     return {
-      prefixCls: 'rmc-cascader',
-      pickerPrefixCls: 'rmc-picker',
       cols: COLS,
     };
   },
@@ -64,30 +49,14 @@ const MCascader = React.createClass({
     }
     return ret;
   },
-  render() {
-    const props = this.props;
-    const { prefixCls, pickerPrefixCls, className } = props;
-    const value = this.state.value || [];
-    const childrenTree = arrayTreeFilter(this.props.data, (c, level) => {
+  getChildrenTree() {
+    const {data, cols} = this.props;
+    const value = this.state.value;
+    const childrenTree = arrayTreeFilter(data, (c, level) => {
       return c.value === value[level];
     }).map(c => c.children);
-    childrenTree.length = this.props.cols - 1;
-    childrenTree.unshift(this.props.data);
-    const cols = this.getColArray().map((v, i) => {
-      return (<div key={i} className={`${prefixCls}-main-item`}>
-        <Picker
-          prefixCls={pickerPrefixCls}
-          selectedValue={value[i]}
-          onValueChange={this.onValueChange.bind(this, i)}
-        >
-          {childrenTree[i] || []}
-        </Picker>
-      </div>);
-    });
-    return (<div className={classnames(className, prefixCls)}>
-      {cols}
-    </div>);
+    childrenTree.length = cols - 1;
+    childrenTree.unshift(data);
+    return childrenTree;
   },
-});
-
-export default MCascader;
+};

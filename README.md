@@ -1,7 +1,7 @@
 # rmc-cascader
 ---
 
-React MCascader Component
+React Mobile Cascader Component (web and react-native)
 
 
 [![NPM version][npm-image]][npm-url]
@@ -36,24 +36,36 @@ React MCascader Component
 ## Development
 
 ```
-npm install
+npm i
+npm i typings -g
+typings install
 npm start
+npm run watch-tsc
 ```
 
 ## Example
 
 http://localhost:8000/examples/
 
-
 online example: http://react-component.github.io/m-cascader/
 
+## react-native
+
+```
+npm run rn-start
+```
+
+load
+
+http://localhost:8081/examples/react-native/simple.bundle?platform=ios
+http://localhost:8081/examples/react-native/popup.bundle?platform=ios
+
+in [RNPlayground](https://github.com/react-component/RNPlayground)
 
 ## install
 
 [![rmc-cascader](https://nodei.co/npm/rmc-cascader.png)](https://npmjs.org/package/rmc-cascader)
 
-## Usage
-see example
 
 ## API
 

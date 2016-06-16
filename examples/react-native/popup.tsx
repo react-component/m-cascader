@@ -1,25 +1,24 @@
 /* eslint no-console:0, react/no-multi-comp:0 */
 
-import 'rmc-picker/assets/index.css';
-import 'rmc-cascader/assets/index.less';
-import 'rmc-picker/assets/popup.css';
-import React, { PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import PopupCascader from 'rmc-cascader/src/Popup';
-import globalData from './data';
+
+import React, { View, Text, StyleSheet, AppRegistry, TouchableHighlight } from 'react-native';
+import PopupCascader from '../../src/Popup';
+import globalData from '../data';
 import arrayTreeFilter from 'array-tree-filter';
+import PopupStyles from '../../src/PopupStyles';
+
+const COLS = 3;
+
+const styles = StyleSheet.create({
+  button: {
+    borderWidth: 1,
+    borderColor: 'red',
+    padding: 5,
+    width: 300,
+  }
+});
 
 const Demo = React.createClass({
-  propTypes: {
-    data: PropTypes.any,
-    cols: PropTypes.number,
-  },
-  getDefaultProps() {
-    return {
-      data: globalData,
-      cols: 3,
-    };
-  },
   getInitialState() {
     return {
       visible: false,
@@ -46,7 +45,7 @@ const Demo = React.createClass({
     if (!value) {
       return '';
     }
-    const treeChildren = arrayTreeFilter(this.props.data, (c, level) => {
+    const treeChildren = arrayTreeFilter(globalData, (c, level) => {
       return c.value === value[level];
     });
     return treeChildren.map((v) => {
@@ -59,36 +58,43 @@ const Demo = React.createClass({
     });
   },
   render() {
-    return (<div style={{ padding: 10 }}>
-      <h3>popup cascader</h3>
-      <p>选择的城市：{this.getSel()}</p>
+    return (<View style={{ padding: 10 }}>
+      <View><Text>popup cascader</Text></View>
+      <View><Text>选择的城市：{this.getSel()}</Text></View>
       <PopupCascader
-        data={this.props.data}
+        styles={PopupStyles}
+        data={globalData}
         value={this.state.value}
-        cols={this.props.cols}
+        cols={COLS}
         onPickerChange={this.onPickerChange}
         onDismiss={this.onDismiss}
         onChange={this.onChange}
         title="Cascader"
-        style={{ left: 0, bottom: 0 }}
       >
-        <button ref="button">open</button>
+        <TouchableHighlight activeOpacity={0.5} style={[styles.button]} underlayColor="#a9d9d4">
+          <Text>open</Text>
+        </TouchableHighlight>
       </PopupCascader>
-
-      <h3>just cascader no children</h3>
-      <button onClick={this.outerCtrl}>open</button>
-      <button onClick={this.outerCtrl}>switch</button>
+      <View><Text>just cascader no children</Text></View>
+      <TouchableHighlight
+        onPress={this.outerCtrl} 
+        activeOpacity={0.5}
+        style={[styles.button]}
+        underlayColor="#a9d9d4">
+        <Text>switch</Text>
+      </TouchableHighlight>
       <PopupCascader
+        styles={PopupStyles}
         visible={this.state.visible}
-        data={this.props.data}
+        data={globalData}
         value={this.state.value}
-        cols={this.props.cols}
+        cols={COLS}
         onPickerChange={this.onPickerChange}
         onDismiss={this.onDismiss}
         onChange={this.onChange}
       />
-    </div>);
+    </View>);
   },
 });
 
-ReactDOM.render(<Demo data={ globalData }/>, document.getElementById('__react-content'));
+AppRegistry.registerComponent('popup', () => Demo);
