@@ -3,12 +3,12 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(188);
+	module.exports = __webpack_require__(195);
 
 
 /***/ },
 
-/***/ 188:
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17,88 +17,47 @@ webpackJsonp([1],{
 	
 	__webpack_require__(3);
 	
-	var _rmcCascader = __webpack_require__(189);
+	var _Cascader = __webpack_require__(165);
 	
-	var _rmcCascader2 = _interopRequireDefault(_rmcCascader);
+	var _Cascader2 = _interopRequireDefault(_Cascader);
 	
 	var _react = __webpack_require__(5);
 	
-	var _react2 = _interopRequireDefault(_react);
+	var React = _interopRequireWildcard(_react);
 	
 	var _reactDom = __webpack_require__(162);
 	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
+	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
-	var _data = __webpack_require__(187);
+	var _data = __webpack_require__(194);
 	
 	var _data2 = _interopRequireDefault(_data);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/* eslint no-console:0 */
 	
-	var Demo = _react2["default"].createClass({
-	  displayName: 'Demo',
-	  onChange: function onChange(value) {
-	    console.log('onChange', value);
-	  },
-	  render: function render() {
-	    return _react2["default"].createElement(
-	      'div',
-	      { style: { padding: 10 } },
-	      _react2["default"].createElement(
-	        'h3',
-	        null,
-	        'simple inline'
-	      ),
-	      _react2["default"].createElement(_rmcCascader2["default"], { data: _data2["default"], onChange: this.onChange })
-	    );
-	  }
+	var Demo = React.createClass({
+	    displayName: 'Demo',
+	    onChange: function onChange(value) {
+	        console.log('onChange', value);
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            { style: { padding: 10 } },
+	            React.createElement(
+	                'h3',
+	                null,
+	                'simple inline'
+	            ),
+	            React.createElement(_Cascader2.default, { data: _data2.default, onChange: this.onChange })
+	        );
+	    }
 	});
-	
-	_reactDom2["default"].render(_react2["default"].createElement(Demo, null), document.getElementById('__react-content'));
-
-/***/ },
-
-/***/ 189:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _src = __webpack_require__(190);
-	
-	var _src2 = _interopRequireDefault(_src);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	exports["default"] = _src2["default"]; // export this package's api
-	
-	module.exports = exports['default'];
-
-/***/ },
-
-/***/ 190:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _MCascader = __webpack_require__(164);
-	
-	var _MCascader2 = _interopRequireDefault(_MCascader);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	exports["default"] = _MCascader2["default"]; // export this package's api
-	
-	module.exports = exports['default'];
+	ReactDOM.render(React.createElement(Demo, null), document.getElementById('__react-content'));
 
 /***/ }
 
