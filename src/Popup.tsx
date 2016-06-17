@@ -5,7 +5,7 @@ import PopupPicker from 'rmc-picker/lib/Popup';
 import {PopupPickerPropsWeb} from 'rmc-picker/lib/PopupPickerTypes';
 import { CascaderProps, CascaderValue } from './CascaderTypes';
 
-const PROPS = ['onDismiss', 'children', 'style', 
+const PROPS = ['onDismiss', 'children', 'style', 'WrapComponent',
   'okText', 'dismissText', 'title', 'className', 'styles'];
 
 export interface PopupCascaderProps extends PopupPickerPropsWeb, CascaderProps {
