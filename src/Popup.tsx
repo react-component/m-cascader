@@ -1,4 +1,4 @@
-import * as React from './React';
+import * as React from 'react';
 import Cascader from './Cascader';
 import { getDefaultValue, COLS, noop, pick } from './utils';
 import PopupPicker from 'rmc-picker/lib/Popup';

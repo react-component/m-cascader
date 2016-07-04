@@ -1,6 +1,6 @@
 {
   "name": "rmc-cascader",
-  "version": "2.0.1",
+  "version": "2.2.0",
   "description": "m-cascader ui component for react",
   "keywords": [
     "react",
@@ -37,18 +37,17 @@
     "test": "rc-tools run test",
     "chrome-test": "rc-tools run chrome-test",
     "coverage": "rc-tools run coverage",
-    "rn-start": "rnpackager start"
+    "rn-start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "devDependencies": {
     "expect.js": "0.3.x",
     "fastclick": "^1.0.6",
     "pre-commit": "1.x",
     "rc-tools": "5.x",
-    "rn-core": "~0.3.0",
-    "rn-packager": "~0.3.0",
-    "react": "0.14.x",
-    "react-addons-test-utils": "0.14.x",
-    "react-dom": "0.14.x"
+    "react-native": "0.28.0",
+    "react": "15.x",
+    "react-addons-test-utils": "15.x",
+    "react-dom": "15.x"
   },
   "typings": "./lib/index.web.d.ts",
   "pre-commit": [

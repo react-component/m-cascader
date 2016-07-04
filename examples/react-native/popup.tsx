@@ -1,7 +1,7 @@
 /* eslint no-console:0, react/no-multi-comp:0 */
 
-
-import React, { View, Text, StyleSheet, AppRegistry, TouchableHighlight } from 'react-native';
+import * as React from 'react';
+import { View, Text, StyleSheet, AppRegistry, TouchableHighlight } from 'react-native';
 import PopupCascader from '../../src/Popup';
 import globalData from '../data';
 import arrayTreeFilter from 'array-tree-filter';

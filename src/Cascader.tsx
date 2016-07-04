@@ -1,4 +1,5 @@
-import React, {Component, View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import * as React from 'react';
 import Picker from 'rmc-picker/lib/Picker';
 import { CascaderProps, CascaderState } from './CascaderTypes';
 import reactMixin from 'react-mixin';
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Cascader extends Component<CascaderProps, CascaderState> {
+export default class Cascader extends React.Component<CascaderProps, CascaderState> {
   getChildrenTree: () => any[];
 
   getColArray: () => any[];

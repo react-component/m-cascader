@@ -5,6 +5,8 @@ React Mobile Cascader Component (web and react-native)
 
 
 [![NPM version][npm-image]][npm-url]
+![react-native](https://img.shields.io/badge/react--native-%3E%3D_0.28.0-green.svg)
+![react](https://img.shields.io/badge/react-%3E%3D_15.2.0-green.svg)
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 [![gemnasium deps][gemnasium-image]][gemnasium-url]
@@ -59,7 +61,7 @@ npm run rn-start
 
 load
 
-http://localhost:8081/examples/react-native/simple.bundle?platform=ios
+http://localhost:8081/examples/react-native/picker.bundle?platform=ios
 http://localhost:8081/examples/react-native/popup.bundle?platform=ios
 
 in [RNPlayground](https://github.com/react-component/RNPlayground)

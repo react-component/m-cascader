@@ -1,8 +1,9 @@
 /* eslint no-console:0 */
 
 import Cascader from '../../src/Cascader';
-import React, { View, Text, AppRegistry } from 'react-native';
+import { View, Text, AppRegistry } from 'react-native';
 import globalData from '../data';
+import * as React from 'react';
 
 const Demo = React.createClass({
   onChange(value) {
