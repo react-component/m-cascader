@@ -13,6 +13,12 @@ export interface CascaderProps {
   onChange?: (value: CascaderValue) => void;
   data: CascaderDataItem[];
   cols?: number;
+  /** web only */
+  prefixCls?: string;
+  /** web only */
+  pickerPrefixCls?: string;
+  /** web only */
+  className?: string;
 }
 
 export interface CascaderState {

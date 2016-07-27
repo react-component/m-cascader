@@ -2,7 +2,7 @@ import * as React from 'react';
 import Cascader from './Cascader';
 import {getDefaultValue, COLS, noop, pick} from './utils';
 import PopupPicker from 'rmc-picker/lib/Popup';
-import {PopupPickerPropsWeb} from 'rmc-picker/lib/PopupPickerTypes';
+import {PopupPickerProps} from 'rmc-picker/lib/PopupPickerTypes';
 import {CascaderProps, CascaderValue} from './CascaderTypes';
 
 const PROPS = [
@@ -11,10 +11,9 @@ const PROPS = [
   'styles', 'triggerType',
 ];
 
-export interface PopupCascaderProps extends PopupPickerPropsWeb, CascaderProps {
+export interface PopupCascaderProps extends PopupPickerProps, CascaderProps {
   popupPrefixCls?:string;
   pickerPrefixCls?:string;
-  styles?:any;
   visible?:boolean;
   mode?:string;
   onPickerChange?:(date:CascaderValue) => void;

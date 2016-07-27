@@ -2,30 +2,27 @@ import {View, StyleSheet} from 'react-native';
 import * as React from 'react';
 import Picker from 'rmc-picker/lib/Picker';
 import { CascaderProps, CascaderState } from './CascaderTypes';
-import reactMixin from 'react-mixin';
 import CascaderMixin from './CascaderMixin';
+import FlexAlignType = __React.FlexAlignType;
+
+type FlexDirection = "row" | "column";
 
 const styles = StyleSheet.create({
   item: {
     flex: 1,
   },
   root: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'row' as FlexDirection,
+    alignItems: 'center' as FlexAlignType,
     paddingTop: 10,
     paddingBottom: 10,
   }
 });
 
-export default class Cascader extends React.Component<CascaderProps, CascaderState> {
-  getChildrenTree: () => any[];
-
-  getColArray: () => any[];
-
-  onValueChange:(i, v) => any;
+const Cascader = React.createClass<CascaderProps, CascaderState>({
+  mixins: [CascaderMixin],
 
   render() {
-    const props = this.props;
     const value = this.state.value;
     const childrenTree = this.getChildrenTree();
     const cols = this.getColArray().map((_, i) => {
@@ -42,7 +39,7 @@ export default class Cascader extends React.Component<CascaderProps, CascaderSta
     return (<View style={styles.root}>
       {cols}
     </View>);
-  }
-}
+  },
+});
 
-reactMixin.onClass(Cascader, CascaderMixin);
+export default Cascader;

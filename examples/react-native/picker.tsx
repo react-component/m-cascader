@@ -17,4 +17,4 @@ const Demo = React.createClass({
   },
 });
 
-AppRegistry.registerComponent('simple', () => Demo);
+AppRegistry.registerComponent('picker', () => Demo);
