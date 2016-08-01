@@ -1,15 +1,19 @@
 import * as React from 'react';
 import Cascader from './Cascader';
-import {getDefaultValue, COLS, noop, pick} from './utils';
+import {getDefaultValue, COLS, noop, exclude} from './utils';
 import PopupPicker from 'rmc-picker/lib/Popup';
 import {PopupPickerProps} from 'rmc-picker/lib/PopupPickerTypes';
 import {CascaderProps, CascaderValue} from './CascaderTypes';
 
-const PROPS = [
-  'onDismiss', 'children', 'style', 'WrapComponent',
-  'okText', 'dismissText', 'title', 'className',
-  'styles', 'triggerType',
-];
+const EXCLUDE_PROPS = {
+  popupPrefixCls: 1,
+  pickerPrefixCls: 1,
+  visible: 1,
+  mode: 1,
+  onPickerChange: 1,
+  onChange: 1,
+  onVisibleChange: 1,
+};
 
 export interface PopupCascaderProps extends PopupPickerProps, CascaderProps {
   popupPrefixCls?:string;
@@ -107,7 +111,7 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, P
   };
 
   render() {
-    const props:any = pick(this.props, PROPS);
+    const props:any = exclude(this.props, EXCLUDE_PROPS);
     props.prefixCls = this.props.popupPrefixCls;
     return (<PopupPicker
       {...props}
