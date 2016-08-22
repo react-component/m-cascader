@@ -54,7 +54,7 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, P
   }
 
   onPickerChange = (value) => {
-    console.log('inner onPickerChange', value);
+    // console.log('inner onPickerChange', value);
     this.setState({
       pickerValue: value,
     });
@@ -62,7 +62,7 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, P
   };
   onOk = () => {
     const {value, cols, data} = this.props;
-    console.log('inner onOk', this.state.pickerValue);
+    // console.log('inner onOk', this.state.pickerValue);
     this.props.onChange(getDefaultValue(data,
       this.state.pickerValue || value, cols).filter(c => !!c));
   };
