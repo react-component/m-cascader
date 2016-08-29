@@ -94,10 +94,11 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, P
       extraProps.prefixCls = prefixCls;
     }
     return (<Cascader
+      {...this.props}
+      {...extraProps}
       value={this.state.pickerValue || value}
       cols={cols}
       onChange={this.onPickerChange}
-      {...extraProps}
     />);
   }
 

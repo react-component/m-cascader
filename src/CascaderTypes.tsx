@@ -13,6 +13,7 @@ export interface CascaderProps {
   onChange?: (value: CascaderValue) => void;
   data: CascaderDataItem[];
   cols?: number;
+  disabled?:boolean;
   /** web only */
   prefixCls?: string;
   /** web only */
