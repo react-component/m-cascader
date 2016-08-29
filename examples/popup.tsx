@@ -67,7 +67,7 @@ const Demo = React.createClass({
         onPickerChange={this.onPickerChange}
         onDismiss={this.onDismiss}
         onChange={this.onChange}
-        title="Cascader"
+        title="Cascader" data-xx="zsd"
       >
         <button ref="button">open</button>
       </PopupCascader>
@@ -80,7 +80,7 @@ const Demo = React.createClass({
         cols={COLS}
         onPickerChange={this.onPickerChange}
         onDismiss={this.onDismiss}
-        onChange={this.onChange}
+        onChange={this.onChange} data-xx="zsd"
       />
     </div>);
   },
