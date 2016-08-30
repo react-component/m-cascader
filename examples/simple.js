@@ -3,12 +3,12 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(294);
+	module.exports = __webpack_require__(293);
 
 
 /***/ },
 
-/***/ 294:
+/***/ 293:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25,11 +25,11 @@ webpackJsonp([1],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _reactDom = __webpack_require__(38);
+	var _reactDom = __webpack_require__(37);
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
-	var _data = __webpack_require__(293);
+	var _data = __webpack_require__(292);
 	
 	var _data2 = _interopRequireDefault(_data);
 	
@@ -52,7 +52,7 @@ webpackJsonp([1],{
 	                null,
 	                'simple inline'
 	            ),
-	            React.createElement(_Cascader2.default, { data: _data2.default, onChange: this.onChange })
+	            React.createElement(_Cascader2.default, { data: _data2.default, onChange: this.onChange, rootNativeProps: { 'data-xx': 'yy' } })
 	        );
 	    }
 	});
