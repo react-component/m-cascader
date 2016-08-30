@@ -12,18 +12,24 @@ const Cascader = React.createClass<CascaderProps, CascaderState>({
       prefixCls: 'rmc-cascader',
       pickerPrefixCls: 'rmc-picker',
       data: [],
+      disabled: false,
     };
   },
 
   render() {
     const props = this.props;
-    const {prefixCls, pickerPrefixCls, className, rootNativeProps} = props;
+    const {
+      prefixCls, pickerPrefixCls,
+      className, rootNativeProps,
+      disabled,
+    } = props;
     const value = this.state.value;
     const childrenTree = this.getChildrenTree();
     const cols = this.getColArray().map((v, i) => {
       return (
         <div key={i} className={`${prefixCls}-main-item`}>
           <Picker
+            disabled={disabled}
             prefixCls={pickerPrefixCls}
             selectedValue={value[i]}
             onValueChange={this.onValueChange.bind(this, i)}
@@ -33,9 +39,11 @@ const Cascader = React.createClass<CascaderProps, CascaderState>({
         </div>
       );
     });
-    return (<div {...rootNativeProps} className={classnames(className, prefixCls)}>
-      {cols}
-    </div>);
+    return (
+      <div {...rootNativeProps} className={classnames(className, prefixCls)}>
+        {cols}
+      </div>
+    );
   },
 });
 
