@@ -1,12 +1,13 @@
 import * as React from 'react';
 import Cascader from './Cascader';
-import {getDefaultValue, COLS, noop, exclude} from './utils';
+import { getDefaultValue, COLS, noop, exclude } from './utils';
 import PopupPicker from 'rmc-picker/lib/Popup';
-import {PopupPickerProps} from 'rmc-picker/lib/PopupPickerTypes';
-import {CascaderProps, CascaderValue} from './CascaderTypes';
+import { PopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
+import { CascaderProps, CascaderValue } from './CascaderTypes';
 
 const EXCLUDE_PROPS = {
   popupPrefixCls: 1,
+  pickerRootNativeProps: 1,
   pickerPrefixCls: 1,
   visible: 1,
   mode: 1,
@@ -16,18 +17,20 @@ const EXCLUDE_PROPS = {
 };
 
 export interface PopupCascaderProps extends PopupPickerProps, CascaderProps {
-  popupPrefixCls?:string;
-  pickerPrefixCls?:string;
-  visible?:boolean;
-  mode?:string;
-  onPickerChange?:(date:CascaderValue) => void;
-  onChange?:(date:CascaderValue) => void;
-  onVisibleChange?:(visible:boolean) => void;
+  popupPrefixCls?: string;
+  pickerRootNativeProps?: {};
+  rootNativeProps?: {};
+  pickerPrefixCls?: string;
+  visible?: boolean;
+  mode?: string;
+  onPickerChange?: (date: CascaderValue) => void;
+  onChange?: (date: CascaderValue) => void;
+  onVisibleChange?: (visible: boolean) => void;
 }
 
 export interface PopupCascaderState {
-  pickerValue?:CascaderValue;
-  visible?:boolean;
+  pickerValue?: CascaderValue;
+  visible?: boolean;
 }
 
 export default class PopupCascader extends React.Component<PopupCascaderProps, PopupCascaderState> {
@@ -39,7 +42,7 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, P
     onPickerChange: noop,
   };
 
-  constructor(props:PopupCascaderProps) {
+  constructor(props: PopupCascaderProps) {
     super(props);
     this.state = {
       pickerValue: null,
@@ -82,9 +85,9 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, P
     const {
       data, cols, prefixCls,
       pickerPrefixCls,
-      value
+      value, pickerRootNativeProps,
     } = this.props;
-    const extraProps:PopupCascaderProps = {
+    const extraProps: PopupCascaderProps = {
       data,
     };
     if (pickerPrefixCls) {
@@ -92,6 +95,9 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, P
     }
     if (prefixCls) {
       extraProps.prefixCls = prefixCls;
+    }
+    if (pickerRootNativeProps) {
+      extraProps.rootNativeProps = pickerRootNativeProps;
     }
     return (<Cascader
       value={this.state.pickerValue || value}
@@ -111,7 +117,7 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, P
   };
 
   render() {
-    const props:any = exclude(this.props, EXCLUDE_PROPS);
+    const props: any = exclude(this.props, EXCLUDE_PROPS);
     props.prefixCls = this.props.popupPrefixCls;
     return (<PopupPicker
       {...props}

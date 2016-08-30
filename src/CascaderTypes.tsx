@@ -5,7 +5,7 @@ export interface CascaderDataItem {
   label: string;
   value: CascaderOneValue;
   children?: CascaderDataItem[];
-} 
+}
 
 export interface CascaderProps {
   defaultValue?: CascaderValue;
@@ -13,6 +13,8 @@ export interface CascaderProps {
   onChange?: (value: CascaderValue) => void;
   data: CascaderDataItem[];
   cols?: number;
+  disabled?: boolean;
+  rootNativeProps?: {};
   /** web only */
   prefixCls?: string;
   /** web only */

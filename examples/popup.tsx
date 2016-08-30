@@ -61,6 +61,7 @@ const Demo = React.createClass({
       <h3>popup cascader</h3>
       <p>选择的城市：{this.getSel()}</p>
       <PopupCascader
+        pickerRootNativeProps={{'data-xx':'yy'}}
         data={globalData}
         value={this.state.value}
         cols={COLS}
