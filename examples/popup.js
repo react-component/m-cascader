@@ -362,7 +362,7 @@ webpackJsonp([0],[
 	        var _this = (0, _possibleConstructorReturn3.default)(this, _React$Component.call(this, props));
 	
 	        _this.onPickerChange = function (value) {
-	            console.log('inner onPickerChange', value);
+	            // console.log('inner onPickerChange', value);
 	            _this.setState({
 	                pickerValue: value
 	            });
@@ -373,8 +373,8 @@ webpackJsonp([0],[
 	            var value = _this$props.value;
 	            var cols = _this$props.cols;
 	            var data = _this$props.data;
+	            // console.log('inner onOk', this.state.pickerValue);
 	
-	            console.log('inner onOk', _this.state.pickerValue);
 	            _this.props.onChange((0, _utils.getDefaultValue)(data, _this.state.pickerValue || value, cols).filter(function (c) {
 	                return !!c;
 	            }));
