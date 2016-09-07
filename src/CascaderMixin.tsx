@@ -1,21 +1,20 @@
 import arrayTreeFilter from 'array-tree-filter';
-import { getDefaultValue, COLS } from './utils';
 
 export default {
   getDefaultProps() {
     return {
-      cols: COLS,
+      cols: 3,
     };
   },
   getInitialState() {
     return {
-      value: this.getNewValue(this.props.data, this.props.defaultValue || this.props.value),
+      value: this.getValue(this.props.data, this.props.defaultValue || this.props.value),
     };
   },
   componentWillReceiveProps(nextProps) {
     if ('value' in nextProps) {
       this.setState({
-        value: this.getNewValue(nextProps.data, nextProps.value),
+        value: this.getValue(nextProps.data, nextProps.value),
       });
     }
   },
@@ -39,8 +38,21 @@ export default {
     }
     this.props.onChange(value);
   },
-  getNewValue(d, val) {
-    return getDefaultValue(d, val, this.props.cols);
+  getValue(d, val) {
+    let data = d || this.props.data;
+    let value = val || this.props.value || this.props.defaultValue;
+    if (!value || !value.length) {
+      value = [];
+      for (let i = 0; i < this.props.cols; i++) {
+        if (data && data.length) {
+          value[i] = data[0].value;
+          data = data[0].children;
+        } else {
+          value[i] = undefined;
+        }
+      }
+    }
+    return value;
   },
   getColArray() {
     const ret = [];

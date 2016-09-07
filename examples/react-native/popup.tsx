@@ -6,6 +6,7 @@ import PopupCascader from '../../src/Popup';
 import globalData from '../data';
 import arrayTreeFilter from 'array-tree-filter';
 import PopupStyles from '../../src/PopupStyles';
+import Cascader from '../../src/Cascader';
 
 const COLS = 3;
 
@@ -23,9 +24,6 @@ const Demo = React.createClass({
     return {
       visible: false,
     };
-  },
-  onPickerChange(value) {
-    console.log('onPickerChange', value);
   },
   onChange(value) {
     console.log('onChange', value);
@@ -58,15 +56,19 @@ const Demo = React.createClass({
     });
   },
   render() {
+    const cascader = (
+      <Cascader
+        data={globalData}
+        cols={COLS}
+      />
+    );
     return (<View style={{ padding: 10 }}>
       <View><Text>popup cascader</Text></View>
       <View><Text>选择的城市：{this.getSel()}</Text></View>
       <PopupCascader
         styles={PopupStyles}
-        data={globalData}
+        cascader={cascader}
         value={this.state.value}
-        cols={COLS}
-        onPickerChange={this.onPickerChange}
         onDismiss={this.onDismiss}
         onChange={this.onChange}
         title="Cascader"
@@ -77,19 +79,17 @@ const Demo = React.createClass({
       </PopupCascader>
       <View><Text>just cascader no children</Text></View>
       <TouchableHighlight
-        onPress={this.outerCtrl} 
+        onPress={this.outerCtrl}
         activeOpacity={0.5}
         style={[styles.button]}
         underlayColor="#a9d9d4">
         <Text>switch</Text>
       </TouchableHighlight>
       <PopupCascader
+        cascader={cascader}
         styles={PopupStyles}
         visible={this.state.visible}
-        data={globalData}
         value={this.state.value}
-        cols={COLS}
-        onPickerChange={this.onPickerChange}
         onDismiss={this.onDismiss}
         onChange={this.onChange}
       />

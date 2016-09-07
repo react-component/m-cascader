@@ -1,45 +1,26 @@
 import * as React from 'react';
-import Cascader from './Cascader';
-import { getDefaultValue, COLS, noop, exclude } from './utils';
 import PopupPicker from 'rmc-picker/lib/Popup';
 import { PopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
 import { CascaderProps, CascaderValue } from './CascaderTypes';
 
-const EXCLUDE_PROPS = {
-  popupPrefixCls: 1,
-  pickerRootNativeProps: 1,
-  pickerPrefixCls: 1,
-  visible: 1,
-  mode: 1,
-  onPickerChange: 1,
-  onChange: 1,
-  onVisibleChange: 1,
-};
+function noop() {
+}
 
-export interface PopupCascaderProps extends PopupPickerProps, CascaderProps {
-  popupPrefixCls?: string;
-  pickerRootNativeProps?: {};
-  rootNativeProps?: {};
-  pickerPrefixCls?: string;
+export interface PopupCascaderProps extends PopupPickerProps {
+  cascader: React.ReactElement<CascaderProps>;
   visible?: boolean;
-  mode?: string;
-  onPickerChange?: (date: CascaderValue) => void;
+  value?: CascaderValue;
   onChange?: (date: CascaderValue) => void;
   onVisibleChange?: (visible: boolean) => void;
 }
 
-export interface PopupCascaderState {
-  pickerValue?: CascaderValue;
-  visible?: boolean;
-}
+export default class PopupCascader extends React.Component<PopupCascaderProps, any> {
+  cascader: any;
 
-export default class PopupCascader extends React.Component<PopupCascaderProps, PopupCascaderState> {
   static defaultProps = {
-    popupPrefixCls: 'rmc-picker-popup',
+    prefixCls: 'rmc-picker-popup',
     onVisibleChange: noop,
-    cols: COLS,
     onChange: noop,
-    onPickerChange: noop,
   };
 
   constructor(props: PopupCascaderProps) {
@@ -56,18 +37,20 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, P
     }
   }
 
-  onPickerChange = (value) => {
-    // console.log('inner onPickerChange', value);
+  onPickerChange = (pickerValue) => {
     this.setState({
-      pickerValue: value,
+      pickerValue,
     });
-    this.props.onPickerChange(value);
+    if (this.props.cascader.props.onChange) {
+      this.props.cascader.props.onChange(pickerValue);
+    }
   };
   onOk = () => {
-    const {value, cols, data} = this.props;
-    // console.log('inner onOk', this.state.pickerValue);
-    this.props.onChange(getDefaultValue(data,
-      this.state.pickerValue || value, cols).filter(c => !!c));
+    this.props.onChange(this.cascader.getValue().filter(c => !!c));
+  };
+
+  saveRef = (cascader) => {
+    this.cascader = cascader;
   };
 
   setVisibleState(visible) {
@@ -81,32 +64,6 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, P
     }
   }
 
-  getModal() {
-    const {
-      data, cols, prefixCls,
-      pickerPrefixCls,
-      value, pickerRootNativeProps,
-    } = this.props;
-    const extraProps: PopupCascaderProps = {
-      data,
-    };
-    if (pickerPrefixCls) {
-      extraProps.pickerPrefixCls = pickerPrefixCls;
-    }
-    if (prefixCls) {
-      extraProps.prefixCls = prefixCls;
-    }
-    if (pickerRootNativeProps) {
-      extraProps.rootNativeProps = pickerRootNativeProps;
-    }
-    return (<Cascader
-      value={this.state.pickerValue || value}
-      cols={cols}
-      onChange={this.onPickerChange}
-      {...extraProps}
-    />);
-  }
-
   fireVisibleChange = (visible) => {
     if (this.state.visible !== visible) {
       if (!('visible' in this.props)) {
@@ -117,13 +74,18 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, P
   };
 
   render() {
-    const props: any = exclude(this.props, EXCLUDE_PROPS);
-    props.prefixCls = this.props.popupPrefixCls;
+    const cascader = React.cloneElement(this.props.cascader, ({
+      value: this.state.pickerValue || this.props.value,
+      onChange: this.onPickerChange,
+      ref: this.saveRef,
+      data: this.props.cascader.props.data,
+    } as CascaderProps));
+
     return (<PopupPicker
-      {...props}
+      {...this.props}
       onVisibleChange={this.fireVisibleChange}
       onOk={this.onOk}
-      content={this.getModal()}
+      content={cascader}
       visible={this.state.visible}
     />);
   }

@@ -73,7 +73,7 @@ in [RNPlayground](https://github.com/react-component/RNPlayground)
 
 ## API
 
-### MCascader props
+### Cascader props
 
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
@@ -91,13 +91,10 @@ in [RNPlayground](https://github.com/react-component/RNPlayground)
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
 |className(web) | additional css class of modal node | String | '' |
-|prefixCls(web) | prefix class | String | 'rmc-cascader' |
-|pickerPrefixCls(web) | picker prefix class | String | 'rmc-picker' |
+|prefixCls(web) | prefix class | String | 'rmc-picker-popup' |
 |style(web) | additional style | object | {} |
-|data | The data of cascade | array  |  |
 |value | selected value | array  |  |
-|defaultValue | initial selected value | array  |  |
-|onPickerChange |  | Function(value) | - |
+|cascader | React Cascader element |   |  |
 |onChange | exec on ok | Function(value) |  |
 |onDismiss | exec on dismiss | function |  |
 |okText | ok button text | String | 'Ok' |

@@ -3,7 +3,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 const Simulate = TestUtils.Simulate;
-
+const Cascader = require('../src/Cascader');
 const PopCascader = require('../src/Popup');
 import 'rmc-picker/assets/index.css';
 import globalData from '../examples/data';
@@ -24,23 +24,25 @@ describe('popup', () => {
   it('should visible', () => {
     const Ins = React.createClass({
       render() {
-        instance = this;
+        const cascader = <Cascader data={globalData} />;
         return (
-          <PopCascader data={globalData} ref="pop">
+          <PopCascader ref="pop" cascader={cascader}>
             <button ref="button">open</button>
           </PopCascader>
         );
       },
     });
-    ReactDOM.render(<Ins />, div);
+    instance = ReactDOM.render(<Ins />, div);
     Simulate.click(ReactDOM.findDOMNode(instance.refs.button));
     expect(instance.refs.pop.state.visible).to.be(true);
+    expect(instance.refs.pop.cascader.props.cols).to.be(3);
   });
 
   it('should display specific cols', () => {
+    const cascader = <Cascader data={globalData} cols={4} />;
     instance = ReactDOM.render(
-      <PopCascader data={globalData} visible cols={3} />,
+      <PopCascader visible cascader={cascader} />,
     div);
-    expect(instance.getModal().props.cols).to.be(3);
+    expect(instance.cascader.props.cols).to.be(4);
   });
 });
