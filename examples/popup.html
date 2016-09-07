@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>popup.js - example - rmc-cascader@2.2.6</title>
+  <title>popup.js - example - rmc-cascader@3.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -260,7 +260,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-cascader@2.2.6</h1>
+      <h1>rmc-cascader@3.0.0</h1>
 
       <p>m-cascader ui component for react</p>
     </div>
@@ -274,6 +274,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 <span class="hljs-keyword">import</span> PopupCascader <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/Popup'</span>;
+<span class="hljs-keyword">import</span> Cascader <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/Cascader'</span>;
 <span class="hljs-keyword">import</span> globalData <span class="hljs-keyword">from</span> <span class="hljs-string">'./data'</span>;
 <span class="hljs-keyword">import</span> arrayTreeFilter <span class="hljs-keyword">from</span> <span class="hljs-string">'array-tree-filter'</span>;
 
@@ -285,11 +286,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
       visible: <span class="hljs-literal">false</span>,
     };
   },
-  
-  onPickerChange(value) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onPickerChange '</span>, value);
-  },
-  
+
   onChange(value) {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onChange'</span>, value);
     <span class="hljs-keyword">this</span>.setState({
@@ -297,14 +294,18 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
       visible: <span class="hljs-literal">false</span>,
     });
   },
-  
+
   onDismiss() {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onDismiss'</span>);
     <span class="hljs-keyword">this</span>.setState({
       visible: <span class="hljs-literal">false</span>,
     });
   },
-  
+
+  onPickerChange(value) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'picker change'</span>, value);
+  },
+
   getSel() {
     <span class="hljs-keyword">const</span> value = <span class="hljs-keyword">this</span>.state.value;
     <span class="hljs-keyword">if</span> (!value) {
@@ -317,23 +318,28 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
       <span class="hljs-keyword">return</span> v.label;
     }).join(<span class="hljs-string">','</span>);
   },
-  
+
   outerCtrl() {
     <span class="hljs-keyword">this</span>.setState({
       visible: !<span class="hljs-keyword">this</span>.state.visible,
     });
   },
-  
+
   render() {
+    <span class="hljs-keyword">const</span> cascader = (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Cascader</span>
+        <span class="hljs-attribute">rootNativeProps</span>=<span class="hljs-value">{{'data-xx':'yy'}}</span>
+        <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onPickerChange}</span>
+        <span class="hljs-attribute">data</span>=<span class="hljs-value">{globalData}</span>
+        <span class="hljs-attribute">cols</span>=<span class="hljs-value">{COLS}</span>
+      /&gt;</span>
+    )</span>;
     <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">10</span> }}&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>popup cascader<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>选择的城市：{this.getSel()}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">PopupCascader</span>
-        <span class="hljs-attribute">pickerRootNativeProps</span>=<span class="hljs-value">{{'data-xx':'yy'}}</span>
-        <span class="hljs-attribute">data</span>=<span class="hljs-value">{globalData}</span>
+        <span class="hljs-attribute">cascader</span>=<span class="hljs-value">{cascader}</span>
         <span class="hljs-attribute">value</span>=<span class="hljs-value">{this.state.value}</span>
-        <span class="hljs-attribute">cols</span>=<span class="hljs-value">{COLS}</span>
-        <span class="hljs-attribute">onPickerChange</span>=<span class="hljs-value">{this.onPickerChange}</span>
         <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>
         <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>
         <span class="hljs-attribute">title</span>=<span class="hljs-value">"Cascader"</span>
@@ -343,11 +349,9 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
       <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>just cascader no children<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.outerCtrl}</span>&gt;</span>switch<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">PopupCascader</span>
+        <span class="hljs-attribute">cascader</span>=<span class="hljs-value">{cascader}</span>
         <span class="hljs-attribute">visible</span>=<span class="hljs-value">{this.state.visible}</span>
-        <span class="hljs-attribute">data</span>=<span class="hljs-value">{globalData}</span>
         <span class="hljs-attribute">value</span>=<span class="hljs-value">{this.state.value}</span>
-        <span class="hljs-attribute">cols</span>=<span class="hljs-value">{COLS}</span>
-        <span class="hljs-attribute">onPickerChange</span>=<span class="hljs-value">{this.onPickerChange}</span>
         <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>
         <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>
       /&gt;</span>

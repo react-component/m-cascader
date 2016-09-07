@@ -22700,7 +22700,24 @@
 	$export($export.S, 'Object', {create: __webpack_require__(227)});
 
 /***/ },
-/* 260 */
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22717,15 +22734,15 @@
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _classnames = __webpack_require__(261);
+	var _classnames = __webpack_require__(278);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _Picker = __webpack_require__(262);
+	var _Picker = __webpack_require__(279);
 	
 	var _Picker2 = _interopRequireDefault(_Picker);
 	
-	var _CascaderMixin = __webpack_require__(272);
+	var _CascaderMixin = __webpack_require__(289);
 	
 	var _CascaderMixin2 = _interopRequireDefault(_CascaderMixin);
 	
@@ -22779,7 +22796,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 261 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -22833,7 +22850,7 @@
 
 
 /***/ },
-/* 262 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22842,7 +22859,7 @@
 	    value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(263);
+	var _defineProperty2 = __webpack_require__(280);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
@@ -22862,9 +22879,9 @@
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _Animate = __webpack_require__(267);
+	var _Animate = __webpack_require__(284);
 	
-	var _reactHammerjs = __webpack_require__(268);
+	var _reactHammerjs = __webpack_require__(285);
 	
 	var _reactHammerjs2 = _interopRequireDefault(_reactHammerjs);
 	
@@ -22872,13 +22889,13 @@
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _classnames = __webpack_require__(261);
+	var _classnames = __webpack_require__(278);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _utils = __webpack_require__(270);
+	var _utils = __webpack_require__(287);
 	
-	var _isChildrenEqual = __webpack_require__(271);
+	var _isChildrenEqual = __webpack_require__(288);
 	
 	var _isChildrenEqual2 = _interopRequireDefault(_isChildrenEqual);
 	
@@ -23299,14 +23316,14 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 263 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _defineProperty = __webpack_require__(264);
+	var _defineProperty = __webpack_require__(281);
 	
 	var _defineProperty2 = _interopRequireDefault(_defineProperty);
 	
@@ -23328,23 +23345,23 @@
 	};
 
 /***/ },
-/* 264 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(265), __esModule: true };
+	module.exports = { "default": __webpack_require__(282), __esModule: true };
 
 /***/ },
-/* 265 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(266);
+	__webpack_require__(283);
 	var $Object = __webpack_require__(183).Object;
 	module.exports = function defineProperty(it, key, desc){
 	  return $Object.defineProperty(it, key, desc);
 	};
 
 /***/ },
-/* 266 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var $export = __webpack_require__(181);
@@ -23352,7 +23369,7 @@
 	$export($export.S + $export.F * !__webpack_require__(191), 'Object', {defineProperty: __webpack_require__(187).f});
 
 /***/ },
-/* 267 */
+/* 284 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23473,7 +23490,7 @@
 	}
 
 /***/ },
-/* 268 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -23481,7 +23498,7 @@
 	
 	// require('hammerjs') when in a browser. This is safe because Hammer is only
 	// invoked in componentDidMount, which is not executed on the server.
-	var Hammer = (typeof window !== 'undefined') ? __webpack_require__(269) : undefined;
+	var Hammer = (typeof window !== 'undefined') ? __webpack_require__(286) : undefined;
 	
 	var privateProps = {
 		children: true,
@@ -23614,7 +23631,7 @@
 
 
 /***/ },
-/* 269 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! Hammer.JS - v2.0.7 - 2016-04-22
@@ -26263,7 +26280,7 @@
 
 
 /***/ },
-/* 270 */
+/* 287 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26278,7 +26295,7 @@
 	}
 
 /***/ },
-/* 271 */
+/* 288 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -26311,7 +26328,7 @@
 	}
 
 /***/ },
-/* 272 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26320,29 +26337,27 @@
 	    value: true
 	});
 	
-	var _arrayTreeFilter = __webpack_require__(273);
+	var _arrayTreeFilter = __webpack_require__(290);
 	
 	var _arrayTreeFilter2 = _interopRequireDefault(_arrayTreeFilter);
-	
-	var _utils = __webpack_require__(274);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = {
 	    getDefaultProps: function getDefaultProps() {
 	        return {
-	            cols: _utils.COLS
+	            cols: 3
 	        };
 	    },
 	    getInitialState: function getInitialState() {
 	        return {
-	            value: this.getNewValue(this.props.data, this.props.defaultValue || this.props.value)
+	            value: this.getValue(this.props.data, this.props.defaultValue || this.props.value)
 	        };
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        if ('value' in nextProps) {
 	            this.setState({
-	                value: this.getNewValue(nextProps.data, nextProps.value)
+	                value: this.getValue(nextProps.data, nextProps.value)
 	            });
 	        }
 	    },
@@ -26366,8 +26381,21 @@
 	        }
 	        this.props.onChange(value);
 	    },
-	    getNewValue: function getNewValue(d, val) {
-	        return (0, _utils.getDefaultValue)(d, val, this.props.cols);
+	    getValue: function getValue(d, val) {
+	        var data = d || this.props.data;
+	        var value = val || this.props.value || this.props.defaultValue;
+	        if (!value || !value.length) {
+	            value = [];
+	            for (var i = 0; i < this.props.cols; i++) {
+	                if (data && data.length) {
+	                    value[i] = data[0].value;
+	                    data = data[0].children;
+	                } else {
+	                    value[i] = undefined;
+	                }
+	            }
+	        }
+	        return value;
 	    },
 	    getColArray: function getColArray() {
 	        var ret = [];
@@ -26395,7 +26423,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 273 */
+/* 290 */
 /***/ function(module, exports) {
 
 	function arrayTreeFilter(data, filterFn, options) {
@@ -26423,115 +26451,7 @@
 
 
 /***/ },
-/* 274 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.COLS = undefined;
-	
-	var _keys = __webpack_require__(275);
-	
-	var _keys2 = _interopRequireDefault(_keys);
-	
-	exports.getDefaultValue = getDefaultValue;
-	exports.exclude = exclude;
-	exports.noop = noop;
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function getDefaultValue(d, val, cols) {
-	    var data = d;
-	    var value = val;
-	    if (!value || !value.length) {
-	        value = [];
-	        for (var i = 0; i < cols; i++) {
-	            if (data && data.length) {
-	                value[i] = data[0].value;
-	                data = data[0].children;
-	            } else {
-	                value[i] = undefined;
-	            }
-	        }
-	    }
-	    return value;
-	}
-	function exclude(props, bl) {
-	    var ret = {};
-	    (0, _keys2.default)(props).forEach(function (k) {
-	        if (!bl[k]) {
-	            ret[k] = props[k];
-	        }
-	    });
-	    return ret;
-	}
-	function noop() {}
-	var COLS = exports.COLS = 3;
-
-/***/ },
-/* 275 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(276), __esModule: true };
-
-/***/ },
-/* 276 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(277);
-	module.exports = __webpack_require__(183).Object.keys;
-
-/***/ },
-/* 277 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// 19.1.2.14 Object.keys(O)
-	var toObject = __webpack_require__(214)
-	  , $keys    = __webpack_require__(197);
-	
-	__webpack_require__(278)('keys', function(){
-	  return function keys(it){
-	    return $keys(toObject(it));
-	  };
-	});
-
-/***/ },
-/* 278 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// most Object methods by ES6 should accept primitives
-	var $export = __webpack_require__(181)
-	  , core    = __webpack_require__(183)
-	  , fails   = __webpack_require__(192);
-	module.exports = function(KEY, exec){
-	  var fn  = (core.Object || {})[KEY] || Object[KEY]
-	    , exp = {};
-	  exp[KEY] = exec(fn);
-	  $export($export.S + $export.F * fails(function(){ fn(1); }), 'Object', exp);
-	};
-
-/***/ },
-/* 279 */,
-/* 280 */,
-/* 281 */,
-/* 282 */,
-/* 283 */,
-/* 284 */,
-/* 285 */,
-/* 286 */,
-/* 287 */,
-/* 288 */,
-/* 289 */,
-/* 290 */,
-/* 291 */,
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */
+/* 291 */
 /***/ function(module, exports) {
 
 	'use strict';
