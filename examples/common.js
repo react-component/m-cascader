@@ -22777,7 +22777,7 @@
 	        var cols = this.getColArray().map(function (v, i) {
 	            return React.createElement(
 	                'div',
-	                { key: i, className: prefixCls + '-main-item' },
+	                { key: i, className: prefixCls + '-main-item ' + prefixCls + '-item' },
 	                React.createElement(
 	                    _Picker2.default,
 	                    { disabled: disabled, prefixCls: pickerPrefixCls, selectedValue: value[i], onValueChange: _this.onValueChange.bind(_this, i) },
