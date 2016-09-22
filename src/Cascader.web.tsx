@@ -26,6 +26,7 @@ const Cascader = React.createClass<CascaderProps, any>({
     const value = this.state.value;
     const childrenTree = this.getChildrenTree();
     const cols = this.getColArray().map((v, i) => {
+      // do not remove ${prefixCls}-main-item
       return (
         <div key={i} className={`${prefixCls}-item ${prefixCls}-main-item`}>
           <Picker
