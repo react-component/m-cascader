@@ -58,7 +58,7 @@
           align-items: center;
   padding: 10px 0;
 }
-.rmc-cascader-main-item {
+.rmc-cascader-item {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;

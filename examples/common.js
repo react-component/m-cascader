@@ -22168,9 +22168,10 @@
 	        var value = this.state.value;
 	        var childrenTree = this.getChildrenTree();
 	        var cols = this.getColArray().map(function (v, i) {
+	            // do not remove ${prefixCls}-main-item
 	            return React.createElement(
 	                'div',
-	                { key: i, className: prefixCls + '-main-item ' + prefixCls + '-item' },
+	                { key: i, className: prefixCls + '-item ' + prefixCls + '-main-item' },
 	                React.createElement(
 	                    _Picker2.default,
 	                    { itemStyle: pickerItemStyle, disabled: disabled, prefixCls: pickerPrefixCls, selectedValue: value[i], onValueChange: _this.onValueChange.bind(_this, i) },
