@@ -56,15 +56,9 @@ online example: http://react-component.github.io/m-cascader/
 ## react-native
 
 ```
-npm run rn-start
+./node_modules/rc-tools run react-native-init
+react-native run-ios
 ```
-
-load
-
-http://localhost:8081/examples/react-native/picker.bundle?platform=ios
-http://localhost:8081/examples/react-native/popup.bundle?platform=ios
-
-in [RNPlayground](https://github.com/react-component/RNPlayground)
 
 ## install
 
@@ -80,6 +74,7 @@ in [RNPlayground](https://github.com/react-component/RNPlayground)
 |className(web) | additional css class of root dom node | String | '' |
 |prefixCls(web) | prefix class | String | 'rmc-cascader' |
 |pickerPrefixCls(web) | picker prefix class | String | 'rmc-picker' |
+|pickerItemStyle | picker item style | {} |  |
 |data | The data of cascade | array  |  |
 |value | selected value | array  |  |
 |defaultValue | initial selected value | array  |  |

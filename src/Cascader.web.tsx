@@ -1,10 +1,10 @@
 import * as React from 'react';
 import classnames from 'classnames';
 import Picker from 'rmc-picker/lib/Picker.web';
-import { CascaderProps, CascaderState } from './CascaderTypes';
+import { CascaderProps } from './CascaderTypes';
 import CascaderMixin from './CascaderMixin';
 
-const Cascader = React.createClass<CascaderProps, CascaderState>({
+const Cascader = React.createClass<CascaderProps, any>({
   mixins: [CascaderMixin],
 
   getDefaultProps() {
@@ -21,7 +21,7 @@ const Cascader = React.createClass<CascaderProps, CascaderState>({
     const {
       prefixCls, pickerPrefixCls,
       className, rootNativeProps,
-      disabled,
+      disabled, pickerItemStyle,
     } = props;
     const value = this.state.value;
     const childrenTree = this.getChildrenTree();
@@ -29,6 +29,7 @@ const Cascader = React.createClass<CascaderProps, CascaderState>({
       return (
         <div key={i} className={`${prefixCls}-item`}>
           <Picker
+            itemStyle={pickerItemStyle}
             disabled={disabled}
             prefixCls={pickerPrefixCls}
             selectedValue={value[i]}

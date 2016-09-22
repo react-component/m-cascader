@@ -1,7 +1,7 @@
 import {View, StyleSheet} from 'react-native';
 import * as React from 'react';
 import Picker from 'rmc-picker/lib/Picker';
-import { CascaderProps, CascaderState } from './CascaderTypes';
+import { CascaderProps } from './CascaderTypes';
 import CascaderMixin from './CascaderMixin';
 import FlexAlignType = __React.FlexAlignType;
 
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const Cascader = React.createClass<CascaderProps, CascaderState>({
+const Cascader = React.createClass<CascaderProps, any>({
   mixins: [CascaderMixin],
 
   render() {
@@ -28,6 +28,7 @@ const Cascader = React.createClass<CascaderProps, CascaderState>({
     const cols = this.getColArray().map((_, i) => {
       return (<View style={styles.item} key={i}>
         <Picker
+          itemStyle={this.props.pickerItemStyle}
           pure={false}
           selectedValue={value[i]}
           onValueChange={(v) => {this.onValueChange(i, v);}}

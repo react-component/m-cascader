@@ -15,14 +15,11 @@ export interface CascaderProps {
   cols?: number;
   disabled?: boolean;
   rootNativeProps?: {};
+  pickerItemStyle?: {};
   /** web only */
   prefixCls?: string;
   /** web only */
   pickerPrefixCls?: string;
   /** web only */
   className?: string;
-}
-
-export interface CascaderState {
-  value: CascaderValue;
 }
