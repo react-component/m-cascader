@@ -46,7 +46,7 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, a
     }
   };
   onOk = () => {
-    this.props.onChange(this.cascader.getValue().filter(c => !!c));
+    this.props.onChange(this.cascader.getValue().filter(c => c !== null && c !== undefined));
   };
 
   saveRef = (cascader) => {
