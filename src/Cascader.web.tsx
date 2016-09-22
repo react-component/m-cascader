@@ -27,7 +27,7 @@ const Cascader = React.createClass<CascaderProps, any>({
     const childrenTree = this.getChildrenTree();
     const cols = this.getColArray().map((v, i) => {
       return (
-        <div key={i} className={`${prefixCls}-item`}>
+        <div key={i} className={`${prefixCls}-item ${prefixCls}-main-item`}>
           <Picker
             itemStyle={pickerItemStyle}
             disabled={disabled}
