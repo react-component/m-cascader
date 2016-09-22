@@ -361,7 +361,7 @@ webpackJsonp([0],[
 	        };
 	        _this.onOk = function () {
 	            _this.props.onChange(_this.cascader.getValue().filter(function (c) {
-	                return !!c;
+	                return c !== null && c !== undefined;
 	            }));
 	        };
 	        _this.saveRef = function (cascader) {
