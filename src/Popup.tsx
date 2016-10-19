@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import PopupPicker from 'rmc-picker/lib/Popup';
 import { PopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
 import { CascaderProps, CascaderValue } from './CascaderTypes';
@@ -46,7 +46,10 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, a
     }
   };
   onOk = () => {
-    this.props.onChange(this.cascader.getValue().filter(c => c !== null && c !== undefined));
+    const { onChange } = this.props;
+    if (onChange) {
+      onChange(this.cascader.getValue().filter(c => c !== null && c !== undefined));
+    }
   };
 
   saveRef = (cascader) => {
@@ -69,7 +72,10 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, a
       if (!('visible' in this.props)) {
         this.setVisibleState(visible);
       }
-      this.props.onVisibleChange(visible);
+      const { onVisibleChange } = this.props;
+      if (onVisibleChange) {
+        onVisibleChange(visible);
+      }
     }
   };
 

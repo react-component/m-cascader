@@ -41,10 +41,7 @@ React Mobile Cascader Component (web and react-native)
 
 ```
 npm i
-npm i typings -g
-typings install
 npm start
-npm run watch-tsc
 ```
 
 ## Example
@@ -56,6 +53,7 @@ online example: http://react-component.github.io/m-cascader/
 ## react-native
 
 ```
+npm run watch-tsc
 ./node_modules/rc-tools run react-native-init
 react-native run-ios
 ```

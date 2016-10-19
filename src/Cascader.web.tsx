@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import Picker from 'rmc-picker/lib/Picker.web';
 import { CascaderProps } from './CascaderTypes';

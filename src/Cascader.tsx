@@ -1,11 +1,11 @@
 import {View, StyleSheet} from 'react-native';
-import * as React from 'react';
+import React from 'react';
 import Picker from 'rmc-picker/lib/Picker';
 import { CascaderProps } from './CascaderTypes';
 import CascaderMixin from './CascaderMixin';
-import FlexAlignType = __React.FlexAlignType;
+import FlexAlignType = React.FlexAlignType;
 
-type FlexDirection = "row" | "column";
+type FlexDirection = 'row' | 'column';
 
 const styles = StyleSheet.create({
   item: {
