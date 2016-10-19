@@ -44,16 +44,7 @@ webpackJsonp([1],{
 	        console.log('onChange', value);
 	    },
 	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { style: { padding: 10 } },
-	            React.createElement(
-	                'h3',
-	                null,
-	                'simple inline'
-	            ),
-	            React.createElement(_Cascader2.default, { data: _data2.default, onChange: this.onChange, rootNativeProps: { 'data-xx': 'yy' } })
-	        );
+	        return React.createElement("div", { style: { padding: 10 } }, React.createElement("h3", null, "simple inline"), React.createElement(_Cascader2.default, { data: _data2.default, onChange: this.onChange, rootNativeProps: { 'data-xx': 'yy' } }));
 	    }
 	});
 	ReactDOM.render(React.createElement(Demo, null), document.getElementById('__react-content'));
