@@ -1,10 +1,12 @@
 /* eslint no-console:0 */
 
+/* tslint:disable:no-console */
+
 import 'rmc-picker/assets/index.css';
 import 'rmc-cascader/assets/index.less';
 import Cascader from '../src/Cascader.web';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import globalData from './data';
 
 const Demo = React.createClass({

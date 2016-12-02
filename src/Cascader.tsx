@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     alignItems: 'center' as FlexAlignType,
     paddingTop: 10,
     paddingBottom: 10,
-  }
+  },
 });
 
 const Cascader = React.createClass<CascaderProps, any>({

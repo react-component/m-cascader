@@ -1,7 +1,9 @@
 /* eslint no-console:0, react/no-multi-comp:0 */
 
-import * as React from 'react';
-import { View, Text, StyleSheet, AppRegistry, TouchableHighlight } from 'react-native';
+/* tslint:disable:no-console */
+
+import React from 'react';
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import PopupCascader from '../../src/Popup';
 import globalData from '../data';
 import arrayTreeFilter from 'array-tree-filter';
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
     borderColor: 'red',
     padding: 5,
     width: 300,
-  }
+  },
 });
 
 const PopupDemo = React.createClass({

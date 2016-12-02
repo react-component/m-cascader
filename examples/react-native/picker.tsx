@@ -1,9 +1,11 @@
 /* eslint no-console:0 */
 
+/* tslint:disable:no-console */
+
 import Cascader from '../../src/Cascader';
-import { View, Text, AppRegistry } from 'react-native';
+import { View, Text } from 'react-native';
 import globalData from '../data';
-import * as React from 'react';
+import React from 'react';
 
 const PickerDemo = React.createClass({
   onChange(value) {

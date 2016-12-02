@@ -15,13 +15,13 @@ export interface PopupCascaderProps extends PopupPickerProps {
 }
 
 export default class PopupCascader extends React.Component<PopupCascaderProps, any> {
-  cascader: any;
-
   static defaultProps = {
     prefixCls: 'rmc-picker-popup',
     onVisibleChange: noop,
     onChange: noop,
   };
+
+  cascader: any;
 
   constructor(props: PopupCascaderProps) {
     super(props);

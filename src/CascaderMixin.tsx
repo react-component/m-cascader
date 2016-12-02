@@ -55,7 +55,7 @@ export default {
     return value;
   },
   getColArray() {
-    const ret:any[] = [];
+    const ret: any[] = [];
     for (let i = 0; i < this.props.cols; i++) {
       ret[i] = undefined;
     }

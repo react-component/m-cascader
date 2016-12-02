@@ -1,4 +1,5 @@
 const expect = require('expect.js');
+// tslint:disable-next-line
 const React = require('react');
 const ReactDOM = require('react-dom');
 // const TestUtils = require('react-addons-test-utils');
