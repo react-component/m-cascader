@@ -1,17 +1,17 @@
 export type CascaderOneValue = string|number;
 export type CascaderValue = CascaderOneValue[];
 
-export interface CascaderDataItem {
+export interface ICascaderDataItem {
   label: string;
   value: CascaderOneValue;
-  children?: CascaderDataItem[];
+  children?: ICascaderDataItem[];
 }
 
-export interface CascaderProps {
+export interface ICascaderProps {
   defaultValue?: CascaderValue;
   value?: CascaderValue;
   onChange?: (value: CascaderValue) => void;
-  data: CascaderDataItem[];
+  data: ICascaderDataItem[];
   cols?: number;
   disabled?: boolean;
   rootNativeProps?: {};

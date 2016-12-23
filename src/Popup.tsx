@@ -1,60 +1,60 @@
 import React from 'react';
 import PopupPicker from 'rmc-picker/lib/Popup';
 import { PopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
-import { CascaderProps, CascaderValue } from './CascaderTypes';
+import { ICascaderProps, CascaderValue } from './CascaderTypes';
 
 function noop() {
 }
 
-export interface PopupCascaderProps extends PopupPickerProps {
-  cascader: React.ReactElement<CascaderProps>;
+export interface IPopupCascaderProps extends PopupPickerProps {
+  cascader: React.ReactElement<ICascaderProps>;
   visible?: boolean;
   value?: CascaderValue;
-  onChange?: (date: CascaderValue) => void;
-  onVisibleChange?: (visible: boolean) => void;
+  onChange?: (date?: CascaderValue) => void;
+  onVisibleChange?: (visible?: boolean) => void;
 }
 
-export default class PopupCascader extends React.Component<PopupCascaderProps, any> {
-  static defaultProps = {
-    prefixCls: 'rmc-picker-popup',
-    onVisibleChange: noop,
-    onChange: noop,
-  };
+const PopupCascader = React.createClass<IPopupCascaderProps, any>({
+  getDefaultProps() {
+    return {
+      prefixCls: 'rmc-picker-popup',
+      onVisibleChange: noop,
+      onChange: noop,
+    } as any;
+  },
 
-  cascader: any;
-
-  constructor(props: PopupCascaderProps) {
-    super(props);
-    this.state = {
+  getInitialState() {
+    return {
       pickerValue: null,
       visible: this.props.visible || false,
     };
-  }
+  },
 
   componentWillReceiveProps(nextProps) {
     if ('visible' in nextProps) {
       this.setVisibleState(nextProps.visible);
     }
-  }
+  },
 
-  onPickerChange = (pickerValue) => {
+  onPickerChange(pickerValue) {
     this.setState({
       pickerValue,
     });
     if (this.props.cascader.props.onChange) {
       this.props.cascader.props.onChange(pickerValue);
     }
-  };
-  onOk = () => {
+  },
+
+  onOk() {
     const { onChange } = this.props;
     if (onChange) {
       onChange(this.cascader.getValue().filter(c => c !== null && c !== undefined));
     }
-  };
+  },
 
-  saveRef = (cascader) => {
+  saveRef(cascader) {
     this.cascader = cascader;
-  };
+  },
 
   setVisibleState(visible) {
     this.setState({
@@ -65,9 +65,9 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, a
         pickerValue: null,
       });
     }
-  }
+  },
 
-  fireVisibleChange = (visible) => {
+  fireVisibleChange(visible) {
     if (this.state.visible !== visible) {
       if (!('visible' in this.props)) {
         this.setVisibleState(visible);
@@ -77,7 +77,7 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, a
         onVisibleChange(visible);
       }
     }
-  };
+  },
 
   render() {
     const cascader = React.cloneElement(this.props.cascader, ({
@@ -85,7 +85,7 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, a
       onChange: this.onPickerChange,
       ref: this.saveRef,
       data: this.props.cascader.props.data,
-    } as CascaderProps));
+    } as ICascaderProps));
 
     return (<PopupPicker
       {...this.props}
@@ -94,5 +94,7 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, a
       content={cascader}
       visible={this.state.visible}
     />);
-  }
-}
+  },
+});
+
+export default PopupCascader;

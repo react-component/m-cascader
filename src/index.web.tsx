@@ -1,1 +1,1 @@
-export { default } from './Cascader.web';
+export { default } from './Cascader';
