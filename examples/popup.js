@@ -31,15 +31,15 @@ webpackJsonp([0],{
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
-	var _Cascader = __webpack_require__(201);
+	var _Cascader = __webpack_require__(220);
 	
 	var _Cascader2 = _interopRequireDefault(_Cascader);
 	
-	var _data = __webpack_require__(214);
+	var _data = __webpack_require__(256);
 	
 	var _data2 = _interopRequireDefault(_data);
 	
-	var _arrayTreeFilter = __webpack_require__(202);
+	var _arrayTreeFilter = __webpack_require__(221);
 	
 	var _arrayTreeFilter2 = _interopRequireDefault(_arrayTreeFilter);
 	
@@ -129,77 +129,28 @@ webpackJsonp([0],{
 	    return t;
 	};
 	
-	function noop() {}
 	var PopupCascader = _react2.default.createClass({
 	    displayName: 'PopupCascader',
 	    getDefaultProps: function getDefaultProps() {
 	        return {
-	            prefixCls: 'rmc-picker-popup',
-	            onVisibleChange: noop,
-	            onChange: noop
+	            pickerValueProp: 'value',
+	            pickerValueChangeProp: 'onChange'
 	        };
 	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            pickerValue: null,
-	            visible: this.props.visible || false
-	        };
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if ('visible' in nextProps) {
-	            this.setVisibleState(nextProps.visible);
-	        }
-	    },
-	    onPickerChange: function onPickerChange(pickerValue) {
-	        this.setState({
-	            pickerValue: pickerValue
-	        });
-	        if (this.props.cascader.props.onChange) {
-	            this.props.cascader.props.onChange(pickerValue);
-	        }
-	    },
-	    onOk: function onOk() {
-	        var onChange = this.props.onChange;
+	    onOk: function onOk(v) {
+	        var _props = this.props,
+	            onChange = _props.onChange,
+	            onOk = _props.onOk;
 	
 	        if (onChange) {
-	            onChange(this.cascader.getValue().filter(function (c) {
-	                return c !== null && c !== undefined;
-	            }));
+	            onChange(v);
 	        }
-	    },
-	    saveRef: function saveRef(cascader) {
-	        this.cascader = cascader;
-	    },
-	    setVisibleState: function setVisibleState(visible) {
-	        this.setState({
-	            visible: visible
-	        });
-	        if (!visible) {
-	            this.setState({
-	                pickerValue: null
-	            });
-	        }
-	    },
-	    fireVisibleChange: function fireVisibleChange(visible) {
-	        if (this.state.visible !== visible) {
-	            if (!('visible' in this.props)) {
-	                this.setVisibleState(visible);
-	            }
-	            var onVisibleChange = this.props.onVisibleChange;
-	
-	            if (onVisibleChange) {
-	                onVisibleChange(visible);
-	            }
+	        if (onOk) {
+	            onOk(v);
 	        }
 	    },
 	    render: function render() {
-	        var cascader = _react2.default.cloneElement(this.props.cascader, {
-	            value: this.state.pickerValue || this.props.value,
-	            onChange: this.onPickerChange,
-	            ref: this.saveRef,
-	            data: this.props.cascader.props.data
-	        });
-	        return _react2.default.createElement(_Popup2.default, __assign({}, this.props, { onVisibleChange: this.fireVisibleChange, onOk: this.onOk, content: cascader, visible: this.state.visible }));
+	        return _react2.default.createElement(_Popup2.default, __assign({ picker: this.props.cascader }, this.props, { onOk: this.onOk }));
 	    }
 	});
 	exports.default = PopupCascader;
@@ -228,7 +179,7 @@ webpackJsonp([0],{
 	
 	var _PopupMixin2 = _interopRequireDefault(_PopupMixin);
 	
-	var _rcTouchable = __webpack_require__(200);
+	var _rcTouchable = __webpack_require__(219);
 	
 	var _rcTouchable2 = _interopRequireDefault(_rcTouchable);
 	
@@ -285,7 +236,7 @@ webpackJsonp([0],{
 	            )
 	          )
 	        ),
-	        this.props.content
+	        this.getContent()
 	      )
 	    );
 	  },
@@ -2549,6 +2500,10 @@ webpackJsonp([0],{
 	    value: true
 	});
 	
+	var _defineProperty2 = __webpack_require__(200);
+	
+	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+	
 	var _react = __webpack_require__(5);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -2561,6 +2516,8 @@ webpackJsonp([0],{
 	        return {
 	            onVisibleChange: noop,
 	            okText: 'Ok',
+	            pickerValueProp: 'selectedValue',
+	            pickerValueChangeProp: 'onValueChange',
 	            dismissText: 'Dismiss',
 	            title: '',
 	            onOk: noop,
@@ -2569,6 +2526,7 @@ webpackJsonp([0],{
 	    },
 	    getInitialState: function getInitialState() {
 	        return {
+	            pickerValue: null,
 	            visible: this.props.visible || false
 	        };
 	    },
@@ -2577,10 +2535,28 @@ webpackJsonp([0],{
 	            this.setVisibleState(nextProps.visible);
 	        }
 	    },
+	    onPickerChange: function onPickerChange(pickerValue) {
+	        if (this.state.pickerValue !== pickerValue) {
+	            this.setState({
+	                pickerValue: pickerValue
+	            });
+	            if (this.picker && this.picker.props[this.props.pickerValueChangeProp]) {
+	                this.picker.props[this.props.pickerValueChangeProp](pickerValue);
+	            }
+	        }
+	    },
+	    saveRef: function saveRef(picker) {
+	        this.picker = picker;
+	    },
 	    setVisibleState: function setVisibleState(visible) {
 	        this.setState({
 	            visible: visible
 	        });
+	        if (!visible) {
+	            this.setState({
+	                pickerValue: null
+	            });
+	        }
 	    },
 	    fireVisibleChange: function fireVisibleChange(visible) {
 	        if (this.state.visible !== visible) {
@@ -2621,8 +2597,17 @@ webpackJsonp([0],{
 	        this.fireVisibleChange(!this.state.visible);
 	    },
 	    onOk: function onOk() {
-	        this.props.onOk();
+	        this.props.onOk(this.picker && this.picker.getValue());
 	        this.fireVisibleChange(false);
+	    },
+	    getContent: function getContent() {
+	        if (this.props.picker) {
+	            var _React$cloneElement;
+	
+	            return _react2["default"].cloneElement(this.props.picker, (_React$cloneElement = {}, (0, _defineProperty3["default"])(_React$cloneElement, this.props.pickerValueProp, this.state.pickerValue || this.props.value), (0, _defineProperty3["default"])(_React$cloneElement, this.props.pickerValueChangeProp, this.onPickerChange), (0, _defineProperty3["default"])(_React$cloneElement, 'ref', this.saveRef), _React$cloneElement));
+	        } else {
+	            return this.props.content;
+	        }
 	    },
 	    onDismiss: function onDismiss() {
 	        this.props.onDismiss();
@@ -2636,7 +2621,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 200:
+/***/ 219:
 /***/ function(module, exports, __webpack_require__) {
 
 	// inspired by react-native
