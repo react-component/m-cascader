@@ -52,8 +52,6 @@ const Cascader = React.createClass<ICascaderProps, any>({
         if (data && data.length) {
           value[i] = data[0].value;
           data = data[0].children;
-        } else {
-          value[i] = undefined;
         }
       }
     }
