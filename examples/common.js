@@ -439,8 +439,15 @@
 /* 8 */
 /***/ function(module, exports) {
 
+	/*
+	object-assign
+	(c) Sindre Sorhus
+	@license MIT
+	*/
+	
 	'use strict';
 	/* eslint-disable no-unused-vars */
+	var getOwnPropertySymbols = Object.getOwnPropertySymbols;
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 	
@@ -461,7 +468,7 @@
 			// Detect buggy property enumeration order in older V8 versions.
 	
 			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-			var test1 = new String('abc');  // eslint-disable-line
+			var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
 			test1[5] = 'de';
 			if (Object.getOwnPropertyNames(test1)[0] === '5') {
 				return false;
@@ -490,7 +497,7 @@
 			}
 	
 			return true;
-		} catch (e) {
+		} catch (err) {
 			// We don't expect any of the above to throw, but better to be safe.
 			return false;
 		}
@@ -510,8 +517,8 @@
 				}
 			}
 	
-			if (Object.getOwnPropertySymbols) {
-				symbols = Object.getOwnPropertySymbols(from);
+			if (getOwnPropertySymbols) {
+				symbols = getOwnPropertySymbols(from);
 				for (var i = 0; i < symbols.length; i++) {
 					if (propIsEnumerable.call(from, symbols[i])) {
 						to[symbols[i]] = from[symbols[i]];
@@ -24053,6 +24060,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	/* tslint:disable:no-console */
 	exports["default"] = {
 	    select: function select(value) {
 	        var children = this.toChildrenArray(this.props.children);
@@ -24081,7 +24089,11 @@
 	        var children = this.toChildrenArray(this.props.children);
 	        index = Math.min(index, children.length - 1);
 	        var child = children[index];
-	        this.fireValueChange(this.getChildMember(child, 'value'));
+	        if (child) {
+	            this.fireValueChange(this.getChildMember(child, 'value'));
+	        } else if (console.warn) {
+	            console.warn('child not found', children, index);
+	        }
 	    }
 	};
 	module.exports = exports['default'];
@@ -24139,11 +24151,19 @@
 	        };
 	    },
 	    getValue: function getValue() {
-	        if (this.props.selectedValue) {
-	            return this.props.selectedValue;
+	        var _props = this.props,
+	            children = _props.children,
+	            selectedValue = _props.selectedValue;
+	
+	        if (selectedValue && selectedValue.length) {
+	            return selectedValue;
 	        } else {
-	            return this.props.children.map(function (c) {
-	                return c.props.children[0].value;
+	            if (!children) {
+	                return [];
+	            }
+	            return children.map(function (c) {
+	                var cc = c.props.children;
+	                return cc && cc[0] && cc[0].value;
 	            });
 	        }
 	    },
