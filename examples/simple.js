@@ -3,12 +3,12 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(257);
+	module.exports = __webpack_require__(296);
 
 
 /***/ },
 
-/***/ 257:
+/***/ 296:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17,35 +17,37 @@ webpackJsonp([1],{
 	
 	__webpack_require__(3);
 	
-	var _Cascader = __webpack_require__(220);
+	var _Cascader = __webpack_require__(283);
 	
 	var _Cascader2 = _interopRequireDefault(_Cascader);
 	
 	var _react = __webpack_require__(5);
 	
-	var _react2 = _interopRequireDefault(_react);
+	var React = _interopRequireWildcard(_react);
 	
 	var _reactDom = __webpack_require__(36);
 	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
+	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
-	var _data = __webpack_require__(256);
+	var _data = __webpack_require__(295);
 	
 	var _data2 = _interopRequireDefault(_data);
 	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	/* tslint:disable:no-console */
-	var Demo = _react2.default.createClass({
+	/* eslint no-console:0 */
+	var Demo = React.createClass({
 	    displayName: 'Demo',
 	    onChange: function onChange(value) {
 	        console.log('onChange', value);
 	    },
 	    render: function render() {
-	        return _react2.default.createElement("div", { style: { padding: 10 } }, _react2.default.createElement("h3", null, "simple inline"), _react2.default.createElement(_Cascader2.default, { data: _data2.default, onChange: this.onChange, rootNativeProps: { 'data-xx': 'yy' } }));
+	        return React.createElement("div", { style: { padding: 10 } }, React.createElement("h3", null, "simple inline"), React.createElement(_Cascader2.default, { data: _data2.default, onChange: this.onChange, rootNativeProps: { 'data-xx': 'yy' } }));
 	    }
 	});
-	_reactDom2.default.render(_react2.default.createElement(Demo, null), document.getElementById('__react-content'));
+	ReactDOM.render(React.createElement(Demo, null), document.getElementById('__react-content'));
 
 /***/ }
 
