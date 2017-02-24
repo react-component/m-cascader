@@ -32,6 +32,10 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, a
   }
 
   componentWillReceiveProps(nextProps) {
+    this.setState({
+      ...this.state,
+      pickerValue: nextProps.value,
+    });
     if ('visible' in nextProps) {
       this.setVisibleState(nextProps.visible);
     }
