@@ -16,6 +16,7 @@ export interface ICascaderProps {
   disabled?: boolean;
   rootNativeProps?: {};
   pickerItemStyle?: {};
+  indicatorStyle?: {};
   /** web only */
   prefixCls?: string;
   /** web only */
