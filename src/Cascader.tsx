@@ -80,6 +80,7 @@ const Cascader = React.createClass<ICascaderProps, any>({
       prefixCls, pickerPrefixCls,
       className, rootNativeProps,
       disabled, pickerItemStyle,
+      indicatorStyle,
     } = props;
     return (
       <MultiPicker
@@ -89,6 +90,7 @@ const Cascader = React.createClass<ICascaderProps, any>({
         className={className}
         selectedValue={this.state.value}
         rootNativeProps={rootNativeProps}
+        indicatorStyle={indicatorStyle}
         pickerItemStyle={pickerItemStyle}
         onValueChange={this.onValueChange}
       >

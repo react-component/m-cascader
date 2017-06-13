@@ -62,7 +62,7 @@ const Demo = React.createClass({
   render() {
     const cascader = (
       <Cascader
-        rootNativeProps={{'data-xx':'yy'}}
+        rootNativeProps={{'data-xx': 'yy'}}
         onChange={this.onPickerChange}
         data={globalData}
         cols={COLS}
