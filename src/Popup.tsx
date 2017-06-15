@@ -8,15 +8,13 @@ export interface IPopupCascaderProps extends IPopupPickerProps {
   onChange?: (date?: CascaderValue) => void;
 }
 
-const PopupCascader = React.createClass<IPopupCascaderProps, any>({
-  getDefaultProps() {
-    return {
-      pickerValueProp: 'value',
-      pickerValueChangeProp: 'onChange',
-    } as any;
-  },
+class PopupCascader extends React.Component<IPopupCascaderProps, any> {
+  static defaultProps = {
+    pickerValueProp: 'value',
+    pickerValueChangeProp: 'onChange',
+  };
 
-  onOk(v) {
+  onOk = (v) => {
     const { onChange, onOk } = this.props;
     if (onChange) {
       onChange(v);
@@ -24,7 +22,7 @@ const PopupCascader = React.createClass<IPopupCascaderProps, any>({
     if (onOk) {
       onOk(v);
     }
-  },
+  }
 
   render() {
     return (<PopupPicker
@@ -32,7 +30,7 @@ const PopupCascader = React.createClass<IPopupCascaderProps, any>({
       {...this.props}
       onOk={this.onOk}
     />);
-  },
-});
+  }
+}
 
 export default PopupCascader;

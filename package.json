@@ -46,6 +46,7 @@
     "@types/react": "~0.14.41",
     "@types/react-dom": "~0.14.18",
     "@types/react-native": "~0.29.36",
+    "create-react-class": "^15.6.0",
     "expect.js": "0.3.x",
     "fastclick": "^1.0.6",
     "pre-commit": "1.x",
@@ -54,7 +55,7 @@
     "react": "15.5.x",
     "react-dom": "15.5.x",
     "react-native": "0.41.x",
-    "react-native-index-page": "~0.1.0"
+    "react-native-index-page": "~0.2.0"
   },
   "typings": "./lib/index.d.ts",
   "pre-commit": [

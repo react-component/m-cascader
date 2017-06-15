@@ -1,11 +1,11 @@
-const expect = require('expect.js');
+import expect from 'expect.js';
 // tslint:disable-next-line
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 // const TestUtils = require('react-addons-test-utils');
 // const Simulate = TestUtils.Simulate;
 
-const MCascader = require('../');
+import MCascader from '../';
 import 'rmc-picker/assets/index.css';
 import globalData from '../examples/data';
 
