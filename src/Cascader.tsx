@@ -30,8 +30,7 @@ class Cascader extends React.Component<ICascaderProps, any> {
     });
     let data = children[index];
     let i;
-    let cols = this.props.cols || 3;
-    for (i = index + 1; data && data.children && data.children.length && i < cols; i++) {
+    for (i = index + 1; data && data.children && data.children.length && i < this.props.cols!; i++) {
       data = data.children[0];
       value[i] = data.value;
     }
@@ -49,10 +48,9 @@ class Cascader extends React.Component<ICascaderProps, any> {
   getValue(d, val) {
     let data = d || this.props.data;
     let value = val || this.props.value || this.props.defaultValue;
-    let cols = this.props.cols || 3;
     if (!value || !value.length) {
       value = [];
-      for (let i = 0; i < cols; i++) {
+      for (let i = 0; i < this.props.cols!; i++) {
         if (data && data.length) {
           value[i] = data[0].value;
           data = data[0].children;
@@ -63,12 +61,12 @@ class Cascader extends React.Component<ICascaderProps, any> {
   }
 
   getCols() {
-    const { data, cols = 3 } = this.props;
+    const { data, cols } = this.props;
     const value = this.state.value;
     const childrenTree = arrayTreeFilter(data, (c, level) => {
       return c.value === value[level];
     }).map(c => c.children);
-    childrenTree.length = cols - 1;
+    childrenTree.length = cols! - 1;
     childrenTree.unshift(data);
     return childrenTree.map(children => {
       return {
