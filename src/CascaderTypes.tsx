@@ -1,3 +1,4 @@
+/* tslint:disable: interface-name */
 export type CascaderOneValue = string|number;
 export type CascaderValue = CascaderOneValue[];
 

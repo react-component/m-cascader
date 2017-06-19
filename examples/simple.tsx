@@ -16,7 +16,7 @@ const Demo = React.createClass({
   render() {
     return (<div style={{ padding: 10 }}>
       <h3>simple inline</h3>
-      <Cascader data={globalData} onChange={this.onChange} rootNativeProps={{'data-xx':'yy'}}/>
+      <Cascader data={globalData} onChange={this.onChange} rootNativeProps={{'data-xx': 'yy'}}/>
     </div>);
   },
 });

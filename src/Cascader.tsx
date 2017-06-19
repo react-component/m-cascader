@@ -1,6 +1,6 @@
 import {View, StyleSheet} from 'react-native';
 import React from 'react';
-import Picker from 'rmc-picker/lib/Picker';
+import Picker from 'rmc-picker/lib/Picker.native';
 import { CascaderProps } from './CascaderTypes';
 import CascaderMixin from './CascaderMixin';
 import FlexAlignType = React.FlexAlignType;
@@ -31,7 +31,7 @@ const Cascader = React.createClass<CascaderProps, any>({
           itemStyle={this.props.pickerItemStyle}
           pure={false}
           selectedValue={value[i]}
-          onValueChange={(v) => {this.onValueChange(i, v);}}
+          onValueChange={(v) => {this.onValueChange(i, v); }}
         >
           {childrenTree[i] || []}
         </Picker>

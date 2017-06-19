@@ -1,6 +1,6 @@
 {
   "name": "rmc-cascader",
-  "version": "3.0.5",
+  "version": "3.0.9",
   "description": "m-cascader ui component for react",
   "keywords": [
     "react",
@@ -37,7 +37,8 @@
     "saucelabs": "rc-tools run saucelabs",
     "test": "rc-tools run test",
     "chrome-test": "rc-tools run chrome-test",
-    "coverage": "rc-tools run coverage"
+    "coverage": "rc-tools run coverage",
+    "rn-init": "rc-tools run react-native-init"
   },
   "devDependencies": {
     "@types/mocha": "~2.2.32",

@@ -1,5 +1,6 @@
 *.iml
 *.log
+*.log.*
 .idea
 .ipr
 .iws
@@ -32,3 +33,4 @@ ios/
 android/
 xcuserdata
 yarn.lock
+_ts2js/

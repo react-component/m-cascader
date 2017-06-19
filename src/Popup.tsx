@@ -1,12 +1,13 @@
+/* tslint:disable: interface-name */
 import React from 'react';
 import PopupPicker from 'rmc-picker/lib/Popup';
-import { PopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
+import { IPopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
 import { CascaderProps, CascaderValue } from './CascaderTypes';
 
 function noop() {
 }
 
-export interface PopupCascaderProps extends PopupPickerProps {
+export interface PopupCascaderProps extends IPopupPickerProps {
   cascader: React.ReactElement<CascaderProps>;
   visible?: boolean;
   value?: CascaderValue;
@@ -44,17 +45,17 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, a
     if (this.props.cascader.props.onChange) {
       this.props.cascader.props.onChange(pickerValue);
     }
-  };
+  }
   onOk = () => {
     const { onChange } = this.props;
     if (onChange) {
       onChange(this.cascader.getValue().filter(c => c !== null && c !== undefined));
     }
-  };
+  }
 
   saveRef = (cascader) => {
     this.cascader = cascader;
-  };
+  }
 
   setVisibleState(visible) {
     this.setState({
@@ -77,7 +78,7 @@ export default class PopupCascader extends React.Component<PopupCascaderProps, a
         onVisibleChange(visible);
       }
     }
-  };
+  }
 
   render() {
     const cascader = React.cloneElement(this.props.cascader, ({
