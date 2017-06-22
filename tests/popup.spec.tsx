@@ -1,10 +1,11 @@
-const expect = require('expect.js');
-const React = require('react');
-const ReactDOM = require('react-dom');
-const TestUtils = require('react-dom/test-utils');
+import expect from 'expect.js';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import createReactClass from 'create-react-class';
+import TestUtils from 'react-dom/test-utils';
 const Simulate = TestUtils.Simulate;
-const Cascader = require('../src/Cascader');
-const PopCascader = require('../src/Popup');
+import Cascader from '../src/Cascader';
+import PopCascader from '../src/Popup';
 import 'rmc-picker/assets/index.css';
 import globalData from '../examples/data';
 
@@ -22,11 +23,11 @@ describe('popup', () => {
   });
 
   it('should visible', () => {
-    const Ins = React.createClass({
+    const Ins = createReactClass({
       render() {
         const cascader = <Cascader data={globalData} />;
         return (
-          <PopCascader ref="pop" cascader={cascader}>
+          <PopCascader ref="pop" className="poptest" cascader={cascader}>
             <button ref="button">open</button>
           </PopCascader>
         );
@@ -34,8 +35,8 @@ describe('popup', () => {
     });
     instance = ReactDOM.render(<Ins />, div);
     Simulate.click(ReactDOM.findDOMNode(instance.refs.button));
-    expect(instance.refs.pop.state.visible).to.be(true);
-    expect(instance.refs.pop.cascader.props.cols).to.be(3);
+    expect(document.getElementsByClassName('poptest').length).to.above(0);
+    expect(instance.refs.pop.props.cascader.props.cols).to.be(3);
   });
 
   it('should display specific cols', () => {
@@ -43,6 +44,6 @@ describe('popup', () => {
     instance = ReactDOM.render(
       <PopCascader visible cascader={cascader} />,
     div);
-    expect(instance.cascader.props.cols).to.be(4);
+    expect(instance.props.cascader.props.cols).to.be(4);
   });
 });

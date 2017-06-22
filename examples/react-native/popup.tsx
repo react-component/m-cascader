@@ -21,25 +21,29 @@ const styles = StyleSheet.create({
   },
 });
 
-const PopupDemo = React.createClass({
-  getInitialState() {
-    return {
+export class PopupDemo extends React.Component<any, any> {
+  constructor(props) {
+    super(props);
+    this.state = {
       visible: false,
     };
-  },
-  onChange(value) {
+  }
+
+  onChange = (value) => {
     console.log('onChange', value);
     this.setState({
       value,
       visible: false,
     });
-  },
-  onDismiss() {
+  }
+
+  onDismiss = () => {
     console.log('onDismiss');
     this.setState({
       visible: false,
     });
-  },
+  }
+
   getSel() {
     const value = this.state.value;
     if (!value) {
@@ -51,12 +55,14 @@ const PopupDemo = React.createClass({
     return treeChildren.map((v) => {
       return v.label;
     }).join(',');
-  },
-  outerCtrl() {
+  }
+
+  outerCtrl = () => {
     this.setState({
       visible: !this.state.visible,
     });
-  },
+  }
+
   render() {
     const cascader = (
       <Cascader
@@ -96,8 +102,8 @@ const PopupDemo = React.createClass({
         onChange={this.onChange}
       />
     </View>);
-  },
-});
+  }
+}
 
 export const Demo = PopupDemo;
 export const title = 'popup';

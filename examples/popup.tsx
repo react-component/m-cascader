@@ -14,31 +14,32 @@ import arrayTreeFilter from 'array-tree-filter';
 
 const COLS = 3;
 
-const Demo = React.createClass({
-  getInitialState() {
-    return {
+class Demo extends React.Component<any, any> {
+  constructor(props) {
+    super(props);
+    this.state = {
       visible: false,
     };
-  },
+  }
 
-  onChange(value) {
+  onChange = (value) => {
     console.log('onChange', value);
     this.setState({
       value,
       visible: false,
     });
-  },
+  }
 
-  onDismiss() {
+  onDismiss = () => {
     console.log('onDismiss');
     this.setState({
       visible: false,
     });
-  },
+  }
 
-  onPickerChange(value) {
+  onPickerChange = (value) => {
     console.log('picker change', value);
-  },
+  }
 
   getSel() {
     const value = this.state.value;
@@ -51,13 +52,13 @@ const Demo = React.createClass({
     return treeChildren.map((v) => {
       return v.label;
     }).join(',');
-  },
+  }
 
-  outerCtrl() {
+  outerCtrl = () => {
     this.setState({
       visible: !this.state.visible,
     });
-  },
+  }
 
   render() {
     const cascader = (
@@ -90,7 +91,7 @@ const Demo = React.createClass({
         onChange={this.onChange}
       />
     </div>);
-  },
-});
+  }
+}
 
 ReactDOM.render(<Demo />, document.getElementById('__react-content'));
