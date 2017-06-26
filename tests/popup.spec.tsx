@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom';
 import createReactClass from 'create-react-class';
 import TestUtils from 'react-dom/test-utils';
 const Simulate = TestUtils.Simulate;
-import Cascader from '../src/Cascader';
-import PopCascader from '../src/Popup';
+import Cascader from '../lib/Cascader';
+import PopCascader from '../lib/Popup';
 import 'rmc-picker/assets/index.css';
 import globalData from '../examples/data';
 
