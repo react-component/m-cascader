@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 // const TestUtils = require('react-addons-test-utils');
 // const Simulate = TestUtils.Simulate;
 
-import MCascader from '../';
+import MCascader from '../src/';
 import 'rmc-picker/assets/index.css';
 import globalData from '../examples/data';
 

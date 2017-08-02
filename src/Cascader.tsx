@@ -1,6 +1,7 @@
 import React from 'react';
 import arrayTreeFilter from 'array-tree-filter';
 import MultiPicker from 'rmc-picker/lib/MultiPicker';
+import Picker from 'rmc-picker/lib/Picker';
 import { ICascaderProps } from './CascaderTypes';
 
 class Cascader extends React.Component<ICascaderProps, any> {
@@ -68,13 +69,13 @@ class Cascader extends React.Component<ICascaderProps, any> {
     }).map(c => c.children);
     childrenTree.length = cols! - 1;
     childrenTree.unshift(data);
-    return childrenTree.map(children => {
-      return {
-        props: {
-          children: children || [],
-        },
-      };
-    });
+    return childrenTree.map((children: any[] = [], level) => (
+      <Picker key={level}>
+        {children.map(item =>
+          <Picker.Item value={item.value} key={item.value}>{item.label}</Picker.Item>)
+        }
+      </Picker>
+    ));
   }
 
   render() {
@@ -85,6 +86,7 @@ class Cascader extends React.Component<ICascaderProps, any> {
       disabled, pickerItemStyle,
       indicatorStyle,
     } = props;
+    const cols = this.getCols();
     return (
       <MultiPicker
         prefixCls={prefixCls}
@@ -97,7 +99,7 @@ class Cascader extends React.Component<ICascaderProps, any> {
         pickerItemStyle={pickerItemStyle}
         onValueChange={this.onValueChange}
       >
-        {this.getCols()}
+        {cols}
       </MultiPicker>
     );
   }
