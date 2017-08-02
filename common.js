@@ -7605,7 +7605,8 @@ var Cascader = function (_React$Component) {
         value: function getCols() {
             var _props = this.props,
                 data = _props.data,
-                cols = _props.cols;
+                cols = _props.cols,
+                pickerPrefixCls = _props.pickerPrefixCls;
 
             var value = this.state.value;
             var childrenTree = __WEBPACK_IMPORTED_MODULE_5_array_tree_filter___default()(data, function (c, level) {
@@ -7618,7 +7619,7 @@ var Cascader = function (_React$Component) {
             return childrenTree.map(function () {
                 var children = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
                 var level = arguments[1];
-                return __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7_rmc_picker_lib_Picker___default.a, { key: level }, children.map(function (item) {
+                return __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7_rmc_picker_lib_Picker___default.a, { key: level, prefixCls: pickerPrefixCls }, children.map(function (item) {
                     return __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7_rmc_picker_lib_Picker___default.a.Item, { value: item.value, key: item.value }, item.label);
                 }));
             });
@@ -7628,7 +7629,6 @@ var Cascader = function (_React$Component) {
         value: function render() {
             var props = this.props;
             var prefixCls = props.prefixCls,
-                pickerPrefixCls = props.pickerPrefixCls,
                 className = props.className,
                 rootNativeProps = props.rootNativeProps,
                 disabled = props.disabled,
@@ -7636,7 +7636,7 @@ var Cascader = function (_React$Component) {
                 indicatorStyle = props.indicatorStyle;
 
             var cols = this.getCols();
-            return __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6_rmc_picker_lib_MultiPicker___default.a, { prefixCls: prefixCls, pickerPrefixCls: pickerPrefixCls, disabled: disabled, className: className, selectedValue: this.state.value, rootNativeProps: rootNativeProps, indicatorStyle: indicatorStyle, pickerItemStyle: pickerItemStyle, onValueChange: this.onValueChange }, cols);
+            return __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6_rmc_picker_lib_MultiPicker___default.a, { prefixCls: prefixCls, disabled: disabled, className: className, selectedValue: this.state.value, rootNativeProps: rootNativeProps, indicatorStyle: indicatorStyle, pickerItemStyle: pickerItemStyle, onValueChange: this.onValueChange }, cols);
         }
     }]);
 
