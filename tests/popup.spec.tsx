@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom';
 import createReactClass from 'create-react-class';
 import TestUtils from 'react-dom/test-utils';
 const Simulate = TestUtils.Simulate;
-import Cascader from '../lib/Cascader';
-import PopCascader from '../lib/Popup';
+import Cascader from '../src/Cascader';
+import PopCascader from '../src/Popup';
 import 'rmc-picker/assets/index.css';
 import globalData from '../examples/data';
 
@@ -42,7 +42,7 @@ describe('popup', () => {
   it('should display specific cols', () => {
     const cascader = <Cascader data={globalData} cols={4} />;
     instance = ReactDOM.render(
-      <PopCascader visible cascader={cascader} />,
+      <PopCascader cascader={cascader} />,
     div);
     expect(instance.props.cascader.props.cols).to.be(4);
   });
