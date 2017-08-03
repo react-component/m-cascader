@@ -70,7 +70,7 @@ class Cascader extends React.Component<ICascaderProps, any> {
     childrenTree.length = cols! - 1;
     childrenTree.unshift(data);
     return childrenTree.map((children: any[] = [], level) => (
-      <Picker key={level} prefixCls={pickerPrefixCls}>
+      <Picker key={level} prefixCls={pickerPrefixCls} style={{ flex: 1 }}>
         {children.map(item =>
           <Picker.Item value={item.value} key={item.value}>{item.label}</Picker.Item>)
         }
@@ -84,11 +84,17 @@ class Cascader extends React.Component<ICascaderProps, any> {
       prefixCls,
       className, rootNativeProps,
       disabled, pickerItemStyle,
-      indicatorStyle,
+      indicatorStyle, style,
     } = props;
     const cols = this.getCols();
+    const multiStyle = {
+      flexDirection: 'row',
+      alignItems: 'center',
+      ...style,
+    };
     return (
       <MultiPicker
+        style={multiStyle}
         prefixCls={prefixCls}
         disabled={disabled}
         className={className}

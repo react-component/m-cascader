@@ -23,10 +23,8 @@ describe('simple', () => {
   });
 
   it('render to body works', () => {
-    instance = ReactDOM.render(
-      <MCascader data={globalData}/>,
-      div);
-    expect(ReactDOM.findDOMNode(instance).parentNode.parentNode.nodeName.toLowerCase()).to.be('body');
+    instance = ReactDOM.render(<MCascader data={globalData}/>, div);
+    expect((ReactDOM as any).findDOMNode(instance).parentNode.parentNode.nodeName.toLowerCase()).to.be('body');
   });
 
   it('should add css class of root dom node', () => {

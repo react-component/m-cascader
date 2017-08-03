@@ -17,6 +17,7 @@ export interface ICascaderProps {
   rootNativeProps?: {};
   pickerItemStyle?: {};
   indicatorStyle?: {};
+  style?: any;
   /** web only */
   prefixCls?: string;
   /** web only */
