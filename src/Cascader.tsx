@@ -67,6 +67,14 @@ class Cascader extends React.Component<ICascaderProps, any> {
     const childrenTree = arrayTreeFilter(data, (c, level) => {
       return c.value === value[level];
     }).map(c => c.children);
+
+    // in case the users data is async get when select change
+    const needPad = cols! - childrenTree.length;
+    if (needPad > 0) {
+      for (let i = 0; i < needPad; i++) {
+        childrenTree.push([]);
+      }
+    }
     childrenTree.length = cols! - 1;
     childrenTree.unshift(data);
     return childrenTree.map((children: any[] = [], level) => (
