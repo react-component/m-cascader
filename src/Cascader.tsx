@@ -62,7 +62,7 @@ class Cascader extends React.Component<ICascaderProps, any> {
   }
 
   getCols() {
-    const { data, cols, pickerPrefixCls } = this.props;
+    const { data, cols, pickerPrefixCls, disabled, pickerItemStyle, indicatorStyle  } = this.props;
     const value = this.state.value;
     const childrenTree = arrayTreeFilter(data, (c, level) => {
       return c.value === value[level];
@@ -78,7 +78,14 @@ class Cascader extends React.Component<ICascaderProps, any> {
     childrenTree.length = cols! - 1;
     childrenTree.unshift(data);
     return childrenTree.map((children: any[] = [], level) => (
-      <Picker key={level} prefixCls={pickerPrefixCls} style={{ flex: 1 }}>
+      <Picker
+        key={level}
+        prefixCls={pickerPrefixCls}
+        style={{ flex: 1 }}
+        disabled={disabled}
+        indicatorStyle={indicatorStyle}
+        pickerItemStyle={pickerItemStyle}
+      >
         {children.map(item =>
           <Picker.Item value={item.value} key={item.value}>{item.label}</Picker.Item>)
         }
@@ -88,12 +95,7 @@ class Cascader extends React.Component<ICascaderProps, any> {
 
   render() {
     const props = this.props;
-    const {
-      prefixCls,
-      className, rootNativeProps,
-      disabled, pickerItemStyle,
-      indicatorStyle, style,
-    } = props;
+    const { prefixCls, className, rootNativeProps, style } = props;
     const cols = this.getCols();
     const multiStyle = {
       flexDirection: 'row',
@@ -104,12 +106,9 @@ class Cascader extends React.Component<ICascaderProps, any> {
       <MultiPicker
         style={multiStyle}
         prefixCls={prefixCls}
-        disabled={disabled}
         className={className}
         selectedValue={this.state.value}
         rootNativeProps={rootNativeProps}
-        indicatorStyle={indicatorStyle}
-        pickerItemStyle={pickerItemStyle}
         onValueChange={this.onValueChange}
       >
         {cols}
