@@ -1,4 +1,4 @@
-export type CascaderOneValue = string|number;
+export type CascaderOneValue = string | number;
 export type CascaderValue = CascaderOneValue[];
 
 export interface ICascaderDataItem {
@@ -24,4 +24,6 @@ export interface ICascaderProps {
   pickerPrefixCls?: string;
   /** web only */
   className?: string;
+  /** web only */
+  onScrollChange?: (value: CascaderValue) => void;
 }

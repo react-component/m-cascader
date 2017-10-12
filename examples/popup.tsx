@@ -30,6 +30,10 @@ class Demo extends React.Component<any, any> {
     });
   }
 
+  onScrollChange = (value) => {
+    console.log('onScrollChange', value);
+  }
+
   onDismiss = () => {
     console.log('onDismiss');
     this.setState({
@@ -63,10 +67,11 @@ class Demo extends React.Component<any, any> {
   render() {
     const cascader = (
       <Cascader
-        rootNativeProps={{'data-xx': 'yy'}}
+        rootNativeProps={{ 'data-xx': 'yy' }}
         onChange={this.onPickerChange}
         data={globalData}
         cols={COLS}
+        onScrollChange={this.onScrollChange}
       />
     );
     return (<div style={{ padding: 10 }}>
