@@ -110,6 +110,7 @@ class Cascader extends React.Component<ICascaderProps, any> {
         selectedValue={this.state.value}
         rootNativeProps={rootNativeProps}
         onValueChange={this.onValueChange}
+        onScrollChange={props.onScrollChange}
       >
         {cols}
       </MultiPicker>
