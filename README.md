@@ -53,8 +53,9 @@ online example: http://react-component.github.io/m-cascader/
 ## react-native
 
 ```
+npm run rn-init
 npm run watch-tsc
-./node_modules/rc-tools run react-native-init
+react-native start
 react-native run-ios
 ```
 

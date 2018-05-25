@@ -33,5 +33,6 @@ ios/
 android/
 xcuserdata
 yarn.lock
+package-lock.json
 _ts2js
 es/
