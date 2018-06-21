@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import PopupPicker from 'rmc-picker/lib/Popup';
 import { IPopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
 import { ICascaderProps, CascaderValue } from './CascaderTypes';

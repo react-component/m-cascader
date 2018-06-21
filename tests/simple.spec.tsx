@@ -1,7 +1,7 @@
 import expect from 'expect.js';
 // tslint:disable-next-line
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 // const TestUtils = require('react-addons-test-utils');
 // const Simulate = TestUtils.Simulate;
 

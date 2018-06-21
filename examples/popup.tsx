@@ -5,8 +5,8 @@
 import 'rmc-picker/assets/index.css';
 import 'rmc-cascader/assets/index.less';
 import 'rmc-picker/assets/popup.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import PopupCascader from '../src/Popup';
 import Cascader from '../src/Cascader';
 import globalData from './data';

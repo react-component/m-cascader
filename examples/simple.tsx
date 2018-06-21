@@ -3,8 +3,8 @@
 import 'rmc-picker/assets/index.css';
 import 'rmc-cascader/assets/index.less';
 import Cascader from '../src/Cascader';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import globalData from './data';
 
 class Demo extends React.Component<any, any> {

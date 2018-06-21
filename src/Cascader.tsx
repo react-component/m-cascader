@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import arrayTreeFilter from 'array-tree-filter';
 import MultiPicker from 'rmc-picker/lib/MultiPicker';
 import Picker from 'rmc-picker/lib/Picker';

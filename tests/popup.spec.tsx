@@ -1,8 +1,8 @@
 import expect from 'expect.js';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import createReactClass from 'create-react-class';
-import TestUtils from 'react-dom/test-utils';
+import * as TestUtils from 'react-dom/test-utils';
 const Simulate = TestUtils.Simulate;
 import Cascader from '../src/Cascader';
 import PopCascader from '../src/Popup';
