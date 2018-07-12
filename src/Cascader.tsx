@@ -49,7 +49,7 @@ class Cascader extends React.Component<ICascaderProps, any> {
   getValue(d, val) {
     let data = d || this.props.data;
     let value = val || this.props.value || this.props.defaultValue;
-    if (!value || !value.length) {
+    if (!value || !value.length || value.indexOf(undefined) > -1) {
       value = [];
       for (let i = 0; i < this.props.cols!; i++) {
         if (data && data.length) {
