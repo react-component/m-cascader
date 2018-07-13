@@ -2,7 +2,7 @@ export type CascaderOneValue = string | number;
 export type CascaderValue = CascaderOneValue[];
 
 export interface ICascaderDataItem {
-  label: string;
+  label: React.ReactNode;
   value: CascaderOneValue;
   children?: ICascaderDataItem[];
 }
