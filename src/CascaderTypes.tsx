@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 export type CascaderOneValue = string | number;
 export type CascaderValue = CascaderOneValue[];
 
