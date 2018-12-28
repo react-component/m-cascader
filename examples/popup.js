@@ -85,7 +85,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rmc_picker_assets_popup_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rmc_picker_assets_popup_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react_dom__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react_dom__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__src_Popup__ = __webpack_require__(142);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__src_Cascader__ = __webpack_require__(92);
@@ -445,7 +445,25 @@ ClassList.prototype.contains = function(name){
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var EVENT_NAME_MAP = {
+var START_EVENT_NAME_MAP = {
+  transitionstart: {
+    transition: 'transitionstart',
+    WebkitTransition: 'webkitTransitionStart',
+    MozTransition: 'mozTransitionStart',
+    OTransition: 'oTransitionStart',
+    msTransition: 'MSTransitionStart'
+  },
+
+  animationstart: {
+    animation: 'animationstart',
+    WebkitAnimation: 'webkitAnimationStart',
+    MozAnimation: 'mozAnimationStart',
+    OAnimation: 'oAnimationStart',
+    msAnimation: 'MSAnimationStart'
+  }
+};
+
+var END_EVENT_NAME_MAP = {
   transitionend: {
     transition: 'transitionend',
     WebkitTransition: 'webkitTransitionEnd',
@@ -463,6 +481,7 @@ var EVENT_NAME_MAP = {
   }
 };
 
+var startEvents = [];
 var endEvents = [];
 
 function detectEvents() {
@@ -470,24 +489,31 @@ function detectEvents() {
   var style = testEl.style;
 
   if (!('AnimationEvent' in window)) {
-    delete EVENT_NAME_MAP.animationend.animation;
+    delete START_EVENT_NAME_MAP.animationstart.animation;
+    delete END_EVENT_NAME_MAP.animationend.animation;
   }
 
   if (!('TransitionEvent' in window)) {
-    delete EVENT_NAME_MAP.transitionend.transition;
+    delete START_EVENT_NAME_MAP.transitionstart.transition;
+    delete END_EVENT_NAME_MAP.transitionend.transition;
   }
 
-  for (var baseEventName in EVENT_NAME_MAP) {
-    if (EVENT_NAME_MAP.hasOwnProperty(baseEventName)) {
-      var baseEvents = EVENT_NAME_MAP[baseEventName];
-      for (var styleName in baseEvents) {
-        if (styleName in style) {
-          endEvents.push(baseEvents[styleName]);
-          break;
+  function process(EVENT_NAME_MAP, events) {
+    for (var baseEventName in EVENT_NAME_MAP) {
+      if (EVENT_NAME_MAP.hasOwnProperty(baseEventName)) {
+        var baseEvents = EVENT_NAME_MAP[baseEventName];
+        for (var styleName in baseEvents) {
+          if (styleName in style) {
+            events.push(baseEvents[styleName]);
+            break;
+          }
         }
       }
     }
   }
+
+  process(START_EVENT_NAME_MAP, startEvents);
+  process(END_EVENT_NAME_MAP, endEvents);
 }
 
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
@@ -503,6 +529,31 @@ function removeEventListener(node, eventName, eventListener) {
 }
 
 var TransitionEvents = {
+  // Start events
+  startEvents: startEvents,
+
+  addStartEventListener: function addStartEventListener(node, eventListener) {
+    if (startEvents.length === 0) {
+      window.setTimeout(eventListener, 0);
+      return;
+    }
+    startEvents.forEach(function (startEvent) {
+      addEventListener(node, startEvent, eventListener);
+    });
+  },
+  removeStartEventListener: function removeStartEventListener(node, eventListener) {
+    if (startEvents.length === 0) {
+      return;
+    }
+    startEvents.forEach(function (startEvent) {
+      removeEventListener(node, startEvent, eventListener);
+    });
+  },
+
+
+  // End events
+  endEvents: endEvents,
+
   addEndEventListener: function addEndEventListener(node, eventListener) {
     if (endEvents.length === 0) {
       window.setTimeout(eventListener, 0);
@@ -512,10 +563,6 @@ var TransitionEvents = {
       addEventListener(node, endEvent, eventListener);
     });
   },
-
-
-  endEvents: endEvents,
-
   removeEndEventListener: function removeEndEventListener(node, eventListener) {
     if (endEvents.length === 0) {
       return;
@@ -535,7 +582,7 @@ var TransitionEvents = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isCssAnimationSupported; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Event__ = __webpack_require__(183);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_component_classes__ = __webpack_require__(148);
@@ -798,7 +845,7 @@ module.exports = function() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__);
@@ -814,7 +861,9 @@ module.exports = function() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ChildrenUtils__ = __webpack_require__(208);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__AnimateChild__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__util__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__util_animate__ = __webpack_require__(114);
+
+
 
 
 
@@ -826,7 +875,6 @@ module.exports = function() {
 
 
 var defaultKey = 'rc_animate_' + Date.now();
-
 
 function getChildrenFromProps(props) {
   var children = props.children;
@@ -1023,7 +1071,7 @@ var Animate = function (_React$Component) {
             {
               key: child.key,
               ref: function ref(node) {
-                return _this4.childrenRefs[child.key] = node;
+                _this4.childrenRefs[child.key] = node;
               },
               animation: props.animation,
               transitionName: props.transitionName,
@@ -1071,7 +1119,8 @@ Animate.propTypes = {
   onEnter: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.func,
   onLeave: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.func,
   onAppear: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.func,
-  showProp: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.string
+  showProp: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.string,
+  children: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.node
 };
 Animate.defaultProps = {
   animation: {},
@@ -1115,18 +1164,14 @@ var _initialiseProps = function _initialiseProps() {
     if (!_this5.isValidChildByKey(currentChildren, key)) {
       // exclusive will not need this
       _this5.performLeave(key);
-    } else {
-      if (type === 'appear') {
-        if (__WEBPACK_IMPORTED_MODULE_10__util__["a" /* default */].allowAppearCallback(props)) {
-          props.onAppear(key);
-          props.onEnd(key, true);
-        }
-      } else {
-        if (__WEBPACK_IMPORTED_MODULE_10__util__["a" /* default */].allowEnterCallback(props)) {
-          props.onEnter(key);
-          props.onEnd(key, true);
-        }
+    } else if (type === 'appear') {
+      if (__WEBPACK_IMPORTED_MODULE_10__util_animate__["a" /* default */].allowAppearCallback(props)) {
+        props.onAppear(key);
+        props.onEnd(key, true);
       }
+    } else if (__WEBPACK_IMPORTED_MODULE_10__util_animate__["a" /* default */].allowEnterCallback(props)) {
+      props.onEnter(key);
+      props.onEnd(key, true);
     }
   };
 
@@ -1151,7 +1196,7 @@ var _initialiseProps = function _initialiseProps() {
       _this5.performEnter(key);
     } else {
       var end = function end() {
-        if (__WEBPACK_IMPORTED_MODULE_10__util__["a" /* default */].allowLeaveCallback(props)) {
+        if (__WEBPACK_IMPORTED_MODULE_10__util_animate__["a" /* default */].allowLeaveCallback(props)) {
           props.onLeave(key);
           props.onEnd(key, false);
         }
@@ -1175,25 +1220,22 @@ var _initialiseProps = function _initialiseProps() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_dom__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_css_animation__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__util__ = __webpack_require__(114);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_dom__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_css_animation__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__util_animate__ = __webpack_require__(114);
 
 
 
@@ -1211,15 +1253,15 @@ var transitionMap = {
 };
 
 var AnimateChild = function (_React$Component) {
-  __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(AnimateChild, _React$Component);
+  __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default()(AnimateChild, _React$Component);
 
   function AnimateChild() {
-    __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default()(this, AnimateChild);
+    __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck___default()(this, AnimateChild);
 
-    return __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (AnimateChild.__proto__ || Object.getPrototypeOf(AnimateChild)).apply(this, arguments));
+    return __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(this, (AnimateChild.__proto__ || Object.getPrototypeOf(AnimateChild)).apply(this, arguments));
   }
 
-  __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(AnimateChild, [{
+  __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default()(AnimateChild, [{
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       this.stop();
@@ -1227,7 +1269,7 @@ var AnimateChild = function (_React$Component) {
   }, {
     key: 'componentWillEnter',
     value: function componentWillEnter(done) {
-      if (__WEBPACK_IMPORTED_MODULE_9__util__["a" /* default */].isEnterSupported(this.props)) {
+      if (__WEBPACK_IMPORTED_MODULE_8__util_animate__["a" /* default */].isEnterSupported(this.props)) {
         this.transition('enter', done);
       } else {
         done();
@@ -1236,7 +1278,7 @@ var AnimateChild = function (_React$Component) {
   }, {
     key: 'componentWillAppear',
     value: function componentWillAppear(done) {
-      if (__WEBPACK_IMPORTED_MODULE_9__util__["a" /* default */].isAppearSupported(this.props)) {
+      if (__WEBPACK_IMPORTED_MODULE_8__util_animate__["a" /* default */].isAppearSupported(this.props)) {
         this.transition('appear', done);
       } else {
         done();
@@ -1245,7 +1287,7 @@ var AnimateChild = function (_React$Component) {
   }, {
     key: 'componentWillLeave',
     value: function componentWillLeave(done) {
-      if (__WEBPACK_IMPORTED_MODULE_9__util__["a" /* default */].isLeaveSupported(this.props)) {
+      if (__WEBPACK_IMPORTED_MODULE_8__util_animate__["a" /* default */].isLeaveSupported(this.props)) {
         this.transition('leave', done);
       } else {
         // always sync, do not interupt with react component life cycle
@@ -1259,22 +1301,22 @@ var AnimateChild = function (_React$Component) {
     value: function transition(animationType, finishCallback) {
       var _this2 = this;
 
-      var node = __WEBPACK_IMPORTED_MODULE_6_react_dom___default.a.findDOMNode(this);
+      var node = __WEBPACK_IMPORTED_MODULE_5_react_dom___default.a.findDOMNode(this);
       var props = this.props;
       var transitionName = props.transitionName;
-      var nameIsObj = (typeof transitionName === 'undefined' ? 'undefined' : __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(transitionName)) === 'object';
+      var nameIsObj = typeof transitionName === 'object';
       this.stop();
       var end = function end() {
         _this2.stopper = null;
         finishCallback();
       };
-      if ((__WEBPACK_IMPORTED_MODULE_8_css_animation__["a" /* isCssAnimationSupported */] || !props.animation[animationType]) && transitionName && props[transitionMap[animationType]]) {
+      if ((__WEBPACK_IMPORTED_MODULE_7_css_animation__["a" /* isCssAnimationSupported */] || !props.animation[animationType]) && transitionName && props[transitionMap[animationType]]) {
         var name = nameIsObj ? transitionName[animationType] : transitionName + '-' + animationType;
         var activeName = name + '-active';
         if (nameIsObj && transitionName[animationType + 'Active']) {
           activeName = transitionName[animationType + 'Active'];
         }
-        this.stopper = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_css_animation__["b" /* default */])(node, {
+        this.stopper = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_css_animation__["b" /* default */])(node, {
           name: name,
           active: activeName
         }, end);
@@ -1299,10 +1341,10 @@ var AnimateChild = function (_React$Component) {
   }]);
 
   return AnimateChild;
-}(__WEBPACK_IMPORTED_MODULE_5_react___default.a.Component);
+}(__WEBPACK_IMPORTED_MODULE_4_react___default.a.Component);
 
 AnimateChild.propTypes = {
-  children: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.any
+  children: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any
 };
 /* harmony default export */ __webpack_exports__["a"] = (AnimateChild);
 
@@ -1411,7 +1453,7 @@ function mergeChildren(prev, next) {
   });
 
   next.forEach(function (child) {
-    if (child && nextChildrenPending.hasOwnProperty(child.key)) {
+    if (child && Object.prototype.hasOwnProperty.call(nextChildrenPending, child.key)) {
       ret = ret.concat(nextChildrenPending[child.key]);
     }
     ret.push(child);
@@ -1637,7 +1679,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_dom__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_dom__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Dialog__ = __webpack_require__(292);
 
@@ -2069,7 +2111,7 @@ var _extends2 = __webpack_require__(13);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _defineProperty2 = __webpack_require__(57);
+var _defineProperty2 = __webpack_require__(56);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
