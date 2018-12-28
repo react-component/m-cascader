@@ -45,4 +45,15 @@ describe('simple', () => {
       div);
     instance.onValueChange(['02', '02-2'], 1);
   });
+
+  it('test cascade effect', () => {
+
+    instance = ReactDOM.render(
+      <MCascader data={globalData} value={undefined} />,
+      div);
+
+    instance.onValueChange(['02', '01-1'], 0);
+
+    expect(instance.state.value).to.eql(['02', '02-1', '02-1-1']);
+  });
 });

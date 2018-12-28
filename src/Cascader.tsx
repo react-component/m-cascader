@@ -36,11 +36,7 @@ class Cascader extends React.Component<ICascaderProps, any> {
       value[i] = data.value;
     }
     value.length = i;
-    if (!('value' in this.props)) {
-      this.setState({
-        value,
-      });
-    }
+    this.setState({ value });
     if (this.props.onChange) {
       this.props.onChange(value);
     }
