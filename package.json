@@ -75,7 +75,7 @@
     "lint"
   ],
   "dependencies": {
-    "array-tree-filter": "1.0.x",
+    "array-tree-filter": "2.1.x",
     "babel-runtime": "6.x",
     "rmc-picker": "~5.0.0"
   }
