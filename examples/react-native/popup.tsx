@@ -2,7 +2,7 @@
 
 /* tslint:disable:no-console */
 
-import React from 'react';
+import * as React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import PopupCascader from '../../src/Popup';
 import globalData from '../data';

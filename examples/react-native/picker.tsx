@@ -5,7 +5,7 @@
 import Cascader from '../../src/Cascader';
 import { View, Text } from 'react-native';
 import globalData from '../data';
-import React from 'react';
+import * as React from 'react';
 
 export class PickerDemo extends React.Component<any, any> {
   onChange = (value) => {
