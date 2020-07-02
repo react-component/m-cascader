@@ -58,7 +58,7 @@
     "@types/mocha": "~2.2.32",
     "@types/react": "^15.5.0",
     "@types/react-dom": "^15.5.0",
-    "@types/react-native": "^0.46.9",
+    "@types/react-native": "^0.62.16",
     "create-react-class": "^15.6.0",
     "expect.js": "0.3.x",
     "fastclick": "^1.0.6",
